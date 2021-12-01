@@ -1,0 +1,9 @@
+cred/
+.docker-compose*.yml
+.dockerignore
+Dockerfile
+.env*
+.gitignore
+.pytest_cache
+README.md
+.vscode
