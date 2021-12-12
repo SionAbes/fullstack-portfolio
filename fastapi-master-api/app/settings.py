@@ -6,9 +6,11 @@ from pydantic import BaseSettings, PostgresDsn, validator
 
 class Settings(BaseSettings):
     ENV: str
-
+    JWT_SECRET: str
+    ACCESS_TOKEN_EXPIRE_MINUTES: int
+    ALGORITHM: str
     SQLALCHEMY_MAX_CONNECTIONS: int = 2
-
+    API_URL: str
     SQL_HOST: str
     SQL_PORT: str
     POSTGRES_DB: str
