@@ -1,0 +1,17 @@
+post:
+  summary: login a user with credentials
+  operationId: login
+  security: []
+  requestBody:
+    $ref: requestBodies/Credentials.yaml
+  responses:
+    '200':
+      description: the JWT token of the user
+      content:
+        application/json:
+          schema:
+            $ref: schemas/LoginResponse.yaml
+    default:
+      $ref: ../_common/responses/DefaultError.yaml
+  tags:
+    - Auth
