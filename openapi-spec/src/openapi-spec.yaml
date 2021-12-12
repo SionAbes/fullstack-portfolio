@@ -16,6 +16,8 @@ paths:
 
   /user/:
     $ref: users/user.yaml
+  /auth/login/:
+    $ref: auth/login.yaml
 
 components:
   securitySchemes:
