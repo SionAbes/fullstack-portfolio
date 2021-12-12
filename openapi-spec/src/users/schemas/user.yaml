@@ -1,0 +1,20 @@
+type: object
+properties:
+  id:
+    type: integer
+  last_login:
+    type: string
+    format: date-time
+    example: "2021-01-30T08:30:00Z"
+  date_joined:
+    type: string
+    format: date-time
+    example: "2021-01-30T08:30:00Z"
+  is_superuser:
+    type: boolean
+  first_name:
+    type: string
+  last_name:
+    type: string
+  email:
+    type: string

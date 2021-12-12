@@ -1,0 +1,22 @@
+post:
+  summary: creates a new user
+  operationId: createUser
+  requestBody:
+    $ref: requestBodies/createUser.yaml
+  responses:
+    '201':
+      description: the created user
+      content:
+        application/json:
+          schema:
+            $ref: schemas/user.yaml
+    '409':
+      description: conflict a user with this email already exists
+      content:
+        application/json:
+          schema:
+            $ref: ../_common/schemas/GenericError.yaml
+    default:
+      $ref: ../_common/responses/DefaultError.yaml
+  tags:
+    - Users

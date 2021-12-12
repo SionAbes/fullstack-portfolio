@@ -1,0 +1,5 @@
+description: Default Error
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/GenericError.yaml

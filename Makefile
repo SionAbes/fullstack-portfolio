@@ -1,3 +1,9 @@
+SHELL = /usr/bin/env bash -o pipefail -o errexit -o nounset
+
+OPENAPI_GEN_VERSION = "v5.3.0"
+API_SPEC = "/openapi-spec/build/openapi.yaml"
+
+export DOCKER_BUILDKIT = 1
 
 run-backend:
 	docker-compose -p dev -f fastapi-master-api/docker-compose.yaml build --force-rm --pull --build-arg BUILDKIT_INLINE_CACHE=1
@@ -5,6 +11,10 @@ run-backend:
 
 clean:
 	docker-compose -p dev -f fastapi-master-api/docker-compose.yaml down -v --remove-orphans
+
+openapi-build:
+	cd openapi-spec && \
+	yarn all
 
 openapi-generate: openapi-generate-fastapi
 

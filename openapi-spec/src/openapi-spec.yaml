@@ -1,0 +1,33 @@
+openapi: 3.0.2
+info:
+  title: Fullstack Portfolio API
+  version: 1.0.0
+  license:
+    name: private
+  description: FastAPI of Fullstack Portfolio
+
+servers:
+  - description: local
+    url: http://localhost:8000/api/v1
+  - description: local-fastapi
+    url: http://localhost
+    
+paths:
+
+  /user/:
+    $ref: users/user.yaml
+
+components:
+  securitySchemes:
+    userAccessToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+    contactAccessToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - userAccessToken: []
