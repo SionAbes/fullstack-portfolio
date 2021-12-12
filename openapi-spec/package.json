@@ -1,0 +1,21 @@
+{
+  "name": "tacto-api",
+  "version": "0.1.0",
+  "dependencies": {
+    "@redocly/openapi-cli": "^1.0.0-beta.61",
+    "openapi-viewer": "^1.0.2",
+    "serve": "^12.0.1",
+    "swagger-cli": "^4.0.4"
+  },
+  "private": true,
+  "scripts": {
+    "serve": "openapi-viewer build/openapi.yaml",
+    "serve:redoc": "openapi preview-docs build/openapi.yaml",
+    "serve:static": "serve -s build -p 8090",
+    "all": "yarn lint && yarn build && yarn && yarn validate",
+    "lint": "openapi lint src/openapi-spec.yaml",
+    "build": "openapi bundle -o build/openapi src/openapi-spec.yaml",
+    "test": "swagger-cli validate build/openapi.yaml",
+    "validate": "docker run --rm -v $PWD:/local openapitools/openapi-generator-cli:v5.2.0 validate -i /local/build/openapi.yaml --recommend"
+  }
+}

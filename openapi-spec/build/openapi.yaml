@@ -1,0 +1,179 @@
+openapi: 3.0.2
+info:
+  title: Fullstack Portfolio API
+  version: 1.0.0
+  license:
+    name: private
+  description: FastAPI of Fullstack Portfolio
+servers:
+  - description: local
+    url: http://localhost:8000/api/v1
+  - description: local-fastapi
+    url: http://localhost
+paths:
+  /user/:
+    post:
+      summary: creates a new user
+      operationId: createUser
+      requestBody:
+        $ref: '#/components/requestBodies/createUser'
+      responses:
+        '201':
+          description: the created user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+        '409':
+          description: conflict a user with this email already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericError'
+        default:
+          $ref: '#/components/responses/DefaultError'
+      tags:
+        - Users
+  /auth/login/:
+    post:
+      summary: login a user with credentials
+      operationId: login
+      security: []
+      requestBody:
+        $ref: '#/components/requestBodies/Credentials'
+      responses:
+        '200':
+          description: the JWT token of the user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        default:
+          $ref: '#/components/responses/DefaultError'
+      tags:
+        - Auth
+components:
+  securitySchemes:
+    userAccessToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    contactAccessToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  requestBodies:
+    createUser:
+      description: creates a new user
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - email
+            properties:
+              is_superuser:
+                type: boolean
+              first_name:
+                type: string
+              last_name:
+                type: string
+              email:
+                type: string
+              password:
+                type: string
+    Credentials:
+      description: credentials to login
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Credentials'
+  schemas:
+    GenericError:
+      type: object
+      properties:
+        details:
+          type: string
+    user:
+      type: object
+      properties:
+        id:
+          type: integer
+        last_login:
+          type: string
+          format: date-time
+          example: 2021-01-30T08:30:00Z
+        date_joined:
+          type: string
+          format: date-time
+          example: 2021-01-30T08:30:00Z
+        is_superuser:
+          type: boolean
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+    Credentials:
+      type: object
+      required:
+        - password
+        - email
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+          format: password
+        scope:
+          type: string
+        client_id:
+          type: string
+        client_secret:
+          type: string
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        last_login:
+          type: string
+          format: date-time
+          example: 2021-01-30T08:30:00Z
+        date_joined:
+          type: string
+          format: date-time
+          example: 2021-01-30T08:30:00Z
+        is_superuser:
+          type: boolean
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+    LoginResponse:
+      type: object
+      required:
+        - refresh_token
+        - user
+        - access_token
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        refresh_token:
+          type: string
+        access_token:
+          type: string
+  responses:
+    DefaultError:
+      description: Default Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GenericError'
+security:
+  - userAccessToken: []
