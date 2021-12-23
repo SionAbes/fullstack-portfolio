@@ -24,7 +24,8 @@ FROM base AS dev
 COPY ./pyproject.toml ./poetry.lock ./
 RUN poetry install --no-root
 
-COPY ./alembic.ini ./alembic ./
+COPY ./alembic.ini ./
+COPY ./alembic ./alembic
 COPY app ./app
 COPY ./tests ./tests
 
@@ -35,5 +36,6 @@ FROM base
 COPY ./pyproject.toml ./poetry.lock ./
 RUN poetry install --no-root --no-dev
 
-COPY ./alembic.ini ./alembic ./
+COPY ./alembic.ini ./
+COPY ./alembic ./alembic
 COPY app ./app

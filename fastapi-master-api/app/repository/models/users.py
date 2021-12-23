@@ -10,7 +10,7 @@ class User(TimesMixin, BaseModel):
         Integer,
         primary_key=True,
     )
-    last_login = Column(DateTime(True))
+    last_login_at = Column(DateTime(True))
     is_superuser = Column(Boolean, nullable=False)
     first_name = Column(String(150), nullable=False)
     last_name = Column(String(150), nullable=False)

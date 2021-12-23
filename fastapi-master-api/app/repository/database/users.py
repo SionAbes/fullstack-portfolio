@@ -9,8 +9,9 @@ from datetime import datetime
 class UsersRepo(CRUDBase[User, UserSchema, UserSchema]):
     def get_by_email(self, db: Session, *, email: str) -> Optional[User]:
         user = db.query(User).filter(User.email == email).first()
-        user.last_login = datetime.utcnow()
-        self.update(db=db, obj_in=user.__dict__, id=user.id)
+        if user:
+            user.last_login_at = datetime.utcnow()
+            self.update(db=db, obj_in=user.__dict__, id=user.id)
         return user
 
     def create(self, db: Session, *, obj_in: UserSchema) -> User:
