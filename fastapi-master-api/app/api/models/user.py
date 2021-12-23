@@ -27,10 +27,13 @@ class User(BaseModel):
 
     id: Optional[int] = None
     last_login: Optional[datetime] = None
-    date_joined: Optional[datetime] = None
+    created_at: Optional[datetime] = None
     is_superuser: Optional[bool] = None
     first_name: Optional[str] = None
     last_name: Optional[str] = None
     email: Optional[str] = None
+    
+    class Config:
+        orm_mode = True
 
 User.update_forward_refs()
