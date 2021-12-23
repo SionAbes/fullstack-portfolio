@@ -4,11 +4,14 @@ from app.repository.models.users import User
 from sqlalchemy.orm import Session
 from typing import Optional
 from app.security import get_password_hash
-
+from datetime import datetime
 
 class UsersRepo(CRUDBase[User, UserSchema, UserSchema]):
     def get_by_email(self, db: Session, *, email: str) -> Optional[User]:
-        return db.query(User).filter(User.email == email).first()
+        user = db.query(User).filter(User.email == email).first()
+        user.last_login = datetime.utcnow()
+        self.update(db=db, obj_in=user.__dict__, id=user.id)
+        return user
 
     def create(self, db: Session, *, obj_in: UserSchema) -> User:
         create_data = obj_in.dict()
