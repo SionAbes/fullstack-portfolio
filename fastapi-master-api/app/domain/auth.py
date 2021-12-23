@@ -9,6 +9,7 @@ from app.api.models.login_response import LoginResponse
 from app.settings import get_settings
 from app.domain.exceptions import EntityNotFoundError, BadPasswordError
 from app.security import verify_password
+from app.api.models.user import User
 
 settings = get_settings()
 
@@ -30,7 +31,7 @@ def authenticate(
 
     if not user:
         raise EntityNotFoundError("user does not exist")
-    if not verify_password(password, user.hashed_password):
+    if not verify_password(password, user.password):
         raise BadPasswordError("users password is not correct")
 
     access_token = create_access_token(
@@ -38,9 +39,9 @@ def authenticate(
             lifetime=timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES),
             sub=user.id
         )
-
+    
     return LoginResponse(
-        user=user,
+        user=User.from_orm(user),
         refresh_token="",
         access_token=access_token,
     )

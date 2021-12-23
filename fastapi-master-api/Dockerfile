@@ -1,4 +1,4 @@
-FROM tiangolo/uvicorn-gunicorn-fastapi:python3.8 as base
+FROM tiangolo/uvicorn-gunicorn-fastapi:python3.9 as base
 
 # Force the stdout and stderr streams to be unbuffered
 ENV PYTHONUNBUFFERED 1
@@ -24,9 +24,9 @@ FROM base AS dev
 COPY ./pyproject.toml ./poetry.lock ./
 RUN poetry install --no-root
 
+COPY ./alembic.ini ./alembic ./
 COPY app ./app
 COPY ./tests ./tests
-
 
 # Final image
 FROM base 
@@ -35,4 +35,5 @@ FROM base
 COPY ./pyproject.toml ./poetry.lock ./
 RUN poetry install --no-root --no-dev
 
+COPY ./alembic.ini ./alembic ./
 COPY app ./app

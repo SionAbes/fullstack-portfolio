@@ -16,6 +16,9 @@ psycopg2 = "^2.9.2"
 PyJWT = "^2.3.0"
 python-multipart = "^0.0.5"
 passlib = "^1.7.4"
+alembic = "^1.7.5"
+importlib-resources = "^5.4.0"
+bcrypt = "^3.2.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
