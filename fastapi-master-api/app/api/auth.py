@@ -1,10 +1,14 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Security, status
 from fastapi.security import OAuth2PasswordRequestForm
 from app.dependancies import get_db
 from sqlalchemy.orm import Session
 from app.domain.exceptions import EntityNotFoundError, BadPasswordError
-from app.domain.auth import authenticate
+from app.domain.auth import authenticate, create_token
 from app.api.models.login_response import LoginResponse
+from app.api.manual_models.token import TokenModel
+from app.security import get_current_user
+from datetime import timedelta
+from app.settings import get_settings, Settings
 
 router = APIRouter(
     prefix="/auth",
@@ -24,3 +28,27 @@ def login(
         return authenticate(email=form_data.username, password=form_data.password, db=db)
     except EntityNotFoundError or BadPasswordError:
         raise HTTPException(status_code=400, detail="Incorrect username or password")
+
+
+@router.post("/refresh")
+def refresh(
+        settings: Settings = Depends(get_settings),
+        token_user: TokenModel = Security(
+            get_current_user, scopes=["ADMIN", "USER", "CONTACT"]
+        ),
+):
+    """
+    Get the JWT for a user with data from OAuth2 request form body.
+    """
+    if token_user.type != "refresh_token":
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Could not validate credentials",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    access_token = create_token(
+            token_type="access_token",
+            lifetime=timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES),
+            sub=token_user.sub
+        )
+    return {"access_token": access_token}

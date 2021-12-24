@@ -8,6 +8,7 @@ class Settings(BaseSettings):
     ENV: str
     JWT_SECRET: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int
+    REFRESH_TOKEN_EXPIRE_MINUTES: int
     ALGORITHM: str
     SQLALCHEMY_MAX_CONNECTIONS: int = 2
     API_URL: str
