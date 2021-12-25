@@ -19,6 +19,9 @@ passlib = "^1.7.4"
 alembic = "^1.7.5"
 importlib-resources = "^5.4.0"
 bcrypt = "^3.2.0"
+SQLAlchemy-Utils = "^0.38.1"
+factory-boy = "^3.2.1"
+pytz = "^2021.3"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
