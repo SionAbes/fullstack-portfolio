@@ -54,7 +54,7 @@ def create_user(
 
 @router.get(
     "/",
-    summary="A list of the requested users",
+    summary="a list of the requested users",
     response_model=List[User],
 )
 def fetch_users(
