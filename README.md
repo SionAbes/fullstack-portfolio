@@ -26,3 +26,9 @@ Create a `.env` file using the `.env.example` file then run the follwing `makefi
 ```
 make clean && make run-backend
 ```
+
+## License
+
+MIT
+
+**Free Software, Hell Yeah!**
