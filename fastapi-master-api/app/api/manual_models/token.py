@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-
+from typing import List
 
 class TokenModel(BaseModel):
     """Defines a token model."""
@@ -7,4 +7,5 @@ class TokenModel(BaseModel):
     type: str
     exp: int
     iat: str
-    sub: str
+    sub: int
+    roles: List[str]

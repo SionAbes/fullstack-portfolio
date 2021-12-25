@@ -3,12 +3,13 @@ from fastapi.security import OAuth2PasswordRequestForm
 from app.dependancies import get_db
 from sqlalchemy.orm import Session
 from app.domain.exceptions import EntityNotFoundError, BadPasswordError
-from app.domain.auth import authenticate, create_token
+from app.domain.auth import authenticate, create_access_and_refresh_token
 from app.api.models.login_response import LoginResponse
 from app.api.manual_models.token import TokenModel
 from app.security import get_current_user
 from datetime import timedelta
 from app.settings import get_settings, Settings
+from app.api.models.token import Token
 
 router = APIRouter(
     prefix="/auth",
@@ -17,7 +18,11 @@ router = APIRouter(
 )
 
 
-@router.post("/login")
+@router.post(
+    "/login",
+     response_model=LoginResponse,
+     summary="login a user with credentials",
+)
 def login(
     db: Session = Depends(get_db), form_data: OAuth2PasswordRequestForm = Depends()
 ) -> LoginResponse:
@@ -30,13 +35,16 @@ def login(
         raise HTTPException(status_code=400, detail="Incorrect username or password")
 
 
-@router.post("/refresh")
+@router.post(
+    "/refresh",
+    response_model=Token,
+    summary="refresh an access token, to extend its lifetime",
+)
 def refresh(
-        settings: Settings = Depends(get_settings),
-        token_user: TokenModel = Security(
-            get_current_user, scopes=["ADMIN", "USER", "CONTACT"]
-        ),
-):
+    token_user: TokenModel = Security(
+        get_current_user, scopes=["ADMIN", "USER"]
+    ),
+) -> Token:
     """
     Get the JWT for a user with data from OAuth2 request form body.
     """
@@ -46,9 +54,4 @@ def refresh(
             detail="Could not validate credentials",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    access_token = create_token(
-            token_type="access_token",
-            lifetime=timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES),
-            sub=token_user.sub
-        )
-    return {"access_token": access_token}
+    return create_access_and_refresh_token(user_id=token_user.sub, roles=token_user.roles)

@@ -4,6 +4,7 @@ from app.settings import get_settings, Settings
 from fastapi import Depends, HTTPException, status
 import jwt
 from app.api.manual_models.token import TokenModel
+from typing import List
 
 SETTINGS = get_settings()
 
@@ -34,11 +35,18 @@ async def get_current_user(
         user_id: str = payload.get("sub")
         if user_id is None:
             raise credentials_exception
+
+        roles: List[str] = payload.get("roles")
+        for role in roles:
+            if role not in security_scopes.scopes:
+                raise credentials_exception
+
         return TokenModel(
             type=payload.get("type"),
             exp=payload.get("exp"),
             iat=payload.get("iat"),
             sub=payload.get("sub"),
+            roles=payload.get("roles")
         )
     except jwt.PyJWTError:
         raise credentials_exception

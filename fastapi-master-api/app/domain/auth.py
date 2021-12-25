@@ -10,6 +10,8 @@ from app.settings import get_settings
 from app.domain.exceptions import EntityNotFoundError, BadPasswordError
 from app.security import verify_password
 from app.api.models.user import User
+from app.api.models.token import Token
+from app.domain.models.user import User as DomainUser
 
 settings = get_settings()
 
@@ -27,24 +29,18 @@ def authenticate(
     db: Session,
 ) -> LoginResponse:
 
-    user = users_repo.get_by_email(db=db, email=email)
+    user: DomainUser = users_repo.get_by_email(db=db, email=email)
 
     if not user:
         raise EntityNotFoundError("user does not exist")
     if not verify_password(password, user.password):
         raise BadPasswordError("users password is not correct")
 
-    access_token = create_token(
-            token_type="access_token",
-            lifetime=timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES),
-            sub=user.id
-        )
+    roles = ["USER"]
+    if user.is_superuser:
+        roles.append("ADMIN")
 
-    refresh_token = create_token(
-            token_type="refresh_token",
-            lifetime=timedelta(minutes=settings.REFRESH_TOKEN_EXPIRE_MINUTES),
-            sub=user.id
-        )
+    token = create_access_and_refresh_token(user_id=user.id, roles=roles)
 
     return LoginResponse(
         user=User(
@@ -56,15 +52,35 @@ def authenticate(
             last_name=user.last_name,
             email=user.email,
         ),
-        refresh_token=refresh_token,
-        access_token=access_token,
+        refresh_token=token.refresh_token,
+        access_token=token.access_token,
     )
+
+
+def create_access_and_refresh_token(user_id: int, roles: List[str]) -> Token:
+
+    access_token = create_token(
+            token_type="access_token",
+            lifetime=timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES),
+            sub=user_id,
+            roles=roles,
+        )
+
+    refresh_token = create_token(
+            token_type="refresh_token",
+            lifetime=timedelta(minutes=settings.REFRESH_TOKEN_EXPIRE_MINUTES),
+            sub=user_id,
+            roles=roles,
+    )
+
+    return Token(access_token=access_token, refresh_token=refresh_token)
 
 
 def create_token(
     token_type: str,
     lifetime: timedelta,
-    sub: str,
+    sub: int,
+    roles: List[str]
 ) -> str:
     payload = {}
     expire = datetime.utcnow() + lifetime
@@ -72,5 +88,6 @@ def create_token(
     payload["exp"] = expire
     payload["iat"] = datetime.utcnow()
     payload["sub"] = str(sub)
+    payload["roles"] = roles
 
     return jwt.encode(payload, settings.JWT_SECRET, algorithm=settings.ALGORITHM)
