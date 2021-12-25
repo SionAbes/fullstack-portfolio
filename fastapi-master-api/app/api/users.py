@@ -7,9 +7,13 @@ from app.domain.models.user import CreateUser as DomainCreateUser
 from app.dependancies import get_db
 from sqlalchemy.orm import Session
 from app.domain.users import create_user as domain_create_user
+from app.domain.users import fetch_users as domain_fetch_users
+
+from typing import List
+
 
 router = APIRouter(
-    prefix="/user",
+    prefix="/users",
     tags=["Users"],
     responses={404: {"description": "Not found"}},
 )
@@ -47,3 +51,28 @@ def create_user(
         email=user.email,
     )
 
+
+@router.get(
+    "/",
+    summary="A list of the requested users",
+    response_model=List[User],
+)
+def fetch_users(
+    db: Session = Depends(get_db),
+    token_user: TokenModel = Security(
+        get_current_user, scopes=["ADMIN"]
+    ),
+) -> List[User]:
+    users = domain_fetch_users(db=db)
+    return [
+        User(
+            id=user.id,
+            last_login=user.last_login_at,
+            date_joined=user.created_at,
+            is_superuser=user.is_superuser,
+            first_name=user.first_name,
+            last_name=user.last_name,
+            email=user.email,
+        )
+        for user in users
+    ]
