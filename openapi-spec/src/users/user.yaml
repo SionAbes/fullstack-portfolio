@@ -20,3 +20,17 @@ post:
       $ref: ../_common/responses/DefaultError.yaml
   tags:
     - Users
+get:
+  summary: fetches users
+  operationId: fetchUsers
+  responses:
+    '201':
+      description: A list of the requested users
+      content:
+        application/json:
+          schema:
+            $ref: schemas/Users.yaml
+    default:
+      $ref: ../_common/responses/DefaultError.yaml
+  tags:
+    - Users

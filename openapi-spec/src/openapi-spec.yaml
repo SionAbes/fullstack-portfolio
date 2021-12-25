@@ -14,7 +14,7 @@ servers:
     
 paths:
 
-  /user/:
+  /users/:
     $ref: users/user.yaml
   /auth/login/:
     $ref: auth/login.yaml

@@ -11,7 +11,7 @@ servers:
   - description: local-fastapi
     url: http://localhost
 paths:
-  /user/:
+  /users/:
     post:
       summary: creates a new user
       operationId: createUser
@@ -30,6 +30,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GenericError'
+        default:
+          $ref: '#/components/responses/DefaultError'
+      tags:
+        - Users
+    get:
+      summary: fetches users
+      operationId: fetchUsers
+      responses:
+        '201':
+          description: A list of the requested users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
         default:
           $ref: '#/components/responses/DefaultError'
       tags:
@@ -81,21 +95,6 @@ components:
       scheme: bearer
       bearerFormat: JWT
   schemas:
-    CreateUser:
-      type: object
-      required:
-        - email
-      properties:
-        is_superuser:
-          type: boolean
-        first_name:
-          type: string
-        last_name:
-          type: string
-        email:
-          type: string
-        password:
-          type: string
     GenericError:
       type: object
       properties:
@@ -121,6 +120,25 @@ components:
         last_name:
           type: string
         email:
+          type: string
+    Users:
+      type: array
+      items:
+        $ref: '#/components/schemas/user'
+    CreateUser:
+      type: object
+      required:
+        - email
+      properties:
+        is_superuser:
+          type: boolean
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        password:
           type: string
     Credentials:
       type: object
@@ -179,6 +197,13 @@ components:
           $ref: '#/components/schemas/User'
       allOf:
         - $ref: '#/components/schemas/Token'
+  responses:
+    DefaultError:
+      description: Default Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GenericError'
   requestBodies:
     createUser:
       description: creates a new user
@@ -194,12 +219,5 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Credentials'
-  responses:
-    DefaultError:
-      description: Default Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GenericError'
 security:
   - userAccessToken: []
