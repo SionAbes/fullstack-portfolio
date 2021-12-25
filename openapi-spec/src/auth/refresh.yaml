@@ -1,0 +1,15 @@
+post:
+  summary: refresh an access token, to extend its lifetime
+  operationId: refresh
+  security: []
+  responses:
+    '200':
+      description: A refreshed access token
+      content:
+        application/json:
+          schema:
+            $ref: schemas/Token.yaml
+    '404':
+      "description": Not found
+  tags:
+    - Auth

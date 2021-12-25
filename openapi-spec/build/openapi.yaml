@@ -48,8 +48,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LoginResponse'
+        '404':
+          description: Not found
         default:
           $ref: '#/components/responses/DefaultError'
+      tags:
+        - Auth
+  /auth/refresh/:
+    post:
+      summary: refresh an access token, to extend its lifetime
+      operationId: refresh
+      security: []
+      responses:
+        '200':
+          description: A refreshed access token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        '404':
+          description: Not found
       tags:
         - Auth
 components:
@@ -134,6 +152,16 @@ components:
           type: string
         client_secret:
           type: string
+    Token:
+      type: object
+      required:
+        - refresh_token
+        - access_token
+      properties:
+        refresh_token:
+          type: string
+        access_token:
+          type: string
     User:
       type: object
       properties:
@@ -158,16 +186,12 @@ components:
     LoginResponse:
       type: object
       required:
-        - refresh_token
         - user
-        - access_token
       properties:
         user:
           $ref: '#/components/schemas/User'
-        refresh_token:
-          type: string
-        access_token:
-          type: string
+      allOf:
+        - $ref: '#/components/schemas/Token'
   responses:
     DefaultError:
       description: Default Error

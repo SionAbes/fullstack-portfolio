@@ -7,6 +7,7 @@ import re  # noqa: F401
 from typing import Any, Dict, List, Optional  # noqa: F401
 
 from pydantic import AnyUrl, BaseModel, EmailStr, validator  # noqa: F401
+from app.api.models.token import Token
 from app.api.models.user import User
 
 

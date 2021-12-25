@@ -11,6 +11,8 @@ post:
         application/json:
           schema:
             $ref: schemas/LoginResponse.yaml
+    '404':
+      "description": Not found
     default:
       $ref: ../_common/responses/DefaultError.yaml
   tags:
