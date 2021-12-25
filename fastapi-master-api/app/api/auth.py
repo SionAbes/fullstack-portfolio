@@ -7,8 +7,6 @@ from app.domain.auth import authenticate, create_access_and_refresh_token
 from app.api.models.login_response import LoginResponse
 from app.api.manual_models.token import TokenModel
 from app.security import get_current_user
-from datetime import timedelta
-from app.settings import get_settings, Settings
 from app.api.models.token import Token
 
 router = APIRouter(
@@ -45,9 +43,6 @@ def refresh(
         get_current_user, scopes=["ADMIN", "USER"]
     ),
 ) -> Token:
-    """
-    Get the JWT for a user with data from OAuth2 request form body.
-    """
     if token_user.type != "refresh_token":
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

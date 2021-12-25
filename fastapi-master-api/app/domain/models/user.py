@@ -3,15 +3,18 @@ from typing import Optional
 from datetime import datetime
 
 
-class User(BaseModel):
+class CreateUser(BaseModel):
+    is_superuser: bool
+    first_name: str
+    last_name: str
+    email: str
+    password: str
+
+
+class User(CreateUser):
     id: int
     last_login_at: Optional[datetime] = None
     created_at: Optional[datetime] = None
-    is_superuser: Optional[bool] = None
-    first_name: Optional[str] = None
-    last_name: Optional[str] = None
-    email: Optional[str] = None
-    password: Optional[str] = None
 
     class Config:
         orm_mode = True

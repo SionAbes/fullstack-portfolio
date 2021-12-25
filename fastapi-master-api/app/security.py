@@ -37,9 +37,8 @@ async def get_current_user(
             raise credentials_exception
 
         roles: List[str] = payload.get("roles")
-        for role in roles:
-            if role not in security_scopes.scopes:
-                raise credentials_exception
+        if not list(set(security_scopes.scopes) & set(roles)):
+            raise credentials_exception
 
         return TokenModel(
             type=payload.get("type"),

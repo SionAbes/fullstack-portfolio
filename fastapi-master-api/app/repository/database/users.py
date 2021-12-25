@@ -27,7 +27,9 @@ class UsersRepo(CRUDBase[User, UserDomain, UserDomain]):
         create_data = obj_in.dict()
         create_data.pop("password")
         user = User(**create_data)
-        user.hashed_password = get_password_hash(obj_in.password)
+        if user:
+            user.last_login_at = datetime.utcnow()
+        user.password = get_password_hash(obj_in.password)
         db.add(user)
         db.commit()
 

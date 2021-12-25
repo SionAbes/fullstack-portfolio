@@ -80,35 +80,22 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
-  requestBodies:
-    createUser:
-      description: creates a new user
-      required: true
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-              - email
-            properties:
-              is_superuser:
-                type: boolean
-              first_name:
-                type: string
-              last_name:
-                type: string
-              email:
-                type: string
-              password:
-                type: string
-    Credentials:
-      description: credentials to login
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Credentials'
   schemas:
+    CreateUser:
+      type: object
+      required:
+        - email
+      properties:
+        is_superuser:
+          type: boolean
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
     GenericError:
       type: object
       properties:
@@ -192,6 +179,21 @@ components:
           $ref: '#/components/schemas/User'
       allOf:
         - $ref: '#/components/schemas/Token'
+  requestBodies:
+    createUser:
+      description: creates a new user
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateUser'
+    Credentials:
+      description: credentials to login
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Credentials'
   responses:
     DefaultError:
       description: Default Error

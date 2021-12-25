@@ -3,17 +3,4 @@ required: true
 content:
   application/json:
     schema:
-      type: object
-      required:
-        - email
-      properties:
-        is_superuser:
-          type: boolean
-        first_name:
-          type: string
-        last_name:
-          type: string
-        email:
-          type: string
-        password:
-          type: string
+      $ref: ../schemas/CreateUser.yaml
