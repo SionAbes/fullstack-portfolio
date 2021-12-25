@@ -1,7 +1,6 @@
 from sqlalchemy.orm import Session
 from app.domain.models.user import CreateUser, User
 from app.repository.database.users import users_repo
-from app.security import get_password_hash
 
 
 def create_user(

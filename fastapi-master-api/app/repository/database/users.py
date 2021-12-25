@@ -6,6 +6,7 @@ from typing import Optional
 from app.security import get_password_hash
 from datetime import datetime
 
+
 class UsersRepo(CRUDBase[User, UserDomain, UserDomain]):
     def get_by_email(self, db: Session, *, email: str) -> Optional[UserDomain]:
         user = db.query(User).filter(User.email == email).first()
