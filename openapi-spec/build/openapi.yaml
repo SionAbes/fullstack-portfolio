@@ -44,6 +44,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Users'
+        '404':
+          description: Not found
         default:
           $ref: '#/components/responses/DefaultError'
       tags:

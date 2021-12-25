@@ -30,6 +30,8 @@ get:
         application/json:
           schema:
             $ref: schemas/Users.yaml
+    '404':
+      "description": Not found
     default:
       $ref: ../_common/responses/DefaultError.yaml
   tags:
