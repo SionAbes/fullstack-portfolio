@@ -1,6 +1,7 @@
 [![Flake8 Status](./fastapi-master-api/reports/badges/flake8-badge.svg)](https://sionabes.github.io/fullstack-portfolio/fastapi-master-api/reports/flake8/index.html)
 [![Tests Status](./fastapi-master-api/reports/badges/tests-badge.svg)](https://sionabes.github.io/fullstack-portfolio/fastapi-master-api/reports/junit/report.html)
 [![Coverage Status](./fastapi-master-api/reports/badges/coverage-badge.svg)](https://sionabes.github.io/fullstack-portfolio/fastapi-master-api/reports/coverage/index.html)
+[![HitCount](http://hits.dwyl.com/SionAbes/https://githubcom/SionAbes/fullstack-portfolio.svg?style=flat-square)](http://hits.dwyl.com/SionAbes/https://githubcom/SionAbes/fullstack-portfolio)
 # Siôn Abraham Full-Stack Portfolio
 Last updated: 25/12/2021
 
