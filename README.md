@@ -1,5 +1,6 @@
 [![Flake8 Status](./fastapi-master-api/reports/badges/flake8-badge.svg)](./fastapi-master-api/reports/flake8/index.html)
 [![Tests Status](./fastapi-master-api/reports/badges/tests-badge.svg)](./fastapi-master-api/reports/junit/report.html)
+[![Coverage Status](./fastapi-master-api/reports/badges/coverage-badge.svg)](./fastapi-master-api/reports/coverage/index.html)
 # Siôn Abraham Full-Stack Portfolio
 Last updated: 25/12/2021
 
