@@ -10,6 +10,8 @@ from datetime import datetime
 class UsersRepo(CRUDBase[User, UserDomain, UserDomain]):
     def get_by_email(self, db: Session, *, email: str) -> Optional[UserDomain]:
         user = db.query(User).filter(User.email == email).first()
+        if not user:
+            return None
         if user:
             user.last_login_at = datetime.utcnow()
             self.update(db=db, obj_in=user.__dict__, id=user.id)
