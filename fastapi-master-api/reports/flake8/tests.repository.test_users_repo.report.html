@@ -33,7 +33,7 @@ window.addEventListener('DOMContentLoaded', function () {
 </script>
    </head>
    <body>
-      <div id="masthead" class="sev-1"></div>
+      <div id="masthead" class="sev-2"></div>
       <div id="page">
          <p id="srclink">
             <a title="View full annotated source"
@@ -50,54 +50,18 @@ window.addEventListener('DOMContentLoaded', function () {
          <ul id="index">
          
          <li>
-            <a data-code="F841">
-               <span class="count sev-1">
-                  1
-               </span>
-               <strong>F841:</strong> local variable 'user' is assigned to but never used
-               
-            </a>
-            <ul class="details">
-            <li>
-               
-               <a href="tests.repository.test_users_repo.source.html#l21">
-                  <tt><i>21</i>     <span class="n">user</span> <span class="o">=</span> <span class="n">UserFactory</span><span class="p">()</span></tt>
-               </a>
-            </li>
-            </ul>
-         </li>
-         
-         <li>
-            <a data-code="E302">
+            <a data-code="E711">
                <span class="count sev-2">
                   1
                </span>
-               <strong>E302:</strong> expected 2 blank lines, found 1
+               <strong>E711:</strong> comparison to None should be 'if cond is None:'
                
             </a>
             <ul class="details">
             <li>
                
-               <a href="tests.repository.test_users_repo.source.html#l5">
-                  <tt><i>5</i> <span class="k">def</span> <span class="nf">test_get_by_email</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">freezer</span><span class="p">):</span></tt>
-               </a>
-            </li>
-            </ul>
-         </li>
-         
-         <li>
-            <a data-code="W292">
-               <span class="count sev-2">
-                  1
-               </span>
-               <strong>W292:</strong> no newline at end of file
-               
-            </a>
-            <ul class="details">
-            <li>
-               
-               <a href="tests.repository.test_users_repo.source.html#l35">
-                  <tt><i>35</i>         <span class="p">)</span></tt>
+               <a href="tests.repository.test_users_repo.source.html#l27">
+                  <tt><i>27</i>     <span class="k">assert</span> <span class="n">user_db</span> <span class="o">==</span> <span class="kc">None</span></tt>
                </a>
             </li>
             </ul>
