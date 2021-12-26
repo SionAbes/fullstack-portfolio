@@ -2,7 +2,6 @@
 [![Tests Status](./fastapi-master-api/reports/badges/tests-badge.svg?dummy=8484744)](https://sionabes.github.io/fullstack-portfolio/fastapi-master-api/reports/junit/report.html)
 [![Coverage Status](./fastapi-master-api/reports/badges/coverage-badge.svg?dummy=8484744)](https://sionabes.github.io/fullstack-portfolio/fastapi-master-api/reports/coverage/index.html)
 [![HitCount](http://hits.dwyl.com/SionAbes/fullstack-portfolio.svg?style=flat-square)](http://hits.dwyl.com/SionAbes/fullstack-portfolio)
-[![Known Vulnerabilities](https://snyk.io/test/github/SionAbes/fullstack-portfolio/badge.svg?targetFile=package.json)](https://snyk.io/test/github/SionAbes/fullstack-portfolio?targetFile=package.json)
 # Siôn Abraham Full-Stack Portfolio
 Last updated: 25/12/2021
 
