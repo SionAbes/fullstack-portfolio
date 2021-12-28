@@ -1,18 +1,18 @@
 import os
+
 import pytest
+from app.dependancies import get_db
 from app.main import create_app
 from app.repository.models.base import BaseModel as Base
+from app.security import get_current_user
 from app.settings import Settings, get_settings
-from app.dependancies import get_db
 from sqlalchemy import create_engine
 from sqlalchemy.event import listens_for
 from sqlalchemy_utils import create_database, database_exists, drop_database
 from starlette.testclient import TestClient
 from tests import Session
-from app.security import get_current_user
-from tests.factories.user import UserFactory
 from tests.factories.token import TokenModelFactory
-
+from tests.factories.user import UserFactory
 
 os.environ["ENV"] = "test"
 

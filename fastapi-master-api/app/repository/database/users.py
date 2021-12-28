@@ -1,10 +1,11 @@
+from datetime import datetime
+from typing import Optional
+
 from app.domain.models.user import User as UserDomain
 from app.repository.database.crud import CRUDBase
 from app.repository.models.users import User
-from sqlalchemy.orm import Session
-from typing import Optional
 from app.security import get_password_hash
-from datetime import datetime
+from sqlalchemy.orm import Session
 
 
 class UsersRepo(CRUDBase[User, UserDomain, UserDomain]):

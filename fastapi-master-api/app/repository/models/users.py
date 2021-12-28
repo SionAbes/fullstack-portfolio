@@ -1,6 +1,6 @@
 from sqlalchemy import Boolean, Column, DateTime, Integer, String
 
-from .base import TimesMixin, BaseModel
+from .base import BaseModel, TimesMixin
 
 
 class User(TimesMixin, BaseModel):
@@ -16,4 +16,3 @@ class User(TimesMixin, BaseModel):
     last_name = Column(String(150), nullable=False)
     email = Column(String, index=True, nullable=False)
     password = Column(String(128), nullable=False)
-

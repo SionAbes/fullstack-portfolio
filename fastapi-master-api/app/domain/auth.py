@@ -1,17 +1,17 @@
-from typing import MutableMapping, List, Union
 from datetime import datetime, timedelta
+from typing import List, MutableMapping, Union
 
+import jwt
+from app.api.models.login_response import LoginResponse
+from app.api.models.token import Token
+from app.api.models.user import User
+from app.domain.exceptions import BadPasswordError, EntityNotFoundError
+from app.domain.models.user import User as DomainUser
+from app.repository.database.users import users_repo
+from app.security import verify_password
+from app.settings import get_settings
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm.session import Session
-import jwt
-from app.repository.database.users import users_repo
-from app.api.models.login_response import LoginResponse
-from app.settings import get_settings
-from app.domain.exceptions import EntityNotFoundError, BadPasswordError
-from app.security import verify_password
-from app.api.models.user import User
-from app.api.models.token import Token
-from app.domain.models.user import User as DomainUser
 
 settings = get_settings()
 
@@ -60,27 +60,24 @@ def authenticate(
 def create_access_and_refresh_token(user_id: int, roles: List[str]) -> Token:
 
     access_token = create_token(
-            token_type="access_token",
-            lifetime=timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES),
-            sub=user_id,
-            roles=roles,
-        )
+        token_type="access_token",
+        lifetime=timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES),
+        sub=user_id,
+        roles=roles,
+    )
 
     refresh_token = create_token(
-            token_type="refresh_token",
-            lifetime=timedelta(minutes=settings.REFRESH_TOKEN_EXPIRE_MINUTES),
-            sub=user_id,
-            roles=roles,
+        token_type="refresh_token",
+        lifetime=timedelta(minutes=settings.REFRESH_TOKEN_EXPIRE_MINUTES),
+        sub=user_id,
+        roles=roles,
     )
 
     return Token(access_token=access_token, refresh_token=refresh_token)
 
 
 def create_token(
-    token_type: str,
-    lifetime: timedelta,
-    sub: int,
-    roles: List[str]
+    token_type: str, lifetime: timedelta, sub: int, roles: List[str]
 ) -> str:
     payload = {}
     expire = datetime.utcnow() + lifetime

@@ -1,7 +1,8 @@
-from sqlalchemy.orm import Session
+from typing import List
+
 from app.domain.models.user import CreateUser, User
 from app.repository.database.users import users_repo
-from typing import List
+from sqlalchemy.orm import Session
 
 
 def create_user(

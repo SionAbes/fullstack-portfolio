@@ -1,5 +1,5 @@
-from tests.factories.user import UserFactory
 from fastapi import status
+from tests.factories.user import UserFactory
 
 
 def test_fetch_users(
@@ -37,11 +37,7 @@ def test_fetch_users_not_auth(
     assert resp.status_code == status.HTTP_401_UNAUTHORIZED
 
 
-def test_fetch_users_auth_as_standard_user(
-    app,
-    client,
-    mock_standard_user
-):
+def test_fetch_users_auth_as_standard_user(app, client, mock_standard_user):
     UserFactory()
     url = app.url_path_for("fetch_users")
     resp = client.get(url)

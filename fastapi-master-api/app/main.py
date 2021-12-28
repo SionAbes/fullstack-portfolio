@@ -1,5 +1,6 @@
 import functools
 import io
+
 import uvicorn
 import yaml
 from app.api.router import api_router
@@ -25,7 +26,6 @@ def create_app(settings: Settings = None):
         yaml_s = io.StringIO()
         yaml.dump(openapi_json, yaml_s)
         return Response(yaml_s.getvalue(), media_type="text/yaml")
-
 
     app.include_router(api_router)
 

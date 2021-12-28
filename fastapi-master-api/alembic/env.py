@@ -1,14 +1,12 @@
-from logging.config import fileConfig
-
-from sqlalchemy import engine_from_config
-from sqlalchemy import pool
-from app.repository.models.base import BaseModel as Base
-from alembic import context
-from app.settings import get_settings
-
 import os
 import sys
+from logging.config import fileConfig
+
+from alembic import context
+from app.repository.models.base import BaseModel as Base
+from app.settings import get_settings
 from dotenv import load_dotenv
+from sqlalchemy import engine_from_config, pool
 
 settings = get_settings()
 
@@ -76,9 +74,7 @@ def run_migrations_online():
     )
 
     with connectable.connect() as connection:
-        context.configure(
-            connection=connection, target_metadata=target_metadata
-        )
+        context.configure(connection=connection, target_metadata=target_metadata)
 
         with context.begin_transaction():
             context.run_migrations()

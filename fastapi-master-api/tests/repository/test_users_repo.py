@@ -1,15 +1,12 @@
-from app.repository.database.users import users_repo
-from tests.factories.user import UserFactory
 import pytest
 from app.domain.models.user import CreateUser
+from app.repository.database.users import users_repo
+from tests.factories.user import UserFactory
 
 
 def test_get(session, freezer):
     user = UserFactory()
-    user_db = users_repo.get(
-        db=session,
-        id=user.id
-    )
+    user_db = users_repo.get(db=session, id=user.id)
     assert user_db.first_name == user.first_name
     assert user_db.last_name == user.last_name
     assert user_db.id == user.id
@@ -20,10 +17,7 @@ def test_get(session, freezer):
 
 
 def test_get_no_user(session):
-    user_db = users_repo.get(
-        db=session,
-        id=-1
-    )
+    user_db = users_repo.get(db=session, id=-1)
     assert user_db == None
 
 
@@ -57,10 +51,7 @@ def test_update(session):
 
 def test_get_by_email(session, freezer):
     user = UserFactory()
-    user_db = users_repo.get_by_email(
-        db=session,
-        email=user.email
-    )
+    user_db = users_repo.get_by_email(db=session, email=user.email)
     assert user_db.first_name == user.first_name
     assert user_db.last_name == user.last_name
     assert user_db.id == user.id
@@ -72,20 +63,14 @@ def test_get_by_email(session, freezer):
 
 def test_get_by_email_not_exists(session, freezer):
     UserFactory()
-    user_db = users_repo.get_by_email(
-        db=session,
-        email="_email"
-    )
+    user_db = users_repo.get_by_email(db=session, email="_email")
     assert user_db is None
 
 
 def test_get_by_email_no_session(freezer):
     user = UserFactory()
     with pytest.raises(AttributeError):
-        users_repo.get_by_email(
-            db=None,
-            email=user.email
-        )
+        users_repo.get_by_email(db=None, email=user.email)
 
 
 def test_create(session):
@@ -96,10 +81,7 @@ def test_create(session):
         email="_email",
         password="_password",
     )
-    user_db = users_repo.create(
-        db=session,
-        obj_in=user
-    )
+    user_db = users_repo.create(db=session, obj_in=user)
     assert user_db.first_name == user.first_name
     assert user_db.last_name == user.last_name
     assert user_db.is_superuser == user.is_superuser
@@ -108,7 +90,4 @@ def test_create(session):
 
 def test_create_no_user(session):
     with pytest.raises(AttributeError):
-        users_repo.create(
-            db=session,
-            obj_in=None
-        )
+        users_repo.create(db=session, obj_in=None)
