@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from app.repository.models.users import User
-from factory import Faker, LazyFunction, RelatedFactory, Sequence, SubFactory
+from factory import Faker, LazyFunction, Sequence
 from factory.alchemy import SQLAlchemyModelFactory
 from tests import Session
 

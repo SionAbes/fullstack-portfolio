@@ -14,7 +14,7 @@ from app.domain.users import delete_user_by_id as domain_delete_user_by_id
 from app.domain.users import fetch_users as domain_fetch_users
 from app.domain.users import update_user_by_id as domain_update_user_by_id
 from app.security import get_current_user
-from fastapi import APIRouter, Depends, HTTPException, Response, Security, status
+from fastapi import APIRouter, Depends, Response, Security, status
 from sqlalchemy.orm import Session
 
 router = APIRouter(
