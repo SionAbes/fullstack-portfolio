@@ -16,17 +16,17 @@ class CreateUser(BaseModel):
 
     CreateUser - a model defined in OpenAPI
 
-        is_superuser: The is_superuser of this CreateUser [Optional].
+        is_superuser: The is_superuser of this CreateUser.
         first_name: The first_name of this CreateUser [Optional].
         last_name: The last_name of this CreateUser [Optional].
         email: The email of this CreateUser.
-        password: The password of this CreateUser [Optional].
+        password: The password of this CreateUser.
     """
 
-    is_superuser: Optional[bool] = None
+    is_superuser: bool
     first_name: Optional[str] = None
     last_name: Optional[str] = None
     email: str
-    password: Optional[str] = None
+    password: str
 
 CreateUser.update_forward_refs()
