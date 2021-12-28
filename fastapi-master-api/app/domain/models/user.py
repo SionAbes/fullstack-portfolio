@@ -6,10 +6,18 @@ from pydantic import BaseModel
 
 class CreateUser(BaseModel):
     is_superuser: bool
-    first_name: str
-    last_name: str
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
     email: str
     password: str
+
+
+class UpdateUser(CreateUser):
+    is_superuser: Optional[bool] = None
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+    email: Optional[str] = None
+    password: Optional[str] = None
 
 
 class User(CreateUser):

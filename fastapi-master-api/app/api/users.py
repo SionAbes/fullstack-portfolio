@@ -6,8 +6,11 @@ from app.api.models.update_user import UpdateUser
 from app.api.models.user import User
 from app.dependancies import get_db
 from app.domain.models.user import CreateUser as DomainCreateUser
+from app.domain.models.user import UpdateUser as DomainUpdateUser
 from app.domain.users import create_user as domain_create_user
+from app.domain.users import delete_user_by_id as domain_delete_user_by_id
 from app.domain.users import fetch_users as domain_fetch_users
+from app.domain.users import update_user_by_id as domain_update_user_by_id
 from app.security import get_current_user
 from fastapi import APIRouter, Depends, HTTPException, Response, Security, status
 from sqlalchemy.orm import Session
@@ -86,18 +89,22 @@ def update_user_by_id(
     token_user: TokenModel = Security(get_current_user, scopes=["ADMIN"]),
 ) -> User:
     try:
-        return service_update_user_by_id(
+        user = domain_update_user_by_id(
             user_id=id,
-            update_answer=update_user,
+            update_user=DomainUpdateUser(**update_user),
             db=db,
+        )
+        return User(
+            id=user.id,
+            last_login=user.last_login_at,
+            date_joined=user.created_at,
+            is_superuser=user.is_superuser,
+            first_name=user.first_name,
+            last_name=user.last_name,
+            email=user.email,
         )
     except NoEntryFoundException:
         raise HTTP404Exception()
-    except NotAuthorizedError:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="You are not authorized to access this operation",
-        )
 
 
 @router.delete(
@@ -109,15 +116,8 @@ def delete_user_by_id(
     db: Session = Depends(get_db),
     token_user: TokenModel = Security(get_current_user, scopes=["ADMIN"]),
 ):
-    try:
-        success_flag = service_delete_user_by_id(user_id=id, db=db)
-        if not success_flag:
-            raise HTTP404Exception()
+    success_flag = domain_delete_user_by_id(user_id=id, db=db)
+    if not success_flag:
+        raise HTTP404Exception()
 
-        return Response(status_code=status.HTTP_204_NO_CONTENT)
-
-    except NotAuthorizedError:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="You are not authorized to access this operation",
-        )
+    return Response(status_code=status.HTTP_204_NO_CONTENT)

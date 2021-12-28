@@ -52,62 +52,52 @@ window.addEventListener('DOMContentLoaded', function () {
          <li>
             <a data-code="F821">
                <span class="count sev-1">
-                  7
+                  3
                </span>
-               <strong>F821:</strong> undefined name 'service_update_user_by_id'
+               <strong>F821:</strong> undefined name 'NoEntryFoundException'
                
-                  (and 4 similar)
+                  (and 1 similar)
                
             </a>
             <ul class="details">
             <li>
                
-               <p>Undefined name 'service_update_user_by_id':</p>
-               
-               <a href="app.api.users.source.html#l89">
-                  <tt><i>89</i>         <span class="k">return</span> <span class="n">service_update_user_by_id</span><span class="p">(</span></tt>
-               </a>
-            </li><li>
-               
                <p>Undefined name 'NoEntryFoundException':</p>
                
-               <a href="app.api.users.source.html#l94">
-                  <tt><i>94</i>     <span class="k">except</span> <span class="n">NoEntryFoundException</span><span class="p">:</span></tt>
+               <a href="app.api.users.source.html#l106">
+                  <tt><i>106</i>     <span class="k">except</span> <span class="n">NoEntryFoundException</span><span class="p">:</span></tt>
                </a>
             </li><li>
                
                <p>Undefined name 'HTTP404Exception':</p>
                
-               <a href="app.api.users.source.html#l95">
-                  <tt><i>95</i>         <span class="k">raise</span> <span class="n">HTTP404Exception</span><span class="p">()</span></tt>
-               </a>
-            </li><li>
-               
-               <p>Undefined name 'NotAuthorizedError':</p>
-               
-               <a href="app.api.users.source.html#l96">
-                  <tt><i>96</i>     <span class="k">except</span> <span class="n">NotAuthorizedError</span><span class="p">:</span></tt>
-               </a>
-            </li><li>
-               
-               <p>Undefined name 'service_delete_user_by_id':</p>
-               
-               <a href="app.api.users.source.html#l113">
-                  <tt><i>113</i>         <span class="n">success_flag</span> <span class="o">=</span> <span class="n">service_delete_user_by_id</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="nb">id</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="n">db</span><span class="p">)</span></tt>
+               <a href="app.api.users.source.html#l107">
+                  <tt><i>107</i>         <span class="k">raise</span> <span class="n">HTTP404Exception</span><span class="p">()</span></tt>
                </a>
             </li><li>
                
                <p>Undefined name 'HTTP404Exception':</p>
                
-               <a href="app.api.users.source.html#l115">
-                  <tt><i>115</i>             <span class="k">raise</span> <span class="n">HTTP404Exception</span><span class="p">()</span></tt>
+               <a href="app.api.users.source.html#l121">
+                  <tt><i>121</i>         <span class="k">raise</span> <span class="n">HTTP404Exception</span><span class="p">()</span></tt>
                </a>
-            </li><li>
+            </li>
+            </ul>
+         </li>
+         
+         <li>
+            <a data-code="F401">
+               <span class="count sev-1">
+                  1
+               </span>
+               <strong>F401:</strong> 'fastapi.HTTPException' imported but unused
                
-               <p>Undefined name 'NotAuthorizedError':</p>
+            </a>
+            <ul class="details">
+            <li>
                
-               <a href="app.api.users.source.html#l119">
-                  <tt><i>119</i>     <span class="k">except</span> <span class="n">NotAuthorizedError</span><span class="p">:</span></tt>
+               <a href="app.api.users.source.html#l15">
+                  <tt><i>15</i> <span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">APIRouter</span><span class="p">,</span> <span class="n">Depends</span><span class="p">,</span> <span class="n">HTTPException</span><span class="p">,</span> <span class="n">Response</span><span class="p">,</span> <span class="n">Security</span><span class="p">,</span> <span class="n">status</span></tt>
                </a>
             </li>
             </ul>

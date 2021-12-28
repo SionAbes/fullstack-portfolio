@@ -4,3 +4,12 @@
 1     E711 comparison to None should be 'if cond is None:'
 5     F401 'app.api.models.token.Token' imported but unused
 7     F821 undefined name 'service_update_user_by_id'
+1     E711 comparison to None should be 'if cond is None:'
+6     F401 'app.api.models.token.Token' imported but unused
+3     F821 undefined name 'NoEntryFoundException'
+1     E711 comparison to None should be 'if cond is None:'
+6     F401 'app.api.models.token.Token' imported but unused
+3     F821 undefined name 'NoEntryFoundException'
+1     E711 comparison to None should be 'if cond is None:'
+6     F401 'app.api.models.token.Token' imported but unused
+3     F821 undefined name 'NoEntryFoundException'
