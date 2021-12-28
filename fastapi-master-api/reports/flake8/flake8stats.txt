@@ -1,29 +1,6 @@
-9     E122 continuation line missing indentation or outdented
-1     E128 continuation line under-indented for visual indent
-2     E131 continuation line unaligned for hanging indent
-3     E302 expected 2 blank lines, found 1
-1     E303 too many blank lines (2)
-6     E305 expected 2 blank lines after class or function definition, found 1
-6     F401 'sqlalchemy as sa' imported but unused
-1     F841 local variable 'user' is assigned to but never used
-1     W291 trailing whitespace
-7     W292 no newline at end of file
-1     W391 blank line at end of file
-9     E122 continuation line missing indentation or outdented
-1     E128 continuation line under-indented for visual indent
-2     E131 continuation line unaligned for hanging indent
-2     E302 expected 2 blank lines, found 1
-1     E303 too many blank lines (2)
-6     E305 expected 2 blank lines after class or function definition, found 1
 1     E711 comparison to None should be 'if cond is None:'
-6     F401 'sqlalchemy as sa' imported but unused
-1     W291 trailing whitespace
-6     W292 no newline at end of file
-1     W391 blank line at end of file
-1     E711 comparison to None should be 'if cond is None:'
-7     F401 'sqlalchemy as sa' imported but unused
+5     F401 'app.api.models.token.Token' imported but unused
 7     F821 undefined name 'service_update_user_by_id'
-1     W291 trailing whitespace
 1     E711 comparison to None should be 'if cond is None:'
 5     F401 'app.api.models.token.Token' imported but unused
 7     F821 undefined name 'service_update_user_by_id'
