@@ -57,13 +57,15 @@ class UsersRepo(CRUDBase[User, DomainCreateUser, DomainUpdateUser]):
         id: int,
         *,
         obj_in: DomainUpdateUser,
-    ) -> DomainUser:
+    ) -> Optional[DomainUser]:
         user = self.get(db=db, id=id)
+        if not user:
+            return None
         obj_data = jsonable_encoder(user)
         if isinstance(obj_in, dict):
             update_data = obj_in
         else:
-            update_data = obj_in.dict(exclude_unset=True)
+            update_data = obj_in.dict(exclude_defaults=True)
         for field in obj_data:
             if field in update_data:
                 setattr(user, field, update_data[field])

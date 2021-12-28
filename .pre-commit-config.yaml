@@ -72,7 +72,7 @@ repos:
       - id: swagger-validation
         name: swagger-validation:build
         args: [validate, openapi-spec/build/openapi.yaml]
-
+#
 #  - repo: local
 #    hooks:
 #      - id: custom-script-file

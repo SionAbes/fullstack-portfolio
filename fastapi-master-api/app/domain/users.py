@@ -26,7 +26,6 @@ def update_user_by_id(
     update_user: UpdateUser,
     db: Session,
 ) -> User:
-
     user = users_repo.update(
         db=db,
         id=user_id,

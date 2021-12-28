@@ -1,10 +1,12 @@
 from typing import List
 
+from app.api.exceptions import HTTP404Exception
 from app.api.manual_models.token import TokenModel
 from app.api.models.create_user import CreateUser
 from app.api.models.update_user import UpdateUser
 from app.api.models.user import User
 from app.dependancies import get_db
+from app.domain.exceptions import EntityNotFoundError
 from app.domain.models.user import CreateUser as DomainCreateUser
 from app.domain.models.user import UpdateUser as DomainUpdateUser
 from app.domain.users import create_user as domain_create_user
@@ -91,7 +93,7 @@ def update_user_by_id(
     try:
         user = domain_update_user_by_id(
             user_id=id,
-            update_user=DomainUpdateUser(**update_user),
+            update_user=DomainUpdateUser(**update_user.dict()),
             db=db,
         )
         return User(
@@ -103,7 +105,7 @@ def update_user_by_id(
             last_name=user.last_name,
             email=user.email,
         )
-    except NoEntryFoundException:
+    except EntityNotFoundError:
         raise HTTP404Exception()
 
 
