@@ -15,3 +15,17 @@
 3     F821 undefined name 'NoEntryFoundException'
 1     E711 comparison to None should be 'if cond is None:'
 6     F401 'app.api.models.token.Token' imported but unused
+1     E711 comparison to None should be 'if cond is None:'
+6     F401 'app.api.models.token.Token' imported but unused
+1     E711 comparison to None should be 'if cond is None:'
+6     F401 'app.api.models.token.Token' imported but unused
+1     E711 comparison to None should be 'if cond is None:'
+6     F401 'app.api.models.token.Token' imported but unused
+1     E711 comparison to None should be 'if cond is None:'
+6     F401 'app.api.models.token.Token' imported but unused
+1     E711 comparison to None should be 'if cond is None:'
+6     F401 'app.api.models.token.Token' imported but unused
+1     E711 comparison to None should be 'if cond is None:'
+5     F401 'app.api.models.token.Token' imported but unused
+4     F401 'fastapi.HTTPException' imported but unused
+4     F401 'fastapi.HTTPException' imported but unused

@@ -18,7 +18,7 @@ def test_get(session, freezer):
 
 def test_get_no_user(session):
     user_db = users_repo.get(db=session, id=-1)
-    assert user_db == None
+    assert user_db is None
 
 
 def test_list(session, freezer):
