@@ -20,3 +20,7 @@
 1     W291 trailing whitespace
 6     W292 no newline at end of file
 1     W391 blank line at end of file
+1     E711 comparison to None should be 'if cond is None:'
+7     F401 'sqlalchemy as sa' imported but unused
+7     F821 undefined name 'service_update_user_by_id'
+1     W291 trailing whitespace

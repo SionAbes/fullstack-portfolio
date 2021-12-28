@@ -26,13 +26,13 @@
                class="code sev- "><tt><i>3</i> <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span></tt>
             </div>
             <div id="l4"
-               class="code sev- "><tt><i>4</i> <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span><span class="p">,</span> <span class="n">datetime</span>  <span class="c1"># noqa: F401</span></tt>
+               class="code sev- "><tt><i>4</i> &nbsp;</tt>
             </div>
             <div id="l5"
-               class="code sev- "><tt><i>5</i> &nbsp;</tt>
+               class="code sev- "><tt><i>5</i> <span class="kn">import</span> <span class="nn">re</span>  <span class="c1"># noqa: F401</span></tt>
             </div>
             <div id="l6"
-               class="code sev- "><tt><i>6</i> <span class="kn">import</span> <span class="nn">re</span>  <span class="c1"># noqa: F401</span></tt>
+               class="code sev- "><tt><i>6</i> <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span><span class="p">,</span> <span class="n">datetime</span>  <span class="c1"># noqa: F401</span></tt>
             </div>
             <div id="l7"
                class="code sev- "><tt><i>7</i> <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>  <span class="c1"># noqa: F401</span></tt>
@@ -41,9 +41,6 @@
                class="code sev- "><tt><i>8</i> &nbsp;</tt>
             </div>
             <div id="l9"
-               class="code sev- "><tt><i>9</i> <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">AnyUrl</span><span class="p">,</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">EmailStr</span><span class="p">,</span> <span class="n">validator</span>  <span class="c1"># noqa: F401</span></tt>
-            </div>
-            <div id="l10"
                class="code sev-1  le">
                <ul class="violations">
                
@@ -53,10 +50,13 @@
                      </span>
                      'app.api.models.token.Token' imported but unused</li>
                
-               </ul><tt><i>10</i> <span class="kn">from</span> <span class="nn">app.api.models.token</span> <span class="kn">import</span> <span class="n">Token</span></tt>
+               </ul><tt><i>9</i> <span class="kn">from</span> <span class="nn">app.api.models.token</span> <span class="kn">import</span> <span class="n">Token</span></tt>
+            </div>
+            <div id="l10"
+               class="code sev- "><tt><i>10</i> <span class="kn">from</span> <span class="nn">app.api.models.user</span> <span class="kn">import</span> <span class="n">User</span></tt>
             </div>
             <div id="l11"
-               class="code sev- "><tt><i>11</i> <span class="kn">from</span> <span class="nn">app.api.models.user</span> <span class="kn">import</span> <span class="n">User</span></tt>
+               class="code sev- "><tt><i>11</i> <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">AnyUrl</span><span class="p">,</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">EmailStr</span><span class="p">,</span> <span class="n">validator</span>  <span class="c1"># noqa: F401</span></tt>
             </div>
             <div id="l12"
                class="code sev- "><tt><i>12</i> &nbsp;</tt>
@@ -113,16 +113,10 @@
                class="code sev- "><tt><i>29</i> &nbsp;</tt>
             </div>
             <div id="l30"
-               class="code sev-2  le">
-               <ul class="violations">
-               
-                  <li>
-                     <span class="count sev-2">
-                        E305
-                     </span>
-                     Expected 2 blank lines after class or function definition, found 1</li>
-               
-               </ul><tt><i>30</i> <span class="n">LoginResponse</span><span class="o">.</span><span class="n">update_forward_refs</span><span class="p">()</span></tt>
+               class="code sev- "><tt><i>30</i> &nbsp;</tt>
+            </div>
+            <div id="l31"
+               class="code sev- "><tt><i>31</i> <span class="n">LoginResponse</span><span class="o">.</span><span class="n">update_forward_refs</span><span class="p">()</span></tt>
             </div>
             
          </div>
