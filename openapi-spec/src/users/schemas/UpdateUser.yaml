@@ -1,8 +1,4 @@
 type: object
-required:
-  - email
-  - password
-  - is_superuser
 properties:
   is_superuser:
     type: boolean

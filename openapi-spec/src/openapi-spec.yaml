@@ -16,6 +16,8 @@ paths:
 
   /users/:
     $ref: users/user.yaml
+  /users/{id}:
+    $ref: users/user_{id}.yaml
   /auth/login/:
     $ref: auth/login.yaml
   /auth/refresh/:

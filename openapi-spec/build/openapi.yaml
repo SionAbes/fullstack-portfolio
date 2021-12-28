@@ -50,6 +50,41 @@ paths:
           $ref: '#/components/responses/DefaultError'
       tags:
         - Users
+  /users/{id}:
+    put:
+      summary: updates a users information by its id
+      operationId: updateUserByID
+      parameters:
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateUser'
+      responses:
+        '200':
+          description: the updated user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+        '404':
+          description: Not found
+        default:
+          $ref: '#/components/responses/DefaultError'
+      tags:
+        - Users
+    delete:
+      summary: deletes a users by its id
+      operationId: deleteUserByID
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        '204':
+          description: The resource was deleted succesfully.
+        '404':
+          description: Not found
+        default:
+          $ref: '#/components/responses/DefaultError'
+      tags:
+        - Users
   /auth/login/:
     post:
       summary: login a user with credentials
@@ -131,6 +166,21 @@ components:
       type: object
       required:
         - email
+        - password
+        - is_superuser
+      properties:
+        is_superuser:
+          type: boolean
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+    UpdateUser:
+      type: object
       properties:
         is_superuser:
           type: boolean
@@ -214,6 +264,13 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/CreateUser'
+    UpdateUser:
+      description: updates a new user
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateUser'
     Credentials:
       description: credentials to login
       required: true
@@ -221,5 +278,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Credentials'
+  parameters:
+    id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
 security:
   - userAccessToken: []

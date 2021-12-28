@@ -1,0 +1,6 @@
+description: updates a new user
+required: true
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/UpdateUser.yaml

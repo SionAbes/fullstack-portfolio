@@ -1,0 +1,35 @@
+put:
+  summary: updates a users information by its id
+  operationId: updateUserByID
+  parameters:
+    - $ref: ../_common/parameters/id.yaml
+  requestBody:
+    $ref: requestBodies/UpdateUser.yaml
+  responses:
+    '200':
+      description: the updated user
+      content:
+        application/json:
+          schema:
+            $ref: schemas/user.yaml
+    '404':
+      "description": Not found
+    default:
+      $ref: ../_common/responses/DefaultError.yaml
+  tags:
+  - Users
+
+delete:
+  summary: deletes a users by its id
+  operationId: deleteUserByID
+  parameters:
+    - $ref: ../_common/parameters/id.yaml
+  responses:
+    "204":
+      description: The resource was deleted succesfully.
+    '404':
+      "description": Not found   
+    default:
+      $ref: ../_common/responses/DefaultError.yaml
+  tags:
+    - Users
