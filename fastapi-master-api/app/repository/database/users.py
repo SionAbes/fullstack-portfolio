@@ -85,6 +85,8 @@ class UsersRepo(CRUDBase[User, DomainCreateUser, DomainUpdateUser]):
 
     def remove(self, db: Session, *, id: int) -> Optional[DomainUser]:
         user = db.query(self.model).get(id)
+        if not user:
+            return None
         db.delete(user)
         db.commit()
         return DomainUser(

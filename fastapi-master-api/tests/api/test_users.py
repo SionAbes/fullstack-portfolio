@@ -150,3 +150,36 @@ def test_update_user_by_id(app, client, mock_admin_user, data):
     assert resp.json()["last_name"] == user_data["last_name"]
     assert resp.json()["email"] == user_data["email"]
     assert resp.json()["id"] == user_data["id"]
+
+
+def test_update_user_by_id_no_entry(app, client, mock_admin_user):
+    data = UpdateUser(
+        is_superuser=True,
+    )
+    url = app.url_path_for("update_user_by_id", id=-1)
+    resp = client.put(url, json=data.dict())
+
+    assert resp.status_code == status.HTTP_404_NOT_FOUND
+
+
+def test_delete_user_by_id(
+    app,
+    client,
+    mock_admin_user,
+):
+    user = UserFactory()
+    url = app.url_path_for("delete_user_by_id", id=user.id)
+    resp = client.delete(url)
+
+    assert resp.status_code == status.HTTP_204_NO_CONTENT
+
+
+def test_delete_user_by_id_no_entry(
+    app,
+    client,
+    mock_admin_user,
+):
+    url = app.url_path_for("delete_user_by_id", id=-1)
+    resp = client.delete(url)
+
+    assert resp.status_code == status.HTTP_404_NOT_FOUND

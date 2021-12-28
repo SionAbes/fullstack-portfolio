@@ -1,5 +1,6 @@
 from typing import List
 
+from app.domain.exceptions import EntityNotFoundError
 from app.domain.models.user import CreateUser, UpdateUser, User
 from app.repository.database.users import users_repo
 from sqlalchemy.orm import Session
@@ -31,6 +32,8 @@ def update_user_by_id(
         id=user_id,
         obj_in=update_user,
     )
+    if not user:
+        raise EntityNotFoundError
     return user
 
 
@@ -40,7 +43,10 @@ def delete_user_by_id(
     db: Session,
 ):
 
-    return users_repo.remove(
+    user = users_repo.remove(
         db=db,
         id=user_id,
     )
+    if not user:
+        raise EntityNotFoundError
+    return user

@@ -118,8 +118,8 @@ def delete_user_by_id(
     db: Session = Depends(get_db),
     token_user: TokenModel = Security(get_current_user, scopes=["ADMIN"]),
 ):
-    success_flag = domain_delete_user_by_id(user_id=id, db=db)
-    if not success_flag:
+    try:
+        domain_delete_user_by_id(user_id=id, db=db)
+        return Response(status_code=status.HTTP_204_NO_CONTENT)
+    except EntityNotFoundError:
         raise HTTP404Exception()
-
-    return Response(status_code=status.HTTP_204_NO_CONTENT)
