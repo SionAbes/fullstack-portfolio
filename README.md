@@ -1,10 +1,10 @@
-[![Last Commit](https://img.shields.io/github/last-commit/SionAbes/fullstack-portfolio)](https://sionabes.github.io/fullstack-portfolio/commits/master)
+[![Last Commit](https://img.shields.io/github/last-commit/SionAbes/fullstack-portfolio)](https://github.com/SionAbes/fullstack-portfolio/commits/master)
 [![Flake8 Status](./fastapi-master-api/reports/badges/flake8-badge.svg?dummy=8484744)](https://sionabes.github.io/fullstack-portfolio/fastapi-master-api/reports/flake8/index.html)
 [![Tests Status](./fastapi-master-api/reports/badges/tests-badge.svg?dummy=8484744)](https://sionabes.github.io/fullstack-portfolio/fastapi-master-api/reports/junit/report.html)
 [![Coverage Status](./fastapi-master-api/reports/badges/coverage-badge.svg?dummy=8484744)](https://sionabes.github.io/fullstack-portfolio/fastapi-master-api/reports/coverage/index.html)
 [![HitCount](http://hits.dwyl.com/SionAbes/fullstack-portfolio.svg?style=flat-square)](http://hits.dwyl.com/SionAbes/fullstack-portfolio)
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
-[![License Status](https://img.shields.io/github/license/SionAbes/fullstack-portfolio)](https://sionabes.github.io/fullstack-portfolio/LICENSE.md)
+[![License Status](https://img.shields.io/github/license/SionAbes/fullstack-portfolio)](https://github.com/SionAbes/fullstack-portfolio/LICENSE.md)
 
 # Siôn Abraham Full-Stack Portfolio
 
