@@ -3,7 +3,7 @@ name: FastAPI Master API CI
 on: [push]
 
 env:
-  DOCKER_IMAGE_NAME: ghcr.io/SionAbes/fastapi-master-api
+  DOCKER_IMAGE_NAME: ghcr.io/sionabes/fastapi-master-api
   
 jobs:
 
