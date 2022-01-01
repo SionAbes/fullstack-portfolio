@@ -1,6 +1,9 @@
 name: FastAPI Master API CI
 
-on: [push]
+on:
+  push:
+    paths:
+    - 'fastapi-master-api/**'
 
 env:
   DOCKER_IMAGE_NAME: ghcr.io/sionabes/fastapi-master-api
