@@ -1,4 +1,4 @@
-name: FastAPI-CI
+name: FastAPI Master API CI
 
 on: [push]
 

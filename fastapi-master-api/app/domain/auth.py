@@ -9,17 +9,11 @@ from app.domain.exceptions import BadPasswordError, EntityNotFoundError
 from app.domain.models.user import User as DomainUser
 from app.repository.database.users import users_repo
 from app.security import verify_password
-from app.settings import get_settings
-from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm.session import Session
-
-settings = get_settings()
 
 JWTPayloadMapping = MutableMapping[
     str, Union[datetime, bool, str, List[str], List[int]]
 ]
-
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl=f"{settings.API_URL}/auth/login")
 
 
 def authenticate(
