@@ -18,7 +18,8 @@ jobs:
           python-version: 3.7
 
       - name: Install Poetry
-        uses: dschep/install-poetry-action@v1.2
+        run: pip install poetry
+        working-directory: ./fastapi-master-api
 
       - name: Cache Poetry virtualenv
         uses: actions/cache@v1
@@ -33,13 +34,17 @@ jobs:
         run: |
           poetry config settings.virtualenvs.in-project false
           poetry config settings.virtualenvs.path ~/.virtualenvs
+        working-directory: ./fastapi-master-api
 
       - name: Install Dependencies
         run: poetry install
         if: steps.cache.outputs.cache-hit != 'true'
+        working-directory: ./fastapi-master-api
 
       - name: Code Quality
         run: poetry run black . --check
+        working-directory: ./fastapi-master-api
 
       - name: Test with pytest
         run: poetry run pytest --cov . -n 2
+        working-directory: ./fastapi-master-api
