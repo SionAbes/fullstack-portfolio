@@ -26,6 +26,7 @@ As currently implemented:
 - [SQLAlchemy](https://www.sqlalchemy.org/) - Python SQL toolkit and Object Relational Mapper that gives application developers the full power and flexibility of SQL.
 - [Docker](https://www.docker.com/) - Package applications as portable container images to run in any environment consistently.
 - [openapi-generate](https://github.com/OpenAPITools/openapi-generator) - Allows generation of API client libraries.
+- [GitHub Actions](https://github.com/features/actions) -  Automate all your software workflows with build, test, and deploy from GitHub.
 
 ## How to Run
 Create a `.env` file using the `.env.example` file then run the follwing `makefile` command:
