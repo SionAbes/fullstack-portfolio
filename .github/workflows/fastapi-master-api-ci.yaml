@@ -8,6 +8,7 @@ env:
 jobs:
 
   test:
+    name: Black and PyTest
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -75,8 +76,8 @@ jobs:
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ github.GITHUB_TOKEN }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Inject slug/short variables
         uses: rlespinasse/github-slug-action@v3.x
