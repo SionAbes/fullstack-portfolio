@@ -30,11 +30,6 @@ jobs:
           restore-keys: |
             poetry-${{ hashFiles('**/poetry.lock') }}
 
-      - name: Set Poetry config
-        run: |
-          poetry config settings.virtualenvs.path ~/.virtualenvs
-        working-directory: ./fastapi-master-api
-
       - name: Install Dependencies
         run: poetry install
         if: steps.cache.outputs.cache-hit != 'true'
