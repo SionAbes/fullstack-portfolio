@@ -4,6 +4,7 @@
 [![Coverage Status](./fastapi-master-api/reports/badges/coverage-badge.svg?dummy=8484744)](https://sionabes.github.io/fullstack-portfolio/fastapi-master-api/reports/coverage/index.html)
 [![HitCount](http://hits.dwyl.com/SionAbes/fullstack-portfolio.svg?style=flat-square)](http://hits.dwyl.com/SionAbes/fullstack-portfolio)
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
+![FastAPI CI](https://github.com/SionAbes/fullstack-portfolio/actions/workflows/fastapi-master-api-ci.yaml/badge.svg)
 [![License Status](https://img.shields.io/github/license/SionAbes/fullstack-portfolio)](https://github.com/SionAbes/fullstack-portfolio/blob/master/LICENSE.md)
 
 # Siôn Abraham Full-Stack Portfolio
