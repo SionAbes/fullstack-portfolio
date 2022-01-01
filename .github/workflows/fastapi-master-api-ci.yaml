@@ -2,6 +2,9 @@ name: FastAPI Master API CI
 
 on: [push]
 
+env:
+  DOCKER_IMAGE_NAME: ghcr.io/SionAbes/fastapi-master-api
+  
 jobs:
 
   test:
@@ -57,3 +60,56 @@ jobs:
       - name: Test with pytest
         run: poetry run pytest --cov .
         working-directory: ./fastapi-master-api
+  docker:
+    name: Build Docker Image
+    needs: [ test ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ github.GITHUB_TOKEN }}
+
+      - name: Inject slug/short variables
+        uses: rlespinasse/github-slug-action@v3.x
+
+      - name: Generate Tag List
+        id: tag-list
+        uses: actions/github-script@v3.1.0
+        with:
+          result-encoding: string
+          script: |
+            const dockerImageName = process.env.DOCKER_IMAGE_NAME;
+            const refSlug = process.env.GITHUB_REF_SLUG;
+            // Always include tag with commit SHA
+            const tags = [dockerImageName.concat(":", context.sha)];
+            // Include branch name and latest tag based on which branch we are in
+            if (["develop", "staging", "master"].includes(refSlug)) {
+              tags.push(
+                dockerImageName.concat(":", refSlug)
+              );
+            }
+            if (refSlug == "master") {
+              tags.push(
+                dockerImageName.concat(":", "latest")
+              );
+            }
+            return tags.join(",");
+
+      - name: Build and Push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ steps.tag-list.outputs.result }}
+          cache-from: type=registry,ref=${{ env.DOCKER_IMAGE_NAME }}:buildcache
+          cache-to: mode=max,type=registry,ref=${{ env.DOCKER_IMAGE_NAME }}:buildcache,push=true
