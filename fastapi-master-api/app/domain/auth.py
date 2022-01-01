@@ -9,6 +9,7 @@ from app.domain.exceptions import BadPasswordError, EntityNotFoundError
 from app.domain.models.user import User as DomainUser
 from app.repository.database.users import users_repo
 from app.security import verify_password
+from app.settings import Settings
 from sqlalchemy.orm.session import Session
 
 JWTPayloadMapping = MutableMapping[
@@ -17,10 +18,7 @@ JWTPayloadMapping = MutableMapping[
 
 
 def authenticate(
-    *,
-    email: str,
-    password: str,
-    db: Session,
+    *, email: str, password: str, db: Session, settings: Settings
 ) -> LoginResponse:
 
     user: DomainUser = users_repo.get_by_email(db=db, email=email)
@@ -34,7 +32,9 @@ def authenticate(
     if user.is_superuser:
         roles.append("ADMIN")
 
-    token = create_access_and_refresh_token(user_id=user.id, roles=roles)
+    token = create_access_and_refresh_token(
+        user_id=user.id, roles=roles, settings=settings
+    )
 
     return LoginResponse(
         user=User(
@@ -51,13 +51,16 @@ def authenticate(
     )
 
 
-def create_access_and_refresh_token(user_id: int, roles: List[str]) -> Token:
+def create_access_and_refresh_token(
+    user_id: int, roles: List[str], settings: Settings
+) -> Token:
 
     access_token = create_token(
         token_type="access_token",
         lifetime=timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES),
         sub=user_id,
         roles=roles,
+        settings=settings,
     )
 
     refresh_token = create_token(
@@ -65,13 +68,14 @@ def create_access_and_refresh_token(user_id: int, roles: List[str]) -> Token:
         lifetime=timedelta(minutes=settings.REFRESH_TOKEN_EXPIRE_MINUTES),
         sub=user_id,
         roles=roles,
+        settings=settings,
     )
 
     return Token(access_token=access_token, refresh_token=refresh_token)
 
 
 def create_token(
-    token_type: str, lifetime: timedelta, sub: int, roles: List[str]
+    token_type: str, lifetime: timedelta, sub: int, roles: List[str], settings: Settings
 ) -> str:
     payload = {}
     expire = datetime.utcnow() + lifetime

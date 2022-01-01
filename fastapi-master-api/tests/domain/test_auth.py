@@ -6,12 +6,13 @@ from freezegun import freeze_time
 
 
 @freeze_time(datetime(2015, 5, 1, 15, 20, 30))
-def test_create_token(freezer, mock_admin_user):
+def test_create_token(freezer, mock_admin_user, settings):
     token = create_token(
         token_type="access_token",
         lifetime=timedelta(minutes=10),
         sub=mock_admin_user.sub,
         roles=mock_admin_user.roles,
+        settings=settings,
     )
     decoded_token = jwt.decode(token, "jwt_secret", algorithms=["HS256"])
     assert decoded_token["roles"] == ["ADMIN", "USER"]
