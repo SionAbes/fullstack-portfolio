@@ -108,7 +108,7 @@ jobs:
       - name: Build and Push
         uses: docker/build-push-action@v2
         with:
-          context: .
+          context: ./fastapi-master-api
           push: true
           tags: |
             ${{ steps.tag-list.outputs.result }}
