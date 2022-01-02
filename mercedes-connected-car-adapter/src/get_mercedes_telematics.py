@@ -85,7 +85,7 @@ async def main():
                 vehicle_id=vehicle_id["id"], token=token, settings=settings
             )
         )
-        timeseries_data = await asyncio.gather(
+        await asyncio.gather(
             *[
                 get_timeseries_information(
                     metric=metric,
