@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from pydantic import BaseModel
-from scripts.models.shared import RetrievalStatus
+from src.models.shared import RetrievalStatus
 
 
 class TirePressureStatus(BaseModel):

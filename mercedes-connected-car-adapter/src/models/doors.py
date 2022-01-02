@@ -3,7 +3,7 @@ from enum import Enum
 from typing import Optional
 
 from pydantic import BaseModel
-from scripts.models.shared import RetrievalStatus
+from src.models.shared import RetrievalStatus
 
 
 class DoorOpenValue(Enum):

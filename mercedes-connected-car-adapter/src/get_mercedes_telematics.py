@@ -3,13 +3,13 @@ from typing import Dict, List
 
 import requests
 from requests import Response
-from scripts.models.distance import Distance
-from scripts.models.doors import Doors
-from scripts.models.fuel import Fuel
-from scripts.models.location import Location
-from scripts.models.tires import Tires
-from scripts.models.vehicle import Vehicle
-from scripts.settings import Settings, get_settings
+from src.models.distance import Distance
+from src.models.doors import Doors
+from src.models.fuel import Fuel
+from src.models.location import Location
+from src.models.tires import Tires
+from src.models.vehicle import Vehicle
+from src.settings import Settings, get_settings
 
 TIMESERIES_METRICS = [
     {
