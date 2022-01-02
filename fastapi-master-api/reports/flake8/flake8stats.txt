@@ -4,3 +4,4 @@
 1     F401 'app.repository.models.users.User' imported but unused
 1     F401 'app.repository.models.users.User' imported but unused
 1     F401 'app.repository.models.users.User' imported but unused
+4     F401 'app.api.models.token.Token' imported but unused
