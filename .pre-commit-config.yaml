@@ -73,11 +73,11 @@ repos:
         name: swagger-validation:build
         args: [validate, openapi-spec/build/openapi.yaml]
 
-#  - repo: local
-#    hooks:
-#      - id: custom-script-file
-#        name: custom-script-file
-#        entry: fastapi-master-api/generate_reports.sh
-#        language: script
-#        types: [python]
-#        pass_filenames: false
+  - repo: local
+    hooks:
+      - id: custom-script-file
+        name: custom-script-file
+        entry: mercedes-connected-car-adapter/generate_reports.sh
+        language: script
+        types: [python]
+        pass_filenames: false

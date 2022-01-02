@@ -10,6 +10,7 @@
 ### Mercedes Connected Car Adapter
 [![Flake8 Status](./mercedes-connected-car-adapter/reports/badges/flake8-badge.svg?dummy=8484744)](https://sionabes.github.io/fullstack-portfolio/mercedes-connected-car-adapter/reports/flake8/index.html)
 [![Tests Status](./mercedes-connected-car-adapter/reports/badges/tests-badge.svg?dummy=8484744)](https://sionabes.github.io/fullstack-portfolio/mercedes-connected-car-adapter/reports/junit/report.html)
+[![Coverage Status](./mercedes-connected-car-adapter/reports/badges/coverage-badge.svg?dummy=8484744)](https://sionabes.github.io/fullstack-portfolio/mercedes-connected-car-adapter/reports/coverage/index.html)
 
 # Siôn Abraham Full-Stack Portfolio
 
