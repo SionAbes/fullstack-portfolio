@@ -4,3 +4,7 @@ class EntityNotFoundError(Exception):
 
 class BadPasswordError(Exception):
     pass
+
+
+class EntityConflictError(Exception):
+    pass

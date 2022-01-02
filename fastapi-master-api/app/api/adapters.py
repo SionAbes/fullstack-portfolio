@@ -1,8 +1,10 @@
+from app.api.exceptions import HTTP409Exception
 from app.api.manual_models.adapter import AdapterManual as Adapter
 from app.api.manual_models.create_adapter import CreateAdapterManual as CreateAdapter
 from app.api.manual_models.token import TokenModel
 from app.dependancies import get_db
 from app.domain.adapters import create_adapter as domain_create_adapter
+from app.domain.exceptions import EntityConflictError
 from app.domain.models.adapter import CreateAdapter as DomainCreateAdapter
 from app.security import get_current_user
 from fastapi import APIRouter, Depends, Security
@@ -25,14 +27,17 @@ def create_adapter(
     db: Session = Depends(get_db),
     token_user: TokenModel = Security(get_current_user, scopes=["ADMIN"]),
 ) -> Adapter:
-    adapter = domain_create_adapter(
-        db=db,
-        create_adapter=DomainCreateAdapter(
-            user_id=token_user.sub,
-            adapter_name=create_adapter.adapter_name.value,
-            cron_expression=create_adapter.cron_expression,
-        ),
-    )
+    try:
+        adapter = domain_create_adapter(
+            db=db,
+            create_adapter=DomainCreateAdapter(
+                user_id=token_user.sub,
+                adapter_name=create_adapter.adapter_name.value,
+                cron_expression=create_adapter.cron_expression,
+            ),
+        )
+    except EntityConflictError:
+        raise HTTP409Exception
     return Adapter(
         id=adapter.id,
         user_id=adapter.user_id,
