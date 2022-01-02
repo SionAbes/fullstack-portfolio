@@ -77,8 +77,7 @@ repos:
 #    hooks:
 #      - id: custom-script-file
 #        name: custom-script-file
-#        entry: mercedes-connected-car-adapter/generate_reports.sh
+#        entry: fastapi-master-api/generate_reports.sh
 #        language: script
 #        types: [python]
 #        pass_filenames: false
-
