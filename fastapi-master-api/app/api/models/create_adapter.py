@@ -17,11 +17,11 @@ class CreateAdapter(BaseModel):
 
     CreateAdapter - a model defined in OpenAPI
 
-        adapter: The adapter of this CreateAdapter.
+        adapter_name: The adapter_name of this CreateAdapter [Optional].
         cron_expression: The cron_expression of this CreateAdapter.
     """
 
-    adapter: AdapterEnums
+    adapter_name: Optional[AdapterEnums] = None
     cron_expression: str
 
 

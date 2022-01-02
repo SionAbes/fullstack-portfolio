@@ -17,20 +17,20 @@ class Adapter(BaseModel):
 
     Adapter - a model defined in OpenAPI
 
-        id: The id of this Adapter [Optional].
-        user_id: The user_id of this Adapter [Optional].
-        created_at: The created_at of this Adapter [Optional].
-        updated_at: The updated_at of this Adapter [Optional].
-        adapter: The adapter of this Adapter [Optional].
-        cron_expression: The cron_expression of this Adapter [Optional].
+        id: The id of this Adapter.
+        user_id: The user_id of this Adapter.
+        created_at: The created_at of this Adapter.
+        updated_at: The updated_at of this Adapter.
+        adapter_name: The adapter_name of this Adapter.
+        cron_expression: The cron_expression of this Adapter.
     """
 
-    id: Optional[int] = None
-    user_id: Optional[int] = None
-    created_at: Optional[datetime] = None
-    updated_at: Optional[datetime] = None
-    adapter: Optional[AdapterEnums] = None
-    cron_expression: Optional[str] = None
+    id: int
+    user_id: int
+    created_at: datetime
+    updated_at: datetime
+    adapter_name: AdapterEnums
+    cron_expression: str
 
 
 Adapter.update_forward_refs()

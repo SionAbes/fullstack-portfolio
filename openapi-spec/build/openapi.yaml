@@ -165,7 +165,7 @@ components:
         - adapter
         - cron_expression
       properties:
-        adapter:
+        adapter_name:
           $ref: '#/components/schemas/adapter_enums'
         cron_expression:
           type: string
@@ -176,6 +176,13 @@ components:
           type: string
     adapter:
       type: object
+      required:
+        - id
+        - user_id
+        - created_at
+        - updated_at
+        - adapter_name
+        - cron_expression
       properties:
         id:
           type: integer
@@ -189,7 +196,7 @@ components:
           type: string
           format: date-time
           example: 2021-01-30T08:30:00Z
-        adapter:
+        adapter_name:
           $ref: '#/components/schemas/adapter_enums'
         cron_expression:
           type: string
