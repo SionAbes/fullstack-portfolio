@@ -40,7 +40,6 @@ def get_vehicle_id_list(token: str, settings: Settings) -> List[Dict]:
     response: Response = requests.get(
         f"{settings.CONNECTED_CAR_API_URL}/vehicles", headers=headers
     )
-
     return response.json()
 
 
@@ -50,7 +49,6 @@ def get_vehicle_details(vehicle_id: str, token: str, settings: Settings) -> Vehi
         f"{settings.CONNECTED_CAR_API_URL}/vehicles/{vehicle_id}", headers=headers
     )
     vehicle_data = response.json()
-
     return Vehicle(
         make="mercedes_benz",
         model_year=vehicle_data["modelyear"],
