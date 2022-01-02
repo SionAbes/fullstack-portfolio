@@ -1,0 +1,6 @@
+description: creates a new adapter instance
+required: true
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/createAdapter.yaml

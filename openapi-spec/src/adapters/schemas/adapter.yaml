@@ -1,0 +1,18 @@
+type: object
+properties:
+  id:
+    type: integer
+  user_id:
+    type: integer
+  created_at:
+    type: string
+    format: date-time
+    example: "2021-01-30T08:30:00Z"
+  updated_at:
+    type: string
+    format: date-time
+    example: "2021-01-30T08:30:00Z"
+  adapter:
+    $ref: ../common/adapter_enums.yaml
+  cron_expression:
+    type: string

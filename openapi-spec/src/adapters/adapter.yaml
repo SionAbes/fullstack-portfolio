@@ -1,0 +1,22 @@
+post:
+  summary: creates a new adapter instance
+  operationId: createAdapter
+  requestBody:
+    $ref: requestBodies/createAdapter.yaml
+  responses:
+    '201':
+      description: the created adapter instance
+      content:
+        application/json:
+          schema:
+            $ref: schemas/adapter.yaml
+    '409':
+      description: this adapter already exissts
+      content:
+        application/json:
+          schema:
+            $ref: ../_common/schemas/GenericError.yaml
+    default:
+      $ref: ../_common/responses/DefaultError.yaml
+  tags:
+    - Adapters

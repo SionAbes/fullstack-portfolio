@@ -11,6 +11,29 @@ servers:
   - description: local-fastapi
     url: http://localhost
 paths:
+  /adapters/:
+    post:
+      summary: creates a new adapter instance
+      operationId: createAdapter
+      requestBody:
+        $ref: '#/components/requestBodies/createAdapter'
+      responses:
+        '201':
+          description: the created adapter instance
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/adapter'
+        '409':
+          description: this adapter already exissts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericError'
+        default:
+          $ref: '#/components/responses/DefaultError'
+      tags:
+        - Adapters
   /users/:
     post:
       summary: creates a new user
@@ -132,10 +155,43 @@ components:
       scheme: bearer
       bearerFormat: JWT
   schemas:
+    adapter_enums:
+      type: string
+      enum:
+        - mercedes_connected_car
+    createAdapter:
+      type: object
+      required:
+        - adapter
+        - cron_expression
+      properties:
+        adapter:
+          $ref: '#/components/schemas/adapter_enums'
+        cron_expression:
+          type: string
     GenericError:
       type: object
       properties:
         details:
+          type: string
+    adapter:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+          example: 2021-01-30T08:30:00Z
+        updated_at:
+          type: string
+          format: date-time
+          example: 2021-01-30T08:30:00Z
+        adapter:
+          $ref: '#/components/schemas/adapter_enums'
+        cron_expression:
           type: string
     user:
       type: object
@@ -249,14 +305,14 @@ components:
           $ref: '#/components/schemas/User'
       allOf:
         - $ref: '#/components/schemas/Token'
-  responses:
-    DefaultError:
-      description: Default Error
+  requestBodies:
+    createAdapter:
+      description: creates a new adapter instance
+      required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/GenericError'
-  requestBodies:
+            $ref: '#/components/schemas/createAdapter'
     createUser:
       description: creates a new user
       required: true
@@ -278,6 +334,13 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Credentials'
+  responses:
+    DefaultError:
+      description: Default Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GenericError'
   parameters:
     id:
       name: id
