@@ -51,3 +51,46 @@ def test_create_adapter_conflict(app, client, auth_user, mock_admin_user):
     resp = client.post(url, json=data)
 
     assert resp.status_code == status.HTTP_409_CONFLICT
+
+
+def test_fetch_adapters(
+    app,
+    client,
+    mock_admin_user,
+):
+    AdapterFactory.create_batch(2)
+    url = app.url_path_for("fetch_adapters")
+    resp = client.get(url)
+
+    assert resp.status_code == status.HTTP_200_OK
+    assert len(resp.json()) == 2
+
+
+def test_fetch_adapters_empty_db(
+    app,
+    client,
+    mock_admin_user,
+):
+    url = app.url_path_for("fetch_adapters")
+    resp = client.get(url)
+    assert resp.status_code == status.HTTP_200_OK
+    assert len(resp.json()) == 0
+
+
+def test_fetch_adapters_not_auth(
+    app,
+    client,
+):
+    AdapterFactory()
+    url = app.url_path_for("fetch_adapters")
+    resp = client.get(url)
+
+    assert resp.status_code == status.HTTP_401_UNAUTHORIZED
+
+
+def test_fetch_adapters_auth_as_standard_user(app, client, mock_standard_user):
+    AdapterFactory()
+    url = app.url_path_for("fetch_users")
+    resp = client.get(url)
+
+    assert resp.status_code == status.HTTP_401_UNAUTHORIZED
