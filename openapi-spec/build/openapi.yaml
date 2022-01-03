@@ -34,6 +34,22 @@ paths:
           $ref: '#/components/responses/DefaultError'
       tags:
         - Adapters
+    get:
+      summary: fetch adapter instances
+      operationId: fetchAdapters
+      responses:
+        '201':
+          description: A list of adapter instances
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/adapters'
+        '404':
+          description: Not found
+        default:
+          $ref: '#/components/responses/DefaultError'
+      tags:
+        - Adapters
   /users/:
     post:
       summary: creates a new user
@@ -155,25 +171,15 @@ components:
       scheme: bearer
       bearerFormat: JWT
   schemas:
-    adapter_enums:
-      type: string
-      enum:
-        - mercedes_connected_car
-    createAdapter:
-      type: object
-      required:
-        - adapter
-        - cron_expression
-      properties:
-        adapter_name:
-          $ref: '#/components/schemas/adapter_enums'
-        cron_expression:
-          type: string
     GenericError:
       type: object
       properties:
         details:
           type: string
+    adapter_enums:
+      type: string
+      enum:
+        - mercedes_connected_car
     adapter:
       type: object
       required:
@@ -196,6 +202,20 @@ components:
           type: string
           format: date-time
           example: 2021-01-30T08:30:00Z
+        adapter_name:
+          $ref: '#/components/schemas/adapter_enums'
+        cron_expression:
+          type: string
+    adapters:
+      type: array
+      items:
+        $ref: '#/components/schemas/adapter'
+    createAdapter:
+      type: object
+      required:
+        - adapter
+        - cron_expression
+      properties:
         adapter_name:
           $ref: '#/components/schemas/adapter_enums'
         cron_expression:
@@ -312,6 +332,13 @@ components:
           $ref: '#/components/schemas/User'
       allOf:
         - $ref: '#/components/schemas/Token'
+  responses:
+    DefaultError:
+      description: Default Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GenericError'
   requestBodies:
     createAdapter:
       description: creates a new adapter instance
@@ -341,13 +368,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Credentials'
-  responses:
-    DefaultError:
-      description: Default Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GenericError'
   parameters:
     id:
       name: id
