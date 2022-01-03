@@ -1,6 +1,34 @@
+from typing import List
+
+import requests
 from kubernetes import client, config
 from kubernetes.client.rest import ApiException
-from src.settings import get_settings
+from src.models.adapters import Adapter
+from src.settings import Settings, get_settings
+
+
+def login_to_master_api(settings: Settings) -> str:
+    data = {
+        "grant_type": None,
+        "username": settings.MASTER_API_USERNAME,
+        "password": settings.MASTER_API_PASSWORD,
+        "scope": None,
+        "client_id": None,
+        "client_secret": None,
+    }
+    response = requests.post(f"{settings.MASTER_API_BASE}/auth/login", data=data)
+    return response.json()["access_token"]
+
+
+def get_adapters(settings: Settings, token: str) -> List[Adapter]:
+    headers = {"Authorization": f"Bearer {token}"}
+    response = requests.get(
+        f"{settings.MASTER_API_BASE}/adapters",
+        headers=headers,
+    )
+    if response.status_code != 200:
+        raise Exception("api is currently down")
+    return [Adapter(**adapter) for adapter in response.json()]
 
 
 def create_adapter_cronjob(
@@ -76,25 +104,30 @@ def create_adapter_cronjob(
 
 
 def main():
-    cronjob_schedule = "0 * * * *"
-    cronjob_name = "cronjob-name"
-    image = "image_name"
-    adapter_name = "adapter-name"
 
     settings = get_settings()
+    token = login_to_master_api(settings=settings)
+    adapters = get_adapters(settings=settings, token=token)
 
     if settings.ENV == "local":
         configuration = config.load_kube_config()
     else:
         configuration = config.load_incluster_config()
 
-    create_adapter_cronjob(
-        configuration=configuration,
-        cronjob_name=cronjob_name,
-        cronjob_schedule=cronjob_schedule,
-        adapter_name=adapter_name,
-        image=image,
-    )
+    for adapter in adapters:
+
+        adapter_name = adapter.adapter_name.replace("_", "-")  # convert to kebab case
+        cronjob_schedule = adapter.cron_expression
+        cronjob_name = f"{adapter.user_id}-{adapter_name}-cronjob"
+        image = f"{adapter_name}:latest"
+
+        create_adapter_cronjob(
+            configuration=configuration,
+            cronjob_name=cronjob_name,
+            cronjob_schedule=cronjob_schedule,
+            adapter_name=adapter_name,
+            image=image,
+        )
 
 
 if __name__ == "__main__":
