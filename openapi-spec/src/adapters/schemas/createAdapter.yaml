@@ -1,9 +1,7 @@
 type: object
-required:
-  - adapter
-  - cron_expression
-properties:
-  adapter_name:
-    $ref: ../common/adapter_enums.yaml
-  cron_expression:
-    type: string
+oneOf:
+  - $ref: createBearerTokenAdapter.yaml
+discriminator:
+  propertyName: type
+  mapping:
+    bearer_token: createBearerTokenAdapter.yaml

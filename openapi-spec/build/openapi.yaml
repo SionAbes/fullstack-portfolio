@@ -210,7 +210,12 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/adapter'
-    createAdapter:
+    createBearerTokenAdapter:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/baseAdapter'
+        - $ref: '#/components/schemas/bearerToken'
+    baseAdapter:
       type: object
       required:
         - adapter
@@ -220,6 +225,21 @@ components:
           $ref: '#/components/schemas/adapter_enums'
         cron_expression:
           type: string
+    bearerToken:
+      properties:
+        bearer_token:
+          type: string
+      required:
+        - bearer_token
+      type: object
+    createAdapter:
+      type: object
+      oneOf:
+        - $ref: '#/components/schemas/createBearerTokenAdapter'
+      discriminator:
+        propertyName: type
+        mapping:
+          bearer_token: '#/components/schemas/createBearerTokenAdapter'
     user:
       type: object
       properties:
