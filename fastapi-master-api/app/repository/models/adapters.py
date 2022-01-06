@@ -16,10 +16,6 @@ from sqlalchemy.orm import relationship
 from .base import BaseModel, TimesMixin
 
 
-class AdapterEnums(enum.Enum):
-    mercedes_connected_car = "mercedes_connected_car"
-
-
 class Adapter(TimesMixin, BaseModel):
     __tablename__ = "adapters"
     __mapper_args__ = {
@@ -38,7 +34,7 @@ class Adapter(TimesMixin, BaseModel):
     )
     user = relationship("User")
     cron_expression = Column(Text)
-    adapter_name = Column(Enum(AdapterEnums))
+    adapter_name = Column(Text)
     authorization_type = Column(Text, nullable=False)
 
     __table_args__ = (UniqueConstraint(user_id, adapter_name),)
