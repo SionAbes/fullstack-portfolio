@@ -17,12 +17,14 @@ class BaseAdapter(BaseModel):
 
     BaseAdapter - a model defined in OpenAPI
 
-        adapter_name: The adapter_name of this BaseAdapter [Optional].
+        adapter_name: The adapter_name of this BaseAdapter.
         cron_expression: The cron_expression of this BaseAdapter.
+        authorization_type: The authorization_type of this BaseAdapter.
     """
 
-    adapter_name: Optional[AdapterEnums] = None
+    adapter_name: AdapterEnums
     cron_expression: str
+    authorization_type: str
 
 
 BaseAdapter.update_forward_refs()

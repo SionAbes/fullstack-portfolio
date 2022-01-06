@@ -218,12 +218,15 @@ components:
     baseAdapter:
       type: object
       required:
-        - adapter
+        - adapter_name
         - cron_expression
+        - authorization_type
       properties:
         adapter_name:
           $ref: '#/components/schemas/adapter_enums'
         cron_expression:
+          type: string
+        authorization_type:
           type: string
     bearerToken:
       properties:

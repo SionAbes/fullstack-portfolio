@@ -19,13 +19,15 @@ class CreateBearerTokenAdapter(BaseModel):
 
     CreateBearerTokenAdapter - a model defined in OpenAPI
 
-        adapter_name: The adapter_name of this CreateBearerTokenAdapter [Optional].
+        adapter_name: The adapter_name of this CreateBearerTokenAdapter.
         cron_expression: The cron_expression of this CreateBearerTokenAdapter.
+        authorization_type: The authorization_type of this CreateBearerTokenAdapter.
         bearer_token: The bearer_token of this CreateBearerTokenAdapter.
     """
 
-    adapter_name: Optional[AdapterEnums] = None
+    adapter_name: AdapterEnums
     cron_expression: str
+    authorization_type: str
     bearer_token: str
 
 

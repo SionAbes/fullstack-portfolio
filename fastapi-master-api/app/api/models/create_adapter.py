@@ -18,13 +18,15 @@ class CreateAdapter(BaseModel):
 
     CreateAdapter - a model defined in OpenAPI
 
-        adapter_name: The adapter_name of this CreateAdapter [Optional].
+        adapter_name: The adapter_name of this CreateAdapter.
         cron_expression: The cron_expression of this CreateAdapter.
+        authorization_type: The authorization_type of this CreateAdapter.
         bearer_token: The bearer_token of this CreateAdapter.
     """
 
-    adapter_name: Optional[AdapterEnums] = None
+    adapter_name: AdapterEnums
     cron_expression: str
+    authorization_type: str
     bearer_token: str
 
 
