@@ -1,12 +1,12 @@
-from typing import List
+from typing import List, Union
 
-from app.domain.models.adapter import Adapter, CreateAdapter
+from app.domain.models.adapter import Adapter, CreateBearerTokenAdapter
 from app.repository.database.adapters import adapters_repo
 from sqlalchemy.orm import Session
 
 
 def create_adapter(
-    create_adapter: CreateAdapter,
+    create_adapter: Union[CreateBearerTokenAdapter],
     db: Session,
 ) -> Adapter:
     return adapters_repo.create(db=db, obj_in=create_adapter)

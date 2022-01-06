@@ -1,8 +1,10 @@
-from typing import List
+from typing import List, Union
 
 from app.api.exceptions import HTTP409Exception
 from app.api.manual_models.adapter import AdapterManual as Adapter
-from app.api.manual_models.create_adapter import CreateAdapterManual as CreateAdapter
+from app.api.manual_models.create_bearer_token_adapter_manual import (
+    CreateBearerTokenAdapterManual as CreateBearerTokenAdapter,
+)
 from app.api.manual_models.token import TokenModel
 from app.dependancies import get_db
 from app.domain.adapters import create_adapter as domain_create_adapter
@@ -26,18 +28,17 @@ router = APIRouter(
     summary="creates a new adapter instance",
 )
 def create_adapter(
-    create_adapter: CreateAdapter,
+    create_adapter: Union[CreateBearerTokenAdapter],
     db: Session = Depends(get_db),
     token_user: TokenModel = Security(get_current_user, scopes=["ADMIN"]),
 ) -> Adapter:
     try:
+        domain_obj = create_adapter.__dict__
+        domain_obj["user_id"] = token_user.sub
+        domain_obj["adapter_name"] = create_adapter.adapter_name.value
         adapter = domain_create_adapter(
             db=db,
-            create_adapter=DomainCreateAdapter(
-                user_id=token_user.sub,
-                adapter_name=create_adapter.adapter_name.value,
-                cron_expression=create_adapter.cron_expression,
-            ),
+            create_adapter=DomainCreateAdapter.parse_obj(domain_obj).__root__,
         )
     except EntityConflictError:
         raise HTTP409Exception
