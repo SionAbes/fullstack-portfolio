@@ -33,7 +33,7 @@ def test_create_adapter_standard_user(app, client, mock_standard_user):
 
 def test_create_adapter_bearer_token(app, client, mock_admin_user, settings):
     token = encrypt_string(
-        string_to_encrypt="abcdefghijklmnopqrstuvwxyz", settings=settings
+        string_to_encrypt="abcdefghijklmnopqrstuvwxyz",
     )
     data = {
         "adapter_name": "mercedes_connected_car",
@@ -68,7 +68,7 @@ def test_create_adapter_bearer_token_not_encrypted(
 
 def test_create_adapter_conflict(app, client, auth_user, mock_admin_user, settings):
     token = encrypt_string(
-        string_to_encrypt="abcdefghijklmnopqrstuvwxyz", settings=settings
+        string_to_encrypt="abcdefghijklmnopqrstuvwxyz",
     )
     data = {
         "adapter_name": "mercedes_connected_car",
@@ -89,7 +89,7 @@ def test_create_adapter_conflict(app, client, auth_user, mock_admin_user, settin
 
 def test_fetch_adapters(app, client, mock_admin_user, settings):
     token = encrypt_string(
-        string_to_encrypt="abcdefghijklmnopqrstuvwxyz", settings=settings
+        string_to_encrypt="abcdefghijklmnopqrstuvwxyz",
     )
     BearerTokenAdapterFactory.create_batch(2, bearer_token=token)
     url = app.url_path_for("fetch_adapters")

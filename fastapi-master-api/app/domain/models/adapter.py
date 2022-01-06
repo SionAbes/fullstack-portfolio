@@ -2,11 +2,8 @@ from datetime import datetime
 from typing import Literal, Union
 
 from app.dependancies import decrypt_string
-from app.settings import get_settings
 from pydantic import BaseModel, Field, validator
 from typing_extensions import Annotated
-
-settings = get_settings()
 
 
 class CreateAdapterBase(BaseModel):
@@ -21,7 +18,9 @@ class CreateBearerTokenAdapter(CreateAdapterBase):
 
     @validator("bearer_token", pre=True)
     def decrypt(value, field):
-        decrypt_string(string_to_decrypt=value, settings=settings)
+        decrypt_string(
+            string_to_decrypt=value,
+        )
         return value
 
 
@@ -31,7 +30,9 @@ class CreateApiKeyAdapter(CreateAdapterBase):
 
     @validator("api_key", pre=True)
     def decrypt(value, field):
-        decrypt_string(string_to_decrypt=value, settings=settings)
+        decrypt_string(
+            string_to_decrypt=value,
+        )
         return value
 
 
@@ -56,7 +57,9 @@ class BearerTokenAdapter(AdapterBase):
 
     @validator("bearer_token", pre=True)
     def decrypt(value, field):
-        decrypt_string(string_to_decrypt=value, settings=settings)
+        decrypt_string(
+            string_to_decrypt=value,
+        )
         return value
 
 
@@ -66,7 +69,9 @@ class ApiKeyAdapter(AdapterBase):
 
     @validator("api_key", pre=True)
     def decrypt(value, field):
-        decrypt_string(string_to_decrypt=value, settings=settings)
+        decrypt_string(
+            string_to_decrypt=value,
+        )
         return value
 
 
