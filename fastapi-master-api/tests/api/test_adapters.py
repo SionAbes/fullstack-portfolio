@@ -1,5 +1,6 @@
+from app.dependancies import encrypt_string
 from fastapi import status
-from tests.factories.adapter import AdapterFactory
+from tests.factories.adapter import BearerTokenAdapterFactory
 
 
 def test_create_adapter_no_body(
@@ -30,19 +31,52 @@ def test_create_adapter_standard_user(app, client, mock_standard_user):
     assert resp.status_code == status.HTTP_401_UNAUTHORIZED
 
 
-def test_create_adapter(app, client, mock_admin_user):
-    data = {"adapter_name": "mercedes_connected_car", "cron_expression": "0 * * * *"}
+def test_create_adapter_bearer_token(app, client, mock_admin_user, settings):
+    token = encrypt_string(
+        string_to_encrypt="abcdefghijklmnopqrstuvwxyz", settings=settings
+    )
+    data = {
+        "adapter_name": "mercedes_connected_car",
+        "cron_expression": "0 * * * *",
+        "authorization_type": "bearer_token",
+        "bearer_token": token,
+    }
     url = app.url_path_for("create_adapter")
     resp = client.post(url, json=data)
 
     assert resp.status_code == status.HTTP_200_OK
-    assert resp.json().items() >= data.items()
+    assert resp.json()["cron_expression"] >= data["cron_expression"]
     assert resp.json()["user_id"] == mock_admin_user.sub
+    assert resp.json()["adapter_name"] >= data["adapter_name"]
 
 
-def test_create_adapter_conflict(app, client, auth_user, mock_admin_user):
-    data = {"adapter_name": "mercedes_connected_car", "cron_expression": "0 * * * *"}
-    AdapterFactory(
+def test_create_adapter_bearer_token_not_encrypted(
+    app, client, mock_admin_user, settings
+):
+    data = {
+        "adapter_name": "mercedes_connected_car",
+        "cron_expression": "0 * * * *",
+        "authorization_type": "bearer_token",
+        "bearer_token": "abcdefghijklmnopqrstuvwxyz",
+    }
+
+    url = app.url_path_for("create_adapter")
+    resp = client.post(url, json=data)
+
+    assert resp.status_code == status.HTTP_403_FORBIDDEN
+
+
+def test_create_adapter_conflict(app, client, auth_user, mock_admin_user, settings):
+    token = encrypt_string(
+        string_to_encrypt="abcdefghijklmnopqrstuvwxyz", settings=settings
+    )
+    data = {
+        "adapter_name": "mercedes_connected_car",
+        "cron_expression": "0 * * * *",
+        "authorization_type": "bearer_token",
+        "bearer_token": token,
+    }
+    BearerTokenAdapterFactory(
         adapter_name=data["adapter_name"],
         cron_expression=data["cron_expression"],
         user=auth_user,
@@ -58,7 +92,7 @@ def test_fetch_adapters(
     client,
     mock_admin_user,
 ):
-    AdapterFactory.create_batch(2)
+    BearerTokenAdapterFactory.create_batch(2)
     url = app.url_path_for("fetch_adapters")
     resp = client.get(url)
 
@@ -81,7 +115,7 @@ def test_fetch_adapters_not_auth(
     app,
     client,
 ):
-    AdapterFactory()
+    BearerTokenAdapterFactory()
     url = app.url_path_for("fetch_adapters")
     resp = client.get(url)
 
@@ -89,7 +123,7 @@ def test_fetch_adapters_not_auth(
 
 
 def test_fetch_adapters_auth_as_standard_user(app, client, mock_standard_user):
-    AdapterFactory()
+    BearerTokenAdapterFactory()
     url = app.url_path_for("fetch_users")
     resp = client.get(url)
 

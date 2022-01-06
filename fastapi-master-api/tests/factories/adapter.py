@@ -1,15 +1,15 @@
 from datetime import datetime
 
-from app.repository.models.adapters import Adapter
-from factory import LazyFunction, Sequence, SubFactory
+from app.repository.models.adapters import AuthorizationBearerToken
+from factory import Faker, LazyFunction, Sequence, SubFactory
 from factory.alchemy import SQLAlchemyModelFactory
 from tests import Session
 from tests.factories.user import UserFactory
 
 
-class AdapterFactory(SQLAlchemyModelFactory):
+class BearerTokenAdapterFactory(SQLAlchemyModelFactory):
     class Meta:
-        model = Adapter
+        model = AuthorizationBearerToken
         sqlalchemy_session = Session
         sqlalchemy_session_persistence = "commit"
 
@@ -19,3 +19,6 @@ class AdapterFactory(SQLAlchemyModelFactory):
     user = SubFactory(UserFactory)
     cron_expression = "0 * * * *"
     adapter_name = "mercedes_connected_car"
+    authorization_type = "bearer_token"
+    auth_type_id = Sequence(lambda n: n)
+    bearer_token = Faker("pystr")

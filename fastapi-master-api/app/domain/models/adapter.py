@@ -1,7 +1,12 @@
 from datetime import datetime
 from typing import Literal, Union
 
-from pydantic import BaseModel, Field
+from app.dependancies import decrypt_string
+from app.settings import get_settings
+from pydantic import BaseModel, Field, validator
+from typing_extensions import Annotated
+
+settings = get_settings()
 
 
 class CreateAdapterBase(BaseModel):
@@ -14,10 +19,20 @@ class CreateBearerTokenAdapter(CreateAdapterBase):
     authorization_type: Literal["bearer_token"]
     bearer_token: str
 
+    @validator("bearer_token", pre=True)
+    def decrypt(value, field):
+        decrypt_string(string_to_decrypt=value, settings=settings)
+        return value
+
 
 class CreateApiKeyAdapter(CreateAdapterBase):
     authorization_type: Literal["api_key"]
     api_key: str
+
+    @validator("api_key", pre=True)
+    def decrypt(value, field):
+        decrypt_string(string_to_decrypt=value, settings=settings)
+        return value
 
 
 class CreateAdapter(BaseModel):
@@ -26,7 +41,7 @@ class CreateAdapter(BaseModel):
     )
 
 
-class Adapter(BaseModel):
+class AdapterBase(BaseModel):
     id: int
     user_id: int
     adapter_name: str
@@ -34,5 +49,29 @@ class Adapter(BaseModel):
     created_at: datetime
     updated_at: datetime
 
-    class Config:
-        orm_mode = True
+
+class BearerTokenAdapter(AdapterBase):
+    authorization_type: Literal["bearer_token"]
+    bearer_token: str
+
+    @validator("bearer_token", pre=True)
+    def decrypt(value, field):
+        decrypt_string(string_to_decrypt=value, settings=settings)
+        return value
+
+
+class ApiKeyAdapter(AdapterBase):
+    authorization_type: Literal["api_key"]
+    api_key: str
+
+    @validator("api_key", pre=True)
+    def decrypt(value, field):
+        decrypt_string(string_to_decrypt=value, settings=settings)
+        return value
+
+
+class Adapter(BaseModel):
+    __root__: Annotated[
+        Union[BearerTokenAdapter, ApiKeyAdapter],
+        Field(discriminator="authorization_type"),
+    ]

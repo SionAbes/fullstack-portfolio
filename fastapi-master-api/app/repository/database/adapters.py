@@ -1,47 +1,46 @@
-from typing import List
+from typing import Generic, List, TypeVar
 
-from app.domain.exceptions import EntityConflictError
+from app.domain.exceptions import EntityConflictError, NotSupportedError
 from app.domain.models.adapter import Adapter as DomainAdapter
-from app.domain.models.adapter import CreateAdapter as DomainCreateAdapter
-from app.repository.database.crud import CRUDBase
-from app.repository.models.adapters import Adapter
+from app.domain.models.adapter import CreateBearerTokenAdapter
+from app.repository.models.adapters import Adapter, AuthorizationBearerToken
+from app.repository.models.base import BaseModel as Base
+from pydantic import BaseModel
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, with_polymorphic
+
+ModelType = TypeVar("ModelType", bound=Base)
+CreateSchemaType = TypeVar("CreateSchemaType", bound=BaseModel)
+UpdateSchemaType = TypeVar("UpdateSchemaType", bound=BaseModel)
 
 
-class AdaptersRepo(CRUDBase[Adapter, DomainCreateAdapter, DomainCreateAdapter]):
-    def create(self, db: Session, *, obj_in: DomainCreateAdapter) -> DomainAdapter:
+class PolymorphicAdaptersBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
+    def __init__(self):
+        self.adapters = with_polymorphic(Adapter, [AuthorizationBearerToken])
+
+    def list(self, db: Session) -> List[DomainAdapter]:
+        adapters = db.query(self.adapters).all()
+        return [DomainAdapter.parse_obj(adapter.__dict__) for adapter in adapters]
+
+    def create(self, db: Session, *, obj_in) -> DomainAdapter:
+        model = self._check_instance_model(obj_in)
+        if not model:
+            raise NotSupportedError(
+                f"update_answer of type: {type(obj_in)} is not supported"
+            )
         try:
             create_data = obj_in.dict()
-            adapter = Adapter(**create_data)
+            adapter = model(**create_data)
             db.add(adapter)
-            db.commit()
+            db.flush()
         except IntegrityError:
             db.rollback()
             raise EntityConflictError
+        return DomainAdapter.parse_obj(adapter.__dict__)
 
-        return DomainAdapter(
-            id=adapter.id,
-            user_id=adapter.user_id,
-            created_at=adapter.created_at,
-            updated_at=adapter.updated_at,
-            adapter_name=adapter.adapter_name.value,
-            cron_expression=adapter.cron_expression,
-        )
-
-    def list(self, db: Session) -> List[DomainAdapter]:
-        adapters = db.query(self.model).all()
-        return [
-            DomainAdapter(
-                id=adapter.id,
-                user_id=adapter.user_id,
-                created_at=adapter.created_at,
-                updated_at=adapter.updated_at,
-                adapter_name=adapter.adapter_name.value,
-                cron_expression=adapter.cron_expression,
-            )
-            for adapter in adapters
-        ]
+    def _check_instance_model(self, domain_model):
+        if isinstance(domain_model, CreateBearerTokenAdapter):
+            return AuthorizationBearerToken
 
 
-adapters_repo = AdaptersRepo(Adapter)
+adapters_repo = PolymorphicAdaptersBase()

@@ -8,3 +8,7 @@ class BadPasswordError(Exception):
 
 class EntityConflictError(Exception):
     pass
+
+
+class NotSupportedError(Exception):
+    pass

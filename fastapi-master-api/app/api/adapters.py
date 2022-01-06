@@ -1,6 +1,6 @@
 from typing import List, Union
 
-from app.api.exceptions import HTTP409Exception
+from app.api.exceptions import HTTP403Exception, HTTP409Exception
 from app.api.manual_models.adapter import AdapterManual as Adapter
 from app.api.manual_models.create_bearer_token_adapter_manual import (
     CreateBearerTokenAdapterManual as CreateBearerTokenAdapter,
@@ -12,6 +12,7 @@ from app.domain.adapters import fetch_adapters as domain_fetch_adapters
 from app.domain.exceptions import EntityConflictError
 from app.domain.models.adapter import CreateAdapter as DomainCreateAdapter
 from app.security import get_current_user
+from cryptography.fernet import InvalidToken
 from fastapi import APIRouter, Depends, Security
 from sqlalchemy.orm import Session
 
@@ -42,14 +43,11 @@ def create_adapter(
         )
     except EntityConflictError:
         raise HTTP409Exception
-    return Adapter(
-        id=adapter.id,
-        user_id=adapter.user_id,
-        created_at=adapter.created_at,
-        updated_at=adapter.updated_at,
-        adapter_name=adapter.adapter_name,
-        cron_expression=adapter.cron_expression,
-    )
+    except InvalidToken:
+        raise HTTP403Exception(
+            message="credentials are not encrypted in an accepted manner."
+        )
+    return Adapter.from_orm(adapter)
 
 
 @router.get(
