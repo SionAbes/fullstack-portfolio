@@ -1,6 +1,6 @@
 from typing import Generator
 
-from app.settings import Settings, get_settings
+from app.settings import get_settings
 from cryptography.fernet import Fernet
 from fastapi import Request
 from sqlalchemy.orm import Session
