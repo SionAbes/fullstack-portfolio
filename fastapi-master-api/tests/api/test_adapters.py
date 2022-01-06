@@ -87,17 +87,28 @@ def test_create_adapter_conflict(app, client, auth_user, mock_admin_user, settin
     assert resp.status_code == status.HTTP_409_CONFLICT
 
 
-def test_fetch_adapters(
-    app,
-    client,
-    mock_admin_user,
-):
-    BearerTokenAdapterFactory.create_batch(2)
+def test_fetch_adapters(app, client, mock_admin_user, settings):
+    token = encrypt_string(
+        string_to_encrypt="abcdefghijklmnopqrstuvwxyz", settings=settings
+    )
+    BearerTokenAdapterFactory.create_batch(2, bearer_token=token)
     url = app.url_path_for("fetch_adapters")
     resp = client.get(url)
 
     assert resp.status_code == status.HTTP_200_OK
     assert len(resp.json()) == 2
+
+
+def test_fetch_adapters_token_not_encrypted(
+    app,
+    client,
+    mock_admin_user,
+):
+    BearerTokenAdapterFactory.create_batch(2, bearer_token="abcdefg")
+    url = app.url_path_for("fetch_adapters")
+    resp = client.get(url)
+
+    assert resp.status_code == status.HTTP_403_FORBIDDEN
 
 
 def test_fetch_adapters_empty_db(

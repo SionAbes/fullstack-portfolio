@@ -21,4 +21,4 @@ class BearerTokenAdapterFactory(SQLAlchemyModelFactory):
     adapter_name = "mercedes_connected_car"
     authorization_type = "bearer_token"
     auth_type_id = Sequence(lambda n: n)
-    bearer_token = Faker("pystr")
+    bearer_token = "abcdefghijklmnop"
