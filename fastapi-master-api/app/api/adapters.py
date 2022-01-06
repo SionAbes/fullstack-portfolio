@@ -1,7 +1,7 @@
 from typing import List, Union
 
 from app.api.exceptions import HTTP403Exception, HTTP409Exception
-from app.api.manual_models.adapter import AdapterManual as Adapter
+from app.api.manual_models.adapter import Adapter
 from app.api.manual_models.create_bearer_token_adapter_manual import (
     CreateBearerTokenAdapterManual as CreateBearerTokenAdapter,
 )
@@ -47,7 +47,7 @@ def create_adapter(
         raise HTTP403Exception(
             message="credentials are not encrypted in an accepted manner."
         )
-    return Adapter.from_orm(adapter)
+    return Adapter.parse_obj(adapter.__dict__)
 
 
 @router.get(
@@ -59,15 +59,10 @@ def fetch_adapters(
     db: Session = Depends(get_db),
     token_user: TokenModel = Security(get_current_user, scopes=["ADMIN"]),
 ) -> List[Adapter]:
-    adapters = domain_fetch_adapters(db=db)
-    return [
-        Adapter(
-            id=adapter.id,
-            user_id=adapter.user_id,
-            created_at=adapter.created_at,
-            updated_at=adapter.updated_at,
-            adapter_name=adapter.adapter_name,
-            cron_expression=adapter.cron_expression,
+    try:
+        adapters = domain_fetch_adapters(db=db)
+    except InvalidToken:
+        raise HTTP403Exception(
+            message="credentials are not encrypted in an accepted manner."
         )
-        for adapter in adapters
-    ]
+    return [Adapter.parse_obj(adapter.__dict__) for adapter in adapters]
