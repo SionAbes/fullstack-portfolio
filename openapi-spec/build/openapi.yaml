@@ -176,11 +176,16 @@ components:
       properties:
         details:
           type: string
+    bearerTokenAdapter:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/baseAdapter'
+        - $ref: '#/components/schemas/bearerToken'
     adapter_enums:
       type: string
       enum:
         - mercedes_connected_car
-    adapter:
+    baseAdapter:
       type: object
       required:
         - id
@@ -189,6 +194,7 @@ components:
         - updated_at
         - adapter_name
         - cron_expression
+        - authorization_type
       properties:
         id:
           type: integer
@@ -206,6 +212,23 @@ components:
           $ref: '#/components/schemas/adapter_enums'
         cron_expression:
           type: string
+        authorization_type:
+          type: string
+    bearerToken:
+      properties:
+        bearer_token:
+          type: string
+      required:
+        - bearer_token
+      type: object
+    adapter:
+      type: object
+      oneOf:
+        - $ref: '#/components/schemas/bearerTokenAdapter'
+      discriminator:
+        propertyName: type
+        mapping:
+          bearer_token: '#/components/schemas/bearerTokenAdapter'
     adapters:
       type: array
       items:
@@ -213,9 +236,9 @@ components:
     createBearerTokenAdapter:
       type: object
       allOf:
-        - $ref: '#/components/schemas/baseAdapter'
+        - $ref: '#/components/schemas/baseCreateAdapter'
         - $ref: '#/components/schemas/bearerToken'
-    baseAdapter:
+    baseCreateAdapter:
       type: object
       required:
         - adapter_name
@@ -228,13 +251,6 @@ components:
           type: string
         authorization_type:
           type: string
-    bearerToken:
-      properties:
-        bearer_token:
-          type: string
-      required:
-        - bearer_token
-      type: object
     createAdapter:
       type: object
       oneOf:

@@ -7,6 +7,7 @@ from datetime import date, datetime  # noqa: F401
 from typing import Any, Dict, List, Optional  # noqa: F401
 
 from app.api.models.adapter_enums import AdapterEnums
+from app.api.models.bearer_token_adapter import BearerTokenAdapter
 from pydantic import AnyUrl, BaseModel, EmailStr, validator  # noqa: F401
 
 
@@ -23,6 +24,8 @@ class Adapter(BaseModel):
         updated_at: The updated_at of this Adapter.
         adapter_name: The adapter_name of this Adapter.
         cron_expression: The cron_expression of this Adapter.
+        authorization_type: The authorization_type of this Adapter.
+        bearer_token: The bearer_token of this Adapter.
     """
 
     id: int
@@ -31,6 +34,8 @@ class Adapter(BaseModel):
     updated_at: datetime
     adapter_name: AdapterEnums
     cron_expression: str
+    authorization_type: str
+    bearer_token: str
 
 
 Adapter.update_forward_refs()

@@ -1,25 +1,7 @@
 type: object
-required:
-  - id
-  - user_id
-  - created_at
-  - updated_at
-  - adapter_name
-  - cron_expression
-properties:
-  id:
-    type: integer
-  user_id:
-    type: integer
-  created_at:
-    type: string
-    format: date-time
-    example: "2021-01-30T08:30:00Z"
-  updated_at:
-    type: string
-    format: date-time
-    example: "2021-01-30T08:30:00Z"
-  adapter_name:
-    $ref: ../common/adapter_enums.yaml
-  cron_expression:
-    type: string
+oneOf:
+  - $ref: bearerTokenAdapter.yaml
+discriminator:
+  propertyName: type
+  mapping:
+    bearer_token: bearerTokenAdapter.yaml

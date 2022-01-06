@@ -1,4 +1,4 @@
 type: object
 allOf:
-  - $ref: baseCreateAdapter.yaml
+  - $ref: baseAdapter.yaml
   - $ref: bearerToken.yaml

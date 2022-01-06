@@ -7,7 +7,7 @@ from datetime import date, datetime  # noqa: F401
 from typing import Any, Dict, List, Optional  # noqa: F401
 
 from app.api.models.adapter_enums import AdapterEnums
-from app.api.models.base_adapter import BaseAdapter
+from app.api.models.base_create_adapter import BaseCreateAdapter
 from app.api.models.bearer_token import BearerToken
 from pydantic import AnyUrl, BaseModel, EmailStr, validator  # noqa: F401
 
