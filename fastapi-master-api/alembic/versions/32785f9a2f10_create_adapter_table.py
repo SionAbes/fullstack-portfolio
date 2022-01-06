@@ -24,11 +24,7 @@ def upgrade():
         sa.Column("id", sa.Integer(), nullable=False),
         sa.Column("user_id", sa.Integer(), nullable=False),
         sa.Column("cron_expression", sa.Text(), nullable=True),
-        sa.Column(
-            "adapter_name",
-            sa.Enum("mercedes_connected_car", name="adapterenums"),
-            nullable=True,
-        ),
+        sa.Column("adapter_name", sa.Text(), nullable=True),
         sa.ForeignKeyConstraint(
             ["user_id"], ["users.id"], initially="DEFERRED", deferrable=True
         ),
