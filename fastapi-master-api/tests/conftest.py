@@ -27,6 +27,7 @@ def get_settings_override():
         POSTGRES_PASSWORD="var_postgres_password",
         API_URL="http://127.0.0.1:8001",
         JWT_SECRET="jwt_secret",
+        HASH_SECRET="abcdefg",
         ACCESS_TOKEN_EXPIRE_MINUTES=30,
         REFRESH_TOKEN_EXPIRE_MINUTES=60,
         ALGORITHM="HS256",
