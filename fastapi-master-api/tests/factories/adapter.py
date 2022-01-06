@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from app.repository.models.adapters import AuthorizationBearerToken
-from factory import Faker, LazyFunction, Sequence, SubFactory
+from factory import LazyFunction, Sequence, SubFactory
 from factory.alchemy import SQLAlchemyModelFactory
 from tests import Session
 from tests.factories.user import UserFactory

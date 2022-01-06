@@ -1,16 +1,7 @@
-import enum
 from datetime import datetime
 
 from app.repository.models.users import User
-from sqlalchemy import (
-    Column,
-    DateTime,
-    Enum,
-    ForeignKey,
-    Integer,
-    Text,
-    UniqueConstraint,
-)
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, Text, UniqueConstraint
 from sqlalchemy.orm import relationship
 
 from .base import BaseModel, TimesMixin

@@ -1,7 +1,7 @@
 from typing import Generator
 
 from app.settings import Settings
-from cryptography.fernet import Fernet, InvalidToken
+from cryptography.fernet import Fernet
 from fastapi import Request
 from sqlalchemy.orm import Session
 
