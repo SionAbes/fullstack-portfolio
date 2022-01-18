@@ -5,7 +5,7 @@ services:
     stdin_open: true
     tty: true
     build:
-      context: $PWD/fastapi-master-api
+      context: ../fastapi-master-api
       dockerfile: Dockerfile
       target: dev
     expose:
@@ -14,12 +14,12 @@ services:
       - 80:80
       - 4445:4445
     env_file: &envfile
-      - $PWD/fastapi-master-api/.env
+      - ../fastapi-master-api/.env
     volumes:
-      - $PWD/fastapi-master-api/app:/usr/src/app/app
-      - $PWD/fastapi-master-api/tests:/usr/src/app/tests
-      - $PWD/fastapi-master-api/pyproject.toml:/usr/src/app/pyproject.toml
-      - $PWD/fastapi-master-api/poetry.lock:/usr/src/app/poetry.lock
+      - ../fastapi-master-api/app:/usr/src/app/app
+      - ../fastapi-master-api/tests:/usr/src/app/tests
+      - ../fastapi-master-api/pyproject.toml:/usr/src/app/pyproject.toml
+      - ../fastapi-master-api/poetry.lock:/usr/src/app/poetry.lock
     depends_on:
       - db
 

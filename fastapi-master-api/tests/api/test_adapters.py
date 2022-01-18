@@ -50,22 +50,6 @@ def test_create_adapter_bearer_token(app, client, mock_admin_user, settings):
     assert resp.json()["adapter_name"] >= data["adapter_name"]
 
 
-def test_create_adapter_bearer_token_not_encrypted(
-    app, client, mock_admin_user, settings
-):
-    data = {
-        "adapter_name": "mercedes_connected_car",
-        "cron_expression": "0 * * * *",
-        "authorization_type": "bearer_token",
-        "bearer_token": "abcdefghijklmnopqrstuvwxyz",
-    }
-
-    url = app.url_path_for("create_adapter")
-    resp = client.post(url, json=data)
-
-    assert resp.status_code == status.HTTP_403_FORBIDDEN
-
-
 def test_create_adapter_conflict(app, client, auth_user, mock_admin_user, settings):
     token = encrypt_string(
         string_to_encrypt="abcdefghijklmnopqrstuvwxyz", secret=settings.HASH_SECRET
@@ -97,18 +81,6 @@ def test_fetch_adapters(app, client, mock_admin_user, settings):
 
     assert resp.status_code == status.HTTP_200_OK
     assert len(resp.json()) == 2
-
-
-def test_fetch_adapters_token_not_encrypted(
-    app,
-    client,
-    mock_admin_user,
-):
-    BearerTokenAdapterFactory.create_batch(2, bearer_token="abcdefg")
-    url = app.url_path_for("fetch_adapters")
-    resp = client.get(url)
-
-    assert resp.status_code == status.HTTP_403_FORBIDDEN
 
 
 def test_fetch_adapters_empty_db(
