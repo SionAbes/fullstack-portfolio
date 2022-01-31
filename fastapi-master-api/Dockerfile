@@ -13,6 +13,7 @@ RUN pip install --upgrade pip && \
     wget -qO- https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
 
 ENV APP_MODULE='app.main:create_app'
+ENV PRE_START_PATH='/usr/src/app/prestart.sh'
 
 WORKDIR /usr/src/app
 
@@ -28,6 +29,8 @@ COPY ./alembic.ini ./
 COPY ./alembic ./alembic
 COPY app ./app
 COPY ./tests ./tests
+COPY ./prestart.sh ./prestart.sh
+
 
 # Final image
 FROM base 
@@ -39,3 +42,4 @@ RUN poetry install --no-root --no-dev
 COPY ./alembic.ini ./
 COPY ./alembic ./alembic
 COPY app ./app
+COPY ./prestart.sh ./prestart.sh
