@@ -8,6 +8,7 @@ ENV/
 env.bak/
 venv.bak/
 config.yaml
+data/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
