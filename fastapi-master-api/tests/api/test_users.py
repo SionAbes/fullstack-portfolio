@@ -47,92 +47,7 @@ def test_fetch_users_auth_as_standard_user(app, client, mock_standard_user):
     assert resp.status_code == status.HTTP_401_UNAUTHORIZED
 
 
-@pytest.mark.parametrize(
-    "data",
-    [
-        (
-            UpdateUser(
-                is_superuser=True,
-            )
-        ),
-        (
-            UpdateUser(
-                is_superuser=True,
-                last_name="_last_name",
-            )
-        ),
-        (
-            UpdateUser(
-                is_superuser=True,
-                first_name="_first_name",
-            )
-        ),
-        (
-            UpdateUser(
-                is_superuser=True,
-                email="_email",
-            )
-        ),
-        (
-            UpdateUser(
-                last_name="_last_name",
-            )
-        ),
-        (
-            UpdateUser(
-                last_name="_last_name",
-                first_name="_first_name",
-            )
-        ),
-        (
-            UpdateUser(
-                last_name="_last_name",
-                first_name="_first_name",
-                email="_email",
-            )
-        ),
-        (
-            UpdateUser(
-                last_name="_last_name",
-                email="_email",
-            )
-        ),
-        (
-            UpdateUser(
-                first_name="_first_name",
-            )
-        ),
-        (
-            UpdateUser(
-                first_name="_first_name",
-                email="email",
-            )
-        ),
-        (
-            UpdateUser(
-                first_name="_first_name",
-                email="email",
-                is_superuser=True,
-            )
-        ),
-        (
-            UpdateUser(
-                last_name="_last_name",
-                email="email",
-                is_superuser=True,
-            )
-        ),
-        (
-            UpdateUser(
-                first_name="_first_name",
-                last_name="_last_name",
-                email="email",
-                is_superuser=True,
-            )
-        ),
-    ],
-)
-def test_update_user_by_id(app, client, mock_admin_user, data):
+def test_update_user_by_id(app, client, mock_admin_user):
     user = UserFactory(
         is_superuser=True,
         first_name="_first_name",
@@ -140,9 +55,16 @@ def test_update_user_by_id(app, client, mock_admin_user, data):
         email="_email",
         password="_password",
     )
+    update_user = UpdateUser(
+        is_superuser=False,
+        first_name="_updated_first_name",
+        last_name="_updated_last_name",
+        email="_updated_email",
+        password="_updated_password",
+    )
     url = app.url_path_for("update_user_by_id", id=user.id)
-    resp = client.put(url, json=data.dict())
-    user_data = user.__dict__ | data.dict(exclude_unset=True)
+    resp = client.put(url, json=update_user.dict())
+    user_data = user.__dict__ | update_user.dict(exclude_unset=True)
 
     assert resp.status_code == status.HTTP_200_OK
     assert resp.json()["is_superuser"] == user_data["is_superuser"]
@@ -153,11 +75,15 @@ def test_update_user_by_id(app, client, mock_admin_user, data):
 
 
 def test_update_user_by_id_no_entry(app, client, mock_admin_user):
-    data = UpdateUser(
-        is_superuser=True,
+    update_user = UpdateUser(
+        is_superuser=False,
+        first_name="_updated_first_name",
+        last_name="_updated_last_name",
+        email="_updated_email",
+        password="_updated_password",
     )
     url = app.url_path_for("update_user_by_id", id=-1)
-    resp = client.put(url, json=data.dict())
+    resp = client.put(url, json=update_user.dict())
 
     assert resp.status_code == status.HTTP_404_NOT_FOUND
 

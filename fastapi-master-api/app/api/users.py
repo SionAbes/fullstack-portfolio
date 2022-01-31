@@ -93,7 +93,13 @@ def update_user_by_id(
     try:
         user = domain_update_user_by_id(
             user_id=id,
-            update_user=DomainUpdateUser(**update_user.dict()),
+            update_user=DomainUpdateUser(
+                is_superuser=update_user.is_superuser,
+                first_name=update_user.first_name,
+                last_name=update_user.last_name,
+                email=update_user.email,
+                password=update_user.password,
+            ),
             db=db,
         )
         return User(

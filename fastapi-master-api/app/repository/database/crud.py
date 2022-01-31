@@ -101,7 +101,7 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
             return None
         return db_obj
 
-    def _create_object(self, db_obj: Type[ModelType]) -> DomainModel:
+    def _create_object(self, db_obj: ModelType) -> DomainModel:
         return self.domain_model.from_orm(db_obj)
 
     def _filter_soft_deleted(self, query: Query) -> Query:

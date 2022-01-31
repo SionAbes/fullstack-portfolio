@@ -13,11 +13,7 @@ class CreateUser(BaseModel):
 
 
 class UpdateUser(CreateUser):
-    is_superuser: Optional[bool] = None
-    first_name: Optional[str] = None
-    last_name: Optional[str] = None
-    email: Optional[str] = None
-    password: Optional[str] = None
+    pass
 
 
 class User(CreateUser):

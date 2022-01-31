@@ -20,7 +20,7 @@ os.environ["ENV"] = "test"
 def get_settings_override():
     return Settings(
         ENV="local",
-        SQL_HOST="db",
+        SQL_HOST="127.0.0.1",
         SQL_PORT=5432,
         POSTGRES_DB="test",
         POSTGRES_USER="test",
@@ -52,6 +52,7 @@ def connection(settings):
 
     if database_exists(settings.SQLALCHEMY_DATABASE_URL):
         drop_database(settings.SQLALCHEMY_DATABASE_URL)
+
     create_database(settings.SQLALCHEMY_DATABASE_URL)
 
     connection = engine.connect()
