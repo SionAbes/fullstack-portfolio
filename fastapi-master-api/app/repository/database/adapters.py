@@ -3,11 +3,15 @@ from typing import Generic, List, TypeVar
 from app.domain.exceptions import EntityConflictError, NotSupportedError
 from app.domain.models.adapter import Adapter as DomainAdapter
 from app.domain.models.adapter import (
+    CreateLiebherrLidatAdapter,
+    CreateTakeuchiTfmAdapter,
     CreateVolvoCaretrackAdapter,
     CreateWackerNeusonKramerAdapter,
 )
 from app.repository.models.adapters import (
     Adapter,
+    AdapterLiebherrLidat,
+    AdapterTakeuchiTfm,
     AdapterVolvoCaretrack,
     AdapterWackerNeusonKramer,
 )
@@ -52,6 +56,10 @@ class PolymorphicAdaptersBase(Generic[ModelType, CreateSchemaType, UpdateSchemaT
             return AdapterWackerNeusonKramer
         if isinstance(domain_model, CreateVolvoCaretrackAdapter):
             return AdapterVolvoCaretrack
+        if isinstance(domain_model, CreateLiebherrLidatAdapter):
+            return AdapterLiebherrLidat
+        if isinstance(domain_model, CreateTakeuchiTfmAdapter):
+            return AdapterTakeuchiTfm
 
 
 adapters_repo = PolymorphicAdaptersBase()

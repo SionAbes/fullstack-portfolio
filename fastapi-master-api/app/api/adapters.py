@@ -3,6 +3,8 @@ from typing import List, Union
 from app.api.exceptions import HTTP409Exception
 from app.api.manual_models.adapter import Adapter
 from app.api.manual_models.token import TokenModel
+from app.api.models.create_liebherr_lidat_adapter import CreateLiebherrLidatAdapter
+from app.api.models.create_takeuchi_tfm_adapter import CreateTakeuchiTfmAdapter
 from app.api.models.create_volvo_caretrack_adapter import CreateVolvoCaretrackAdapter
 from app.api.models.create_wacker_neuson_kramer_adapter import (
     CreateWackerNeusonKramerAdapter,
@@ -28,7 +30,12 @@ router = APIRouter(
     summary="creates a new adapter instance",
 )
 def create_adapter(
-    create_adapter: Union[CreateWackerNeusonKramerAdapter, CreateVolvoCaretrackAdapter],
+    create_adapter: Union[
+        CreateWackerNeusonKramerAdapter,
+        CreateVolvoCaretrackAdapter,
+        CreateLiebherrLidatAdapter,
+        CreateTakeuchiTfmAdapter,
+    ],
     db: Session = Depends(get_db),
     token_user: TokenModel = Security(get_current_user, scopes=["ADMIN"]),
 ) -> Adapter:
@@ -41,6 +48,7 @@ def create_adapter(
         )
     except EntityConflictError:
         raise HTTP409Exception
+    print(adapter.__dict__)
     return Adapter.parse_obj(adapter.__dict__)
 
 

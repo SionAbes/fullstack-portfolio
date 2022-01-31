@@ -74,3 +74,46 @@ class AdapterVolvoCaretrack(Adapter):
         default=datetime.now(),
         onupdate=datetime.now(),
     )
+
+
+class AdapterLiebherrLidat(Adapter):
+    __tablename__ = "adapter_liebherr_lidat"
+    __mapper_args__ = {"polymorphic_identity": "liebherr_lidat"}
+
+    adapter_id = Column(
+        "id", Integer, ForeignKey(Adapter.id, ondelete="CASCADE"), primary_key=True
+    )
+    password = Column(Text, nullable=False)
+    username = Column(Text, nullable=False)
+    child_created_at = Column(
+        "created_at", DateTime(True), nullable=False, default=datetime.now()
+    )
+    child_updated_at = Column(
+        "updated_at",
+        DateTime(timezone=True),
+        nullable=False,
+        default=datetime.now(),
+        onupdate=datetime.now(),
+    )
+
+
+class AdapterTakeuchiTfm(Adapter):
+    __tablename__ = "adapter_takeuchi_tfm"
+    __mapper_args__ = {"polymorphic_identity": "takeuchi_tfm"}
+
+    adapter_id = Column(
+        "id", Integer, ForeignKey(Adapter.id, ondelete="CASCADE"), primary_key=True
+    )
+    token_url = Column(Text, nullable=False)
+    client_id = Column(Text, nullable=False)
+    client_secret = Column(Text, nullable=False)
+    child_created_at = Column(
+        "created_at", DateTime(True), nullable=False, default=datetime.now()
+    )
+    child_updated_at = Column(
+        "updated_at",
+        DateTime(timezone=True),
+        nullable=False,
+        default=datetime.now(),
+        onupdate=datetime.now(),
+    )

@@ -42,9 +42,37 @@ class CreateWackerNeusonKramerAdapter(CreateAdapterBase):
         return get_string_hash(cs)
 
 
+class CreateLiebherrLidatAdapter(CreateAdapterBase):
+    adapter_name: Literal["liebherr_lidat"]
+    username: str
+    password: str
+
+    @validator("password")
+    def hash_password(cls, pw: str) -> str:
+        return get_string_hash(pw)
+
+
+class CreateTakeuchiTfmAdapter(CreateAdapterBase):
+    adapter_name: Literal["takeuchi_tfm"]
+    token_url: str
+    client_id: str
+    client_secret: str
+
+    @validator("client_id")
+    def hash_client_id(cls, cid: str) -> str:
+        return get_string_hash(cid)
+
+    @validator("client_secret")
+    def hash_client_secret(cls, cs: str) -> str:
+        return get_string_hash(cs)
+
+
 class CreateAdapter(BaseModel):
     __root__: Union[
-        CreateVolvoCaretrackAdapter, CreateWackerNeusonKramerAdapter
+        CreateVolvoCaretrackAdapter,
+        CreateLiebherrLidatAdapter,
+        CreateWackerNeusonKramerAdapter,
+        CreateTakeuchiTfmAdapter,
     ] = Field(..., discriminator="adapter_name")
 
 
@@ -73,7 +101,23 @@ class WackerNeusonKramerAdapter(AdapterBase):
     client_secret: str
 
 
+class LiebherrLidatAdapter(AdapterBase):
+    adapter_name: Literal["liebherr_lidat"]
+    username: str
+    password: str
+
+
+class TakeuchiTfmAdapter(AdapterBase):
+    adapter_name: Literal["takeuchi_tfm"]
+    token_url: str
+    client_id: str
+    client_secret: str
+
+
 class Adapter(BaseModel):
-    __root__: Union[WackerNeusonKramerAdapter, VolvoCaretrackAdapter] = Field(
-        ..., discriminator="adapter_name"
-    )
+    __root__: Union[
+        WackerNeusonKramerAdapter,
+        VolvoCaretrackAdapter,
+        LiebherrLidatAdapter,
+        TakeuchiTfmAdapter,
+    ] = Field(..., discriminator="adapter_name")
