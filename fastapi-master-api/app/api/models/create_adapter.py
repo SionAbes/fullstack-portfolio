@@ -6,10 +6,6 @@ import re  # noqa: F401
 from datetime import date, datetime  # noqa: F401
 from typing import Any, Dict, List, Optional  # noqa: F401
 
-from app.api.models.create_volvo_caretrack_adapter import CreateVolvoCaretrackAdapter
-from app.api.models.create_wacker_neuson_kramer_adapter import (
-    CreateWackerNeusonKramerAdapter,
-)
 from pydantic import AnyUrl, BaseModel, EmailStr, validator  # noqa: F401
 
 

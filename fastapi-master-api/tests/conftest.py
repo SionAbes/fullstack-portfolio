@@ -1,5 +1,3 @@
-import os
-
 import pytest
 from app.dependancies import get_db
 from app.main import create_app
@@ -18,7 +16,7 @@ from tests.factories.user import UserFactory
 def get_settings_override():
     return Settings(
         ENV="local",
-        SQL_HOST="db",
+        SQL_HOST="127.0.0.1",
         SQL_PORT=5432,
         POSTGRES_DB="test",
         POSTGRES_USER="test",
