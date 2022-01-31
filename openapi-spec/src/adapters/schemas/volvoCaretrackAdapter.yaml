@@ -1,4 +1,4 @@
 type: object
 allOf:
   - $ref: baseAdapter.yaml
-  - $ref: bearerToken.yaml
+  - $ref: baseVolvoCaretrackAdapter.yaml
