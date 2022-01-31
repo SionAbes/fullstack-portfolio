@@ -10,13 +10,6 @@
 [![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 ![Python 3.9](https://img.shields.io/badge/python-3.9%20%7C%203.10-blue)
 
-### Mercedes Connected Car Adapter
-[![Flake8 Status](./mercedes-connected-car-adapter/reports/badges/flake8-badge.svg?dummy=8484744)](https://sionabes.github.io/fullstack-portfolio/mercedes-connected-car-adapter/reports/flake8/index.html)
-[![Tests Status](./mercedes-connected-car-adapter/reports/badges/tests-badge.svg?dummy=8484744)](https://sionabes.github.io/fullstack-portfolio/mercedes-connected-car-adapter/reports/junit/report.html)
-[![Coverage Status](./mercedes-connected-car-adapter/reports/badges/coverage-badge.svg?dummy=8484744)](https://sionabes.github.io/fullstack-portfolio/mercedes-connected-car-adapter/reports/coverage/index.html)
-![Mercedes Connected Car Adapter CI](https://github.com/SionAbes/fullstack-portfolio/actions/workflows/mercedes-connected-car-ci.yaml/badge.svg)
-[![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-![Python 3.9](https://img.shields.io/badge/python-3.9%20%7C%203.10-blue)
 
 # Siôn Abraham Full-Stack Portfolio
 This is a overview of my full-stack toolset which will constantly evolve as I grow as a developer. My current aims are to showcase the technologies I either enjoy personally using, or ones that I have had much exposure to. The goals of this repo is to:
