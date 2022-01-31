@@ -1,12 +1,13 @@
 from typing import Union
 
-from app.api.manual_models.bearer_token_adapter_manual import BearerTokenAdapterManual
+from app.api.models.volvo_caretrack_adapter import VolvoCaretrackAdapter
+from app.api.models.wacker_neuson_kramer_adapter import WackerNeusonKramerAdapter
 from pydantic import BaseModel, Field
 from typing_extensions import Annotated
 
 
 class Adapter(BaseModel):
     __root__: Annotated[
-        Union[BearerTokenAdapterManual],
-        Field(discriminator="authorization_type"),
+        Union[WackerNeusonKramerAdapter, VolvoCaretrackAdapter],
+        Field(discriminator="adapter_name"),
     ]

@@ -176,10 +176,6 @@ components:
       properties:
         details:
           type: string
-    adapter_enums:
-      type: string
-      enum:
-        - mercedes_connected_car
     baseAdapter:
       type: object
       required:
@@ -204,7 +200,7 @@ components:
           format: date-time
           example: 2021-01-30T08:30:00Z
         adapter_name:
-          $ref: '#/components/schemas/adapter_enums'
+          type: string
         cron_expression:
           type: string
         data_url:

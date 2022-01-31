@@ -21,7 +21,7 @@ properties:
     format: date-time
     example: "2021-01-30T08:30:00Z"
   adapter_name:
-    $ref: ../common/adapter_enums.yaml
+    type: string
   cron_expression:
     type: string
   data_url:

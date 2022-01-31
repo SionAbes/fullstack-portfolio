@@ -6,7 +6,6 @@ import re  # noqa: F401
 from datetime import date, datetime  # noqa: F401
 from typing import Any, Dict, List, Optional  # noqa: F401
 
-from app.api.models.adapter_enums import AdapterEnums
 from pydantic import AnyUrl, BaseModel, EmailStr, validator  # noqa: F401
 
 
@@ -30,7 +29,7 @@ class BaseAdapter(BaseModel):
     user_id: int
     created_at: datetime
     updated_at: datetime
-    adapter_name: AdapterEnums
+    adapter_name: str
     cron_expression: str
     data_url: str
 

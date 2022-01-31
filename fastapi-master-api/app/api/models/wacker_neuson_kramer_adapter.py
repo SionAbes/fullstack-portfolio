@@ -6,7 +6,6 @@ import re  # noqa: F401
 from datetime import date, datetime  # noqa: F401
 from typing import Any, Dict, List, Optional  # noqa: F401
 
-from app.api.models.adapter_enums import AdapterEnums
 from app.api.models.base_adapter import BaseAdapter
 from app.api.models.base_wacker_neuson_kramer_adapter import (
     BaseWackerNeusonKramerAdapter,
@@ -39,7 +38,7 @@ class WackerNeusonKramerAdapter(BaseModel):
     user_id: int
     created_at: datetime
     updated_at: datetime
-    adapter_name: AdapterEnums
+    adapter_name: str
     cron_expression: str
     data_url: str
     token_url: str
