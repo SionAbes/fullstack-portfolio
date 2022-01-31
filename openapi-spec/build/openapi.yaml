@@ -244,11 +244,46 @@ components:
       allOf:
         - $ref: '#/components/schemas/baseAdapter'
         - $ref: '#/components/schemas/baseVolvoCaretrackAdapter'
+    baseLiebherrLidatAdapter:
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+      required:
+        - username
+        - password
+      type: object
+    liebherrLidatAdapter:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/baseAdapter'
+        - $ref: '#/components/schemas/baseLiebherrLidatAdapter'
+    baseTakeuchiTfmAdapter:
+      properties:
+        client_secret:
+          type: string
+        client_id:
+          type: string
+        token_url:
+          type: string
+      required:
+        - client_secret
+        - client_id
+        - token_url
+      type: object
+    takeuchiTfmAdapter:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/baseAdapter'
+        - $ref: '#/components/schemas/baseTakeuchiTfmAdapter'
     adapter:
       type: object
       oneOf:
         - $ref: '#/components/schemas/wackerNeusonKramerAdapter'
         - $ref: '#/components/schemas/volvoCaretrackAdapter'
+        - $ref: '#/components/schemas/liebherrLidatAdapter'
+        - $ref: '#/components/schemas/takeuchiTfmAdapter'
       discriminator:
         propertyName: adapter_name
     adapters:
@@ -278,11 +313,23 @@ components:
       allOf:
         - $ref: '#/components/schemas/baseCreateAdapter'
         - $ref: '#/components/schemas/baseVolvoCaretrackAdapter'
+    createLiebherrLidatAdapter:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/baseCreateAdapter'
+        - $ref: '#/components/schemas/baseLiebherrLidatAdapter'
+    createTakeuchiTfmAdapter:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/baseCreateAdapter'
+        - $ref: '#/components/schemas/baseTakeuchiTfmAdapter'
     createAdapter:
       type: object
       oneOf:
         - $ref: '#/components/schemas/createWackerNeusonKramerAdapter'
         - $ref: '#/components/schemas/createVolvoCaretrackAdapter'
+        - $ref: '#/components/schemas/createLiebherrLidatAdapter'
+        - $ref: '#/components/schemas/createTakeuchiTfmAdapter'
       discriminator:
         propertyName: adapter_name
     user:

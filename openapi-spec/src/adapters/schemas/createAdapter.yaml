@@ -2,5 +2,8 @@ type: object
 oneOf:
   - $ref: createWackerNeusonKramerAdapter.yaml
   - $ref: createVolvoCaretrackAdapter.yaml
+  - $ref: createLiebherrLidatAdapter.yaml
+  - $ref: createTakeuchiTfmAdapter.yaml
+
 discriminator:
   propertyName: adapter_name
