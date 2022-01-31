@@ -1,4 +1,3 @@
-import pytest
 from app.api.models.update_user import UpdateUser
 from fastapi import status
 from tests.factories.user import UserFactory

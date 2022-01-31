@@ -1,2 +1,1 @@
 1     F401 'pytest' imported but unused
-1     F401 'pytest' imported but unused
