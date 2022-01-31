@@ -63,7 +63,7 @@ def test_create_adapter_wacker_neuson_kramer(
         "adapter_name": "wacker_neuson_kramer",
         "data_url": "_data_url",
         "cron_expression": "1 * * * *",
-        "token_url": "_token_url}",
+        "token_url": "_token_url",
         "username": "_username",
         "password": "_password",
         "client_id": "_client_id",
@@ -77,6 +77,54 @@ def test_create_adapter_wacker_neuson_kramer(
     assert resp.json()["cron_expression"] == data["cron_expression"]
     assert resp.json()["username"] == data["username"]
     assert verify_string_hash(data["password"], resp.json()["password"])
+    assert verify_string_hash(data["client_id"], resp.json()["client_id"])
+    assert verify_string_hash(data["client_secret"], resp.json()["client_secret"])
+    assert resp.json()["user_id"] == mock_admin_user.sub
+
+
+def test_create_adapter_lidat_liebherr(
+    app,
+    client,
+    mock_admin_user,
+):
+    data = {
+        "adapter_name": "liebherr_lidat",
+        "data_url": "_data_url",
+        "cron_expression": "1 * * * *",
+        "username": "_username",
+        "password": "_password",
+    }
+    url = app.url_path_for("create_adapter")
+    resp = client.post(url, json=data)
+
+    assert resp.status_code == status.HTTP_200_OK
+    assert resp.json()["adapter_name"] == data["adapter_name"]
+    assert resp.json()["data_url"] == data["data_url"]
+    assert resp.json()["cron_expression"] == data["cron_expression"]
+    assert resp.json()["username"] == data["username"]
+    assert verify_string_hash(data["password"], resp.json()["password"])
+    assert resp.json()["user_id"] == mock_admin_user.sub
+
+
+def test_create_adapter_takeuchi_tfm(
+    app,
+    client,
+    mock_admin_user,
+):
+    data = {
+        "adapter_name": "takeuchi_tfm",
+        "data_url": "_data_url",
+        "cron_expression": "1 * * * *",
+        "token_url": "_token_url",
+        "client_id": "_client_id",
+        "client_secret": "_client_secret",
+    }
+    url = app.url_path_for("create_adapter")
+    resp = client.post(url, json=data)
+    assert resp.status_code == status.HTTP_200_OK
+    assert resp.json()["adapter_name"] == data["adapter_name"]
+    assert resp.json()["data_url"] == data["data_url"]
+    assert resp.json()["cron_expression"] == data["cron_expression"]
     assert verify_string_hash(data["client_id"], resp.json()["client_id"])
     assert verify_string_hash(data["client_secret"], resp.json()["client_secret"])
     assert resp.json()["user_id"] == mock_admin_user.sub
