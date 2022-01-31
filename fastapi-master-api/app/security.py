@@ -8,7 +8,7 @@ from fastapi.security import OAuth2PasswordBearer, SecurityScopes
 from passlib.context import CryptContext
 
 PWD_CONTEXT = CryptContext(schemes=["bcrypt"], deprecated="auto")
-OAUTH2_SCHEME = OAuth2PasswordBearer(tokenUrl="http://127.0.0.1:8001/auth/login")
+OAUTH2_SCHEME = OAuth2PasswordBearer(tokenUrl="http://0.0.0.0:80/auth/login")
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
