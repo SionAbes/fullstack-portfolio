@@ -23,7 +23,7 @@ class BaseAdapter(BaseModel):
         updated_at: The updated_at of this BaseAdapter.
         adapter_name: The adapter_name of this BaseAdapter.
         cron_expression: The cron_expression of this BaseAdapter.
-        authorization_type: The authorization_type of this BaseAdapter.
+        data_url: The data_url of this BaseAdapter.
     """
 
     id: int
@@ -32,7 +32,7 @@ class BaseAdapter(BaseModel):
     updated_at: datetime
     adapter_name: AdapterEnums
     cron_expression: str
-    authorization_type: str
+    data_url: str
 
 
 BaseAdapter.update_forward_refs()

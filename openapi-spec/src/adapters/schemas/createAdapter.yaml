@@ -1,7 +1,6 @@
 type: object
 oneOf:
-  - $ref: createBearerTokenAdapter.yaml
+  - $ref: createWackerNeusonKramerAdapter.yaml
+  - $ref: createVolvoCaretrackAdapter.yaml
 discriminator:
-  propertyName: type
-  mapping:
-    bearer_token: createBearerTokenAdapter.yaml
+  propertyName: adapter_name

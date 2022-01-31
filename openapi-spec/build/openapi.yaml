@@ -176,11 +176,6 @@ components:
       properties:
         details:
           type: string
-    bearerTokenAdapter:
-      type: object
-      allOf:
-        - $ref: '#/components/schemas/baseAdapter'
-        - $ref: '#/components/schemas/bearerToken'
     adapter_enums:
       type: string
       enum:
@@ -194,7 +189,7 @@ components:
         - updated_at
         - adapter_name
         - cron_expression
-        - authorization_type
+        - data_url
       properties:
         id:
           type: integer
@@ -212,53 +207,88 @@ components:
           $ref: '#/components/schemas/adapter_enums'
         cron_expression:
           type: string
-        authorization_type:
+        data_url:
           type: string
-    bearerToken:
+    baseWackerNeusonKramerAdapter:
       properties:
-        bearer_token:
+        token_url:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+        client_id:
+          type: string
+        client_secret:
           type: string
       required:
-        - bearer_token
+        - token_url
+        - username
+        - password
+        - client_id
+        - client_secret
       type: object
+    wackerNeusonKramerAdapter:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/baseAdapter'
+        - $ref: '#/components/schemas/baseWackerNeusonKramerAdapter'
+    baseVolvoCaretrackAdapter:
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+      required:
+        - username
+        - password
+      type: object
+    volvoCaretrackAdapter:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/baseAdapter'
+        - $ref: '#/components/schemas/baseVolvoCaretrackAdapter'
     adapter:
       type: object
       oneOf:
-        - $ref: '#/components/schemas/bearerTokenAdapter'
+        - $ref: '#/components/schemas/wackerNeusonKramerAdapter'
+        - $ref: '#/components/schemas/volvoCaretrackAdapter'
       discriminator:
-        propertyName: type
-        mapping:
-          bearer_token: '#/components/schemas/bearerTokenAdapter'
+        propertyName: adapter_name
     adapters:
       type: array
       items:
         $ref: '#/components/schemas/adapter'
-    createBearerTokenAdapter:
-      type: object
-      allOf:
-        - $ref: '#/components/schemas/baseCreateAdapter'
-        - $ref: '#/components/schemas/bearerToken'
     baseCreateAdapter:
       type: object
       required:
+        - data_url
         - adapter_name
         - cron_expression
-        - authorization_type
       properties:
         adapter_name:
-          $ref: '#/components/schemas/adapter_enums'
+          type: string
+        data_url:
+          type: string
         cron_expression:
           type: string
-        authorization_type:
-          type: string
+    createWackerNeusonKramerAdapter:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/baseCreateAdapter'
+        - $ref: '#/components/schemas/baseWackerNeusonKramerAdapter'
+    createVolvoCaretrackAdapter:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/baseCreateAdapter'
+        - $ref: '#/components/schemas/baseVolvoCaretrackAdapter'
     createAdapter:
       type: object
       oneOf:
-        - $ref: '#/components/schemas/createBearerTokenAdapter'
+        - $ref: '#/components/schemas/createWackerNeusonKramerAdapter'
+        - $ref: '#/components/schemas/createVolvoCaretrackAdapter'
       discriminator:
-        propertyName: type
-        mapping:
-          bearer_token: '#/components/schemas/createBearerTokenAdapter'
+        propertyName: adapter_name
     user:
       type: object
       properties:

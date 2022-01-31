@@ -1,12 +1,12 @@
 type: object
 required:
+  - data_url
   - adapter_name
   - cron_expression
-  - authorization_type
 properties:
   adapter_name:
-    $ref: ../common/adapter_enums.yaml
-  cron_expression:
     type: string
-  authorization_type:
+  data_url:
+    type: string
+  cron_expression:
     type: string

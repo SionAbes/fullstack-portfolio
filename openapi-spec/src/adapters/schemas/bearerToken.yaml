@@ -1,6 +1,0 @@
-properties:
-  bearer_token:
-    type: string
-required:
-  - bearer_token
-type: object

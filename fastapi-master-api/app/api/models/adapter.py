@@ -7,6 +7,8 @@ from datetime import date, datetime  # noqa: F401
 from typing import Any, Dict, List, Optional  # noqa: F401
 
 from app.api.models.adapter_enums import AdapterEnums
+from app.api.models.volvo_caretrack_adapter import VolvoCaretrackAdapter
+from app.api.models.wacker_neuson_kramer_adapter import WackerNeusonKramerAdapter
 from pydantic import AnyUrl, BaseModel, EmailStr, validator  # noqa: F401
 
 
@@ -23,8 +25,12 @@ class Adapter(BaseModel):
         updated_at: The updated_at of this Adapter.
         adapter_name: The adapter_name of this Adapter.
         cron_expression: The cron_expression of this Adapter.
-        authorization_type: The authorization_type of this Adapter.
-        bearer_token: The bearer_token of this Adapter.
+        data_url: The data_url of this Adapter.
+        token_url: The token_url of this Adapter.
+        username: The username of this Adapter.
+        password: The password of this Adapter.
+        client_id: The client_id of this Adapter.
+        client_secret: The client_secret of this Adapter.
     """
 
     id: int
@@ -33,8 +39,12 @@ class Adapter(BaseModel):
     updated_at: datetime
     adapter_name: AdapterEnums
     cron_expression: str
-    authorization_type: str
-    bearer_token: str
+    data_url: str
+    token_url: str
+    username: str
+    password: str
+    client_id: str
+    client_secret: str
 
 
 Adapter.update_forward_refs()

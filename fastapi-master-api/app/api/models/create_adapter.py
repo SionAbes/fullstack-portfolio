@@ -6,7 +6,10 @@ import re  # noqa: F401
 from datetime import date, datetime  # noqa: F401
 from typing import Any, Dict, List, Optional  # noqa: F401
 
-from app.api.models.adapter_enums import AdapterEnums
+from app.api.models.create_volvo_caretrack_adapter import CreateVolvoCaretrackAdapter
+from app.api.models.create_wacker_neuson_kramer_adapter import (
+    CreateWackerNeusonKramerAdapter,
+)
 from pydantic import AnyUrl, BaseModel, EmailStr, validator  # noqa: F401
 
 
@@ -18,15 +21,23 @@ class CreateAdapter(BaseModel):
     CreateAdapter - a model defined in OpenAPI
 
         adapter_name: The adapter_name of this CreateAdapter.
+        data_url: The data_url of this CreateAdapter.
         cron_expression: The cron_expression of this CreateAdapter.
-        authorization_type: The authorization_type of this CreateAdapter.
-        bearer_token: The bearer_token of this CreateAdapter.
+        token_url: The token_url of this CreateAdapter.
+        username: The username of this CreateAdapter.
+        password: The password of this CreateAdapter.
+        client_id: The client_id of this CreateAdapter.
+        client_secret: The client_secret of this CreateAdapter.
     """
 
-    adapter_name: AdapterEnums
+    adapter_name: str
+    data_url: str
     cron_expression: str
-    authorization_type: str
-    bearer_token: str
+    token_url: str
+    username: str
+    password: str
+    client_id: str
+    client_secret: str
 
 
 CreateAdapter.update_forward_refs()

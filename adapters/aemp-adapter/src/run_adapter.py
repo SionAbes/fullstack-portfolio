@@ -11,7 +11,7 @@ def main(config: dict):
     if config["NAME"] == "wacker-neuson-kramer-equipcare":
         WackerNeusonKramerEquipcare(
             data_url=config["DATA_URL"],
-            adapter_name=config["NAME"],
+            adapter_name=config["ADAPTER_NAME"],
             token_url=config["TOKEN_URL"],
             username=config["USERNAME"],
             password=config["PASSWORD"],
@@ -21,21 +21,21 @@ def main(config: dict):
     elif config["NAME"] == "volvo-caretrack":
         VolvoCaretrack(
             data_url=config["DATA_URL"],
-            adapter_name=config["NAME"],
+            adapter_name=config["ADAPTER_NAME"],
             username=config["USERNAME"],
             password=config["PASSWORD"],
         )()
     elif config["NAME"] == "liebherr-lidat":
         LiebherrLidat(
             data_url=config["DATA_URL"],
-            adapter_name=config["NAME"],
+            adapter_name=config["ADAPTER_NAME"],
             username=config["USERNAME"],
             password=config["PASSWORD"],
         )()
     elif config["NAME"] == "takeuchi-tfm":
         TakeuchiTFM(
             data_url=config["DATA_URL"],
-            adapter_name=config["NAME"],
+            adapter_name=config["ADAPTER_NAME"],
             token_url=config["TOKEN_URL"],
             client_id=config["CLIENT_ID"],
             client_secret=config["CLIENT_SECRET"],

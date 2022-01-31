@@ -6,7 +6,6 @@ import re  # noqa: F401
 from datetime import date, datetime  # noqa: F401
 from typing import Any, Dict, List, Optional  # noqa: F401
 
-from app.api.models.adapter_enums import AdapterEnums
 from pydantic import AnyUrl, BaseModel, EmailStr, validator  # noqa: F401
 
 
@@ -18,13 +17,13 @@ class BaseCreateAdapter(BaseModel):
     BaseCreateAdapter - a model defined in OpenAPI
 
         adapter_name: The adapter_name of this BaseCreateAdapter.
+        data_url: The data_url of this BaseCreateAdapter.
         cron_expression: The cron_expression of this BaseCreateAdapter.
-        authorization_type: The authorization_type of this BaseCreateAdapter.
     """
 
-    adapter_name: AdapterEnums
+    adapter_name: str
+    data_url: str
     cron_expression: str
-    authorization_type: str
 
 
 BaseCreateAdapter.update_forward_refs()
