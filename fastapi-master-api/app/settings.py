@@ -1,4 +1,3 @@
-from functools import lru_cache
 from typing import Any, Dict, Optional
 
 from pydantic import BaseSettings, PostgresDsn, validator

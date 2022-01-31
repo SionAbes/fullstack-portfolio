@@ -2,9 +2,6 @@ from typing import List, Union
 
 from app.api.exceptions import HTTP403Exception, HTTP409Exception
 from app.api.manual_models.adapter import Adapter
-from app.api.manual_models.bearer_token_adapter_manual import (
-    BearerTokenAdapterManual as BearerTokenAdapter,
-)
 from app.api.manual_models.create_bearer_token_adapter_manual import (
     CreateBearerTokenAdapterManual as CreateBearerTokenAdapter,
 )
