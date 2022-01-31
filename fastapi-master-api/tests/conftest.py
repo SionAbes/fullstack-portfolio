@@ -135,7 +135,10 @@ def login_as(app, token):
 
 @pytest.fixture
 def auth_user():
-    return UserFactory()
+    return UserFactory(
+        password="$2a$10$lSYipjr11mxzfeKDjYt6f.XA369N2SZsarMMRiFwoZ/PGS8.5ma7a",
+        email="test_email",
+    )
 
 
 @pytest.fixture
@@ -143,6 +146,13 @@ def mock_admin_user(app, auth_user):
     admin_token = TokenModelFactory(sub=auth_user.id)
     login_as(app, admin_token)
     return admin_token
+
+
+@pytest.fixture
+def refresh_token(app, auth_user):
+    refresh_token = TokenModelFactory(sub=auth_user.id, type="refresh_token")
+    login_as(app, refresh_token)
+    return refresh_token
 
 
 @pytest.fixture

@@ -38,6 +38,8 @@ def login(
             settings=settings,
         )
     except EntityNotFoundError or BadPasswordError:
+        raise HTTPException(status_code=404, detail="This user does not exist")
+    except BadPasswordError:
         raise HTTPException(status_code=400, detail="Incorrect username or password")
 
 
