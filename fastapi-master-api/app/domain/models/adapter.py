@@ -74,6 +74,6 @@ class WackerNeusonKramerAdapter(AdapterBase):
 
 
 class Adapter(BaseModel):
-    __root__: Union[VolvoCaretrackAdapter, WackerNeusonKramerAdapter] = Field(
+    __root__: Union[WackerNeusonKramerAdapter, VolvoCaretrackAdapter] = Field(
         ..., discriminator="adapter_name"
     )

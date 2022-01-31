@@ -14,13 +14,11 @@ from tests import Session
 from tests.factories.token import TokenModelFactory
 from tests.factories.user import UserFactory
 
-os.environ["ENV"] = "test"
-
 
 def get_settings_override():
     return Settings(
         ENV="local",
-        SQL_HOST="127.0.0.1",
+        SQL_HOST="db",
         SQL_PORT=5432,
         POSTGRES_DB="test",
         POSTGRES_USER="test",
