@@ -6,7 +6,7 @@ from app.domain.models.user import UpdateUser as DomainUpdateUser
 from app.domain.models.user import User as DomainUser
 from app.repository.database.crud import CRUDBase
 from app.repository.models.users import User
-from app.security import get_password_hash
+from app.security import get_string_hash
 from sqlalchemy.orm import Session
 
 
@@ -24,7 +24,7 @@ class UsersRepo(CRUDBase[User, DomainCreateUser, DomainUpdateUser]):
         user = self.db_model(**create_data)
         if user:
             user.last_login_at = datetime.utcnow()
-        user.password = get_password_hash(obj_in.password)
+        user.password = get_string_hash(obj_in.password)
         db.add(user)
         db.commit()
         db.refresh(user)

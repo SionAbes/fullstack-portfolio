@@ -8,7 +8,7 @@ from app.api.models.user import User
 from app.domain.exceptions import BadPasswordError, EntityNotFoundError
 from app.domain.models.user import User as DomainUser
 from app.repository.database.users import users_repo
-from app.security import verify_password
+from app.security import verify_string_hash
 from app.settings import Settings
 from sqlalchemy.orm.session import Session
 
@@ -25,7 +25,7 @@ def authenticate(
 
     if not user:
         raise EntityNotFoundError("user does not exist")
-    if not verify_password(password, user.password):
+    if not verify_string_hash(password, user.password):
         raise BadPasswordError("users password is not correct")
 
     roles = ["USER"]

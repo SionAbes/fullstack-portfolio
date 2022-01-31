@@ -11,12 +11,12 @@ PWD_CONTEXT = CryptContext(schemes=["bcrypt"], deprecated="auto")
 OAUTH2_SCHEME = OAuth2PasswordBearer(tokenUrl="http://0.0.0.0:80/auth/login")
 
 
-def verify_password(plain_password: str, hashed_password: str) -> bool:
-    return PWD_CONTEXT.verify(plain_password, hashed_password)
+def verify_string_hash(unhashed_string: str, hashed_password: str) -> bool:
+    return PWD_CONTEXT.verify(unhashed_string, hashed_password)
 
 
-def get_password_hash(password: str) -> str:
-    return PWD_CONTEXT.hash(password)
+def get_string_hash(unhashed_string: str) -> str:
+    return PWD_CONTEXT.hash(unhashed_string)
 
 
 async def get_current_user(

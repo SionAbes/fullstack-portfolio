@@ -1,8 +1,8 @@
 from datetime import datetime
 from typing import Literal, Union
 
-from pydantic import BaseModel, Field
-from typing_extensions import Annotated
+from app.security import get_string_hash
+from pydantic import BaseModel, Field, validator
 
 
 class CreateAdapterBase(BaseModel):
@@ -16,6 +16,10 @@ class CreateVolvoCaretrackAdapter(CreateAdapterBase):
     username: str
     password: str
 
+    @validator("password")
+    def hash_password(cls, pw: str) -> str:
+        return get_string_hash(pw)
+
 
 class CreateWackerNeusonKramerAdapter(CreateAdapterBase):
     adapter_name: Literal["wacker_neuson_kramer"]
@@ -24,6 +28,18 @@ class CreateWackerNeusonKramerAdapter(CreateAdapterBase):
     password: str
     client_id: str
     client_secret: str
+
+    @validator("password")
+    def hash_password(cls, pw: str) -> str:
+        return get_string_hash(pw)
+
+    @validator("client_id")
+    def hash_client_id(cls, cid: str) -> str:
+        return get_string_hash(cid)
+
+    @validator("client_secret")
+    def hash_client_secret(cls, cs: str) -> str:
+        return get_string_hash(cs)
 
 
 class CreateAdapter(BaseModel):
