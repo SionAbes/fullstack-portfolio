@@ -43,7 +43,7 @@ def delete_user_by_id(
     db: Session,
 ):
 
-    user = users_repo.remove(
+    user = users_repo.delete(
         db=db,
         id=user_id,
     )
