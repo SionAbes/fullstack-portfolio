@@ -16,8 +16,20 @@ openapi-build:
 	cd openapi-spec && \
 	yarn all
 
-openapi-generate: openapi-generate-fastapi
+openapi-generate: openapi-build openapi-generate-frontend openapi-generate-fastapi
 
+openapi-generate-frontend:
+	rm -rf frontend/src/api && \
+	docker run --rm \
+    --user $(shell id -u):$(shell id -g) \
+    -v $(shell pwd):/local openapitools/openapi-generator-cli:$(OPENAPI_GEN_VERSION) generate \
+    -i "/local$(API_SPEC)" \
+    -g typescript-fetch \
+    -t "/local/openapi-spec/generator-overrides/typescript" \
+    -o /local/frontend/src/api \
+    --type-mappings=DateTime=string,Date=string \
+    --additional-properties=withInterfaces=true,typescriptThreePlus=true
+ 
 openapi-generate-fastapi:
 	rm -rf fastapi-master-api/app/api/tmp/ && \
 	rm -rf fastapi-master-api/app/api/models && \
