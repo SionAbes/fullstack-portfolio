@@ -16,6 +16,7 @@ services:
     env_file: &envfile
       - ../fastapi-master-api/.env
     volumes:
+      - ../fastapi-master-api/alembic:/usr/src/app/alembic
       - ../fastapi-master-api/app:/usr/src/app/app
       - ../fastapi-master-api/tests:/usr/src/app/tests
       - ../fastapi-master-api/pyproject.toml:/usr/src/app/pyproject.toml
