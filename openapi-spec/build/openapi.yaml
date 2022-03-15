@@ -351,8 +351,16 @@ components:
         propertyName: adapter_name
     machine:
       type: object
+      required:
+        - id
+        - created_at
+        - updated_at
+        - oem_name
+        - user_id
       properties:
         id:
+          type: integer
+        user_id:
           type: integer
         created_at:
           type: string

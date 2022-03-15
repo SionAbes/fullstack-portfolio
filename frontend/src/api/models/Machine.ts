@@ -24,19 +24,25 @@ export interface Machine {
      * @type {number}
      * @memberof Machine
      */
-    id?: number;
+    id: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof Machine
+     */
+    userId: number;
     /**
      * 
      * @type {string}
      * @memberof Machine
      */
-    createdAt?: string;
+    createdAt: string;
     /**
      * 
      * @type {string}
      * @memberof Machine
      */
-    updatedAt?: string;
+    updatedAt: string;
     /**
      * 
      * @type {string}
@@ -48,7 +54,7 @@ export interface Machine {
      * @type {string}
      * @memberof Machine
      */
-    oemName?: string;
+    oemName: string;
     /**
      * 
      * @type {string}
@@ -91,11 +97,12 @@ export function MachineFromJSONTyped(json: any, ignoreDiscriminator: boolean): M
     }
     return {
         
-        'id': !exists(json, 'id') ? undefined : json['id'],
-        'createdAt': !exists(json, 'created_at') ? undefined : json['created_at'],
-        'updatedAt': !exists(json, 'updated_at') ? undefined : json['updated_at'],
+        'id': json['id'],
+        'userId': json['user_id'],
+        'createdAt': json['created_at'],
+        'updatedAt': json['updated_at'],
         'unitInstalledAt': !exists(json, 'unit_installed_at') ? undefined : json['unit_installed_at'],
-        'oemName': !exists(json, 'oem_name') ? undefined : json['oem_name'],
+        'oemName': json['oem_name'],
         'model': !exists(json, 'model') ? undefined : json['model'],
         'make': !exists(json, 'make') ? undefined : json['make'],
         'equipmentId': !exists(json, 'equipment_id') ? undefined : json['equipment_id'],
@@ -114,6 +121,7 @@ export function MachineToJSON(value?: Machine | null): any {
     return {
         
         'id': value.id,
+        'user_id': value.userId,
         'created_at': value.createdAt,
         'updated_at': value.updatedAt,
         'unit_installed_at': value.unitInstalledAt,

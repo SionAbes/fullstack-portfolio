@@ -16,11 +16,12 @@ class Machine(BaseModel):
 
     Machine - a model defined in OpenAPI
 
-        id: The id of this Machine [Optional].
-        created_at: The created_at of this Machine [Optional].
-        updated_at: The updated_at of this Machine [Optional].
+        id: The id of this Machine.
+        user_id: The user_id of this Machine.
+        created_at: The created_at of this Machine.
+        updated_at: The updated_at of this Machine.
         unit_installed_at: The unit_installed_at of this Machine [Optional].
-        oem_name: The oem_name of this Machine [Optional].
+        oem_name: The oem_name of this Machine.
         model: The model of this Machine [Optional].
         make: The make of this Machine [Optional].
         equipment_id: The equipment_id of this Machine [Optional].
@@ -28,11 +29,12 @@ class Machine(BaseModel):
         pin: The pin of this Machine [Optional].
     """
 
-    id: Optional[int] = None
-    created_at: Optional[datetime] = None
-    updated_at: Optional[datetime] = None
+    id: int
+    user_id: int
+    created_at: datetime
+    updated_at: datetime
     unit_installed_at: Optional[datetime] = None
-    oem_name: Optional[str] = None
+    oem_name: str
     model: Optional[str] = None
     make: Optional[str] = None
     equipment_id: Optional[str] = None
