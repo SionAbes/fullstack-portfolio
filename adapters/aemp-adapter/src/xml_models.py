@@ -88,7 +88,7 @@ class CumulativeOperatingHours:
 
     datetime: str = field(
         default=None,
-        metadata=dict(type="Attribute", name="datetime"),
+        metadata=dict(type="Element", name="datetime"),
     )
     hour: str = field(
         default=None,

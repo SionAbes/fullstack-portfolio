@@ -3,6 +3,7 @@ import json
 from dataclasses import asdict
 from typing import List
 
+import isodate
 import requests
 from lxml import etree
 from src.xml_models import AEMP_METRICS, Fleet
@@ -92,6 +93,12 @@ class Adapter:
 
                 for field_name, value in metric_data.items():
                     if value:
+                        try:
+                            value = float(value)
+                        except ValueError:
+                            parsed_iso8601 = isodate.parse_duration(value)
+                            value = parsed_iso8601.total_seconds() // 3600
+
                         machine_metrics.append(
                             {
                                 "processing_datetime": processing_datetime,
@@ -99,7 +106,7 @@ class Adapter:
                                 "machine": machine["equipment_header"],
                                 "oem": self.adapter_name,
                                 "metric": "{}".format(metric),
-                                "value": float(value),
+                                "value": value,
                                 "unit": unit,
                             }
                         )

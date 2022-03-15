@@ -1,0 +1,4 @@
+DATA_URL: https://api.caretrackvolvo.com/aemp/resources/fleet
+NAME: volvo-caretrack
+USERNAME: aemp@hoch-baumaschinen.de
+PASSWORD: abcd1234

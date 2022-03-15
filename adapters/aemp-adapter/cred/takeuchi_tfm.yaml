@@ -1,0 +1,5 @@
+DATA_URL: https://api20.takeuchi-us.com/Telematics/Fleet/0
+NAME: takeuchi-tfm
+TOKEN_URL: https://api20.takeuchi-us.com/Connect/oauth/token
+CLIENT_ID: rc7NQwJHXW45hNzNejKw
+CLIENT_SECRET: DbadHUEhknUERnARFHV3
