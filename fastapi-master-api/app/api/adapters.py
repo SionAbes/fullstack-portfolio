@@ -48,7 +48,6 @@ def create_adapter(
         )
     except EntityConflictError:
         raise HTTP409Exception
-    print(adapter.__dict__)
     return Adapter.parse_obj(adapter.__dict__)
 
 
