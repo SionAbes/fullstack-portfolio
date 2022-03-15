@@ -1,0 +1,28 @@
+type: object
+properties:
+  id:
+    type: integer
+  created_at:
+    type: string
+    format: date-time
+    example: "2021-01-30T08:30:00Z"
+  updated_at:
+    type: string
+    format: date-time
+    example: "2021-01-30T08:30:00Z"
+  unit_installed_at:
+    type: string
+    format: date-time
+    example: "2021-01-30T08:30:00Z"
+  oem_name:
+    type: string
+  model:
+    type: string
+  make:
+    type: string
+  equipment_id:
+    type: string
+  serial_number:
+    type: string
+  pin:
+    type: string

@@ -50,6 +50,23 @@ paths:
           $ref: '#/components/responses/DefaultError'
       tags:
         - Adapters
+  /machines/:
+    get:
+      summary: fetches machines
+      operationId: fetchMachines
+      responses:
+        '201':
+          description: A list of machines
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/machines'
+        '404':
+          description: Not found
+        default:
+          $ref: '#/components/responses/DefaultError'
+      tags:
+        - Machines
   /users/:
     post:
       summary: creates a new user
@@ -332,6 +349,39 @@ components:
         - $ref: '#/components/schemas/createTakeuchiTfmAdapter'
       discriminator:
         propertyName: adapter_name
+    machine:
+      type: object
+      properties:
+        id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+          example: 2021-01-30T08:30:00Z
+        updated_at:
+          type: string
+          format: date-time
+          example: 2021-01-30T08:30:00Z
+        unit_installed_at:
+          type: string
+          format: date-time
+          example: 2021-01-30T08:30:00Z
+        oem_name:
+          type: string
+        model:
+          type: string
+        make:
+          type: string
+        equipment_id:
+          type: string
+        serial_number:
+          type: string
+        pin:
+          type: string
+    machines:
+      type: array
+      items:
+        $ref: '#/components/schemas/machine'
     user:
       type: object
       properties:

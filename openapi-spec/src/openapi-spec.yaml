@@ -17,6 +17,9 @@ paths:
   /adapters/:
     $ref: adapters/adapter.yaml
   
+  /machines/:
+    $ref: machines/machine.yaml
+  
   /users/:
     $ref: users/user.yaml
   /users/{id}:

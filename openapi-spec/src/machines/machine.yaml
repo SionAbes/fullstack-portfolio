@@ -1,0 +1,16 @@
+get:
+  summary: fetches machines
+  operationId: fetchMachines
+  responses:
+    '201':
+      description: A list of machines
+      content:
+        application/json:
+          schema:
+            $ref: schemas/machines.yaml
+    '404':
+      "description": Not found
+    default:
+      $ref: ../_common/responses/DefaultError.yaml
+  tags:
+    - Machines
