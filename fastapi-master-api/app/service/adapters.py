@@ -1,6 +1,6 @@
 from typing import List, Union
 
-from app.domain.models.adapter import (
+from app.domain.adapter import (
     Adapter,
     CreateVolvoCaretrackAdapter,
     CreateWackerNeusonKramerAdapter,

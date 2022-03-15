@@ -6,14 +6,14 @@ from app.api.models.create_user import CreateUser
 from app.api.models.update_user import UpdateUser
 from app.api.models.user import User
 from app.dependancies import get_db
-from app.domain.exceptions import EntityNotFoundError
-from app.domain.models.user import CreateUser as DomainCreateUser
-from app.domain.models.user import UpdateUser as DomainUpdateUser
-from app.domain.users import create_user as domain_create_user
-from app.domain.users import delete_user_by_id as domain_delete_user_by_id
-from app.domain.users import fetch_users as domain_fetch_users
-from app.domain.users import update_user_by_id as domain_update_user_by_id
+from app.domain.user import CreateUser as DomainCreateUser
+from app.domain.user import UpdateUser as DomainUpdateUser
 from app.security import get_current_user
+from app.service.exceptions import EntityNotFoundError
+from app.service.users import create_user as domain_create_user
+from app.service.users import delete_user_by_id as domain_delete_user_by_id
+from app.service.users import fetch_users as domain_fetch_users
+from app.service.users import update_user_by_id as domain_update_user_by_id
 from fastapi import APIRouter, Depends, Response, Security, status
 from sqlalchemy.orm import Session
 

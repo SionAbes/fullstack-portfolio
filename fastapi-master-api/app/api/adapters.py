@@ -10,11 +10,11 @@ from app.api.models.create_wacker_neuson_kramer_adapter import (
     CreateWackerNeusonKramerAdapter,
 )
 from app.dependancies import get_db
-from app.domain.adapters import create_adapter as domain_create_adapter
-from app.domain.adapters import fetch_adapters as domain_fetch_adapters
-from app.domain.exceptions import EntityConflictError
-from app.domain.models.adapter import CreateAdapter as DomainCreateAdapter
+from app.domain.adapter import CreateAdapter as DomainCreateAdapter
 from app.security import get_current_user
+from app.service.adapters import create_adapter as domain_create_adapter
+from app.service.adapters import fetch_adapters as domain_fetch_adapters
+from app.service.exceptions import EntityConflictError
 from fastapi import APIRouter, Depends, Security
 from sqlalchemy.orm import Session
 

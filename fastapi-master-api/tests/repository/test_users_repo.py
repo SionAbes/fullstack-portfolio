@@ -1,5 +1,5 @@
 import pytest
-from app.domain.models.user import CreateUser
+from app.domain.user import CreateUser
 from app.repository.database.users import users_repo
 from tests.factories.user import UserFactory
 

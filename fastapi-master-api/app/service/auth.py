@@ -5,10 +5,10 @@ import jwt
 from app.api.models.login_response import LoginResponse
 from app.api.models.token import Token
 from app.api.models.user import User
-from app.domain.exceptions import BadPasswordError, EntityNotFoundError
-from app.domain.models.user import User as DomainUser
+from app.domain.user import User as DomainUser
 from app.repository.database.users import users_repo
 from app.security import verify_string_hash
+from app.service.exceptions import BadPasswordError, EntityNotFoundError
 from app.settings import Settings
 from sqlalchemy.orm.session import Session
 

@@ -1,8 +1,8 @@
 from typing import List
 
-from app.domain.exceptions import EntityNotFoundError
-from app.domain.models.user import CreateUser, UpdateUser, User
+from app.domain.user import CreateUser, UpdateUser, User
 from app.repository.database.users import users_repo
+from app.service.exceptions import EntityNotFoundError
 from sqlalchemy.orm import Session
 
 

@@ -1,9 +1,9 @@
 from datetime import datetime
 from typing import Optional
 
-from app.domain.models.user import CreateUser as DomainCreateUser
-from app.domain.models.user import UpdateUser as DomainUpdateUser
-from app.domain.models.user import User as DomainUser
+from app.domain.user import CreateUser as DomainCreateUser
+from app.domain.user import UpdateUser as DomainUpdateUser
+from app.domain.user import User as DomainUser
 from app.repository.database.crud import CRUDBase
 from app.repository.models.users import User
 from app.security import get_string_hash

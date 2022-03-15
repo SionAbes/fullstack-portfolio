@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 
 import jwt
-from app.domain.auth import create_token
+from app.service.auth import create_token
 from freezegun import freeze_time
 
 

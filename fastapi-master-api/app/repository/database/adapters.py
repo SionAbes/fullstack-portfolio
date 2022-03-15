@@ -1,8 +1,7 @@
 from typing import Generic, List, TypeVar
 
-from app.domain.exceptions import EntityConflictError, NotSupportedError
-from app.domain.models.adapter import Adapter as DomainAdapter
-from app.domain.models.adapter import (
+from app.domain.adapter import Adapter as DomainAdapter
+from app.domain.adapter import (
     CreateLiebherrLidatAdapter,
     CreateTakeuchiTfmAdapter,
     CreateVolvoCaretrackAdapter,
@@ -16,6 +15,7 @@ from app.repository.models.adapters import (
     AdapterWackerNeusonKramer,
 )
 from app.repository.models.base import BaseModel as Base
+from app.service.exceptions import EntityConflictError, NotSupportedError
 from pydantic import BaseModel
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session, with_polymorphic

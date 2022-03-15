@@ -4,7 +4,7 @@ from app.api.manual_models.token import TokenModel
 from app.api.models.machine import Machine
 from app.dependancies import get_db
 from app.domain import machine as domain
-from app.domain.user import LoggedUser
+from app.domain.user_token import LoggedUser
 from app.security import get_current_user
 from app.service import machines as service
 from fastapi import APIRouter, Depends, Security, status
