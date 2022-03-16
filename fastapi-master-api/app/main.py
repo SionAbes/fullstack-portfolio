@@ -1,7 +1,8 @@
 import uvicorn
 from app.api.router import api_router
+from app.middleware import db_session_middleware
 from app.settings import Settings, get_settings
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
@@ -14,12 +15,19 @@ def create_app(settings: Settings = None):
     )
     settings = settings or get_settings()
 
+    @app.middleware("http")
+    async def session_handler(request: Request, call_next):
+        return await db_session_middleware(request, call_next, settings)
+
     app.include_router(api_router)
 
     # Database init
+    Session = sessionmaker(autocommit=False)
     engine = create_engine(settings.SQLALCHEMY_DATABASE_URL, pool_pre_ping=True)
-    session = sessionmaker(autocommit=False, bind=engine)
-    app.state.session = session
+    Session.configure(bind=engine)
+
+    app.state.Session = Session
+    app.state.engine = engine
 
     return app
 

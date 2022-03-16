@@ -4,11 +4,10 @@ from app.main import create_app
 from app.repository.models.base import BaseModel as Base
 from app.security import get_current_user
 from app.settings import Settings, get_settings
-from sqlalchemy import create_engine
-from sqlalchemy.event import listens_for
+from sqlalchemy import event
 from sqlalchemy_utils import create_database, database_exists, drop_database
 from starlette.testclient import TestClient
-from tests import Session
+from tests import Session, engine
 from tests.factories.token import TokenModelFactory
 from tests.factories.user import UserFactory
 
@@ -16,7 +15,7 @@ from tests.factories.user import UserFactory
 def get_settings_override():
     return Settings(
         ENV="local",
-        SQL_HOST="127.0.0.1",
+        SQL_HOST="db",
         SQL_PORT=5432,
         POSTGRES_DB="test",
         POSTGRES_USER="test",
@@ -30,57 +29,40 @@ def get_settings_override():
     )
 
 
-@pytest.fixture(scope="function")
-def app():
-    app = create_app(settings=get_settings_override())
-    app.dependency_overrides[get_settings] = get_settings_override
-    return app
-
-
-@pytest.fixture(scope="function")
-def settings():
-    return get_settings_override()
-
-
-@pytest.fixture(scope="function")
+@pytest.fixture(scope="session")
 def connection(settings):
-    engine = create_engine(settings.SQLALCHEMY_DATABASE_URL)
-
     if database_exists(settings.SQLALCHEMY_DATABASE_URL):
         drop_database(settings.SQLALCHEMY_DATABASE_URL)
-
     create_database(settings.SQLALCHEMY_DATABASE_URL)
-
     connection = engine.connect()
 
     yield connection
 
-    drop_database(settings.SQLALCHEMY_DATABASE_URL)
     connection.close()
+    drop_database(settings.SQLALCHEMY_DATABASE_URL)
 
 
-@pytest.fixture(scope="function")
-def setup_db(connection, request):
-    """Setup test database.
+@pytest.fixture(scope="session")
+def setup_db(connection, settings, request):
+    Base.metadata.bind = connection
+    Base.metadata.create_all()
 
-    Creates all database tables as declared in SQLAlchemy schemas,
-    then proceeds to drop all the created tables after all tests
-    have finished running.
-    """
+    def teardown():
+        Base.metadata.drop_all()
 
-    Base.metadata.create_all(bind=connection)
+    request.addfinalizer(teardown)
 
     return None
 
 
 @pytest.fixture(autouse=True)
-def session(app, connection, setup_db, request):
+def session(connection, setup_db, request):
     transaction = connection.begin()
     session = Session(bind=connection)
     session.begin_nested()
 
-    @listens_for(session, "after_transaction_end")
-    def restart_savepoint(session, transaction):
+    @event.listens_for(session, "after_transaction_end")
+    def restart_savepoint(db_session, transaction):
         """Support tests with rollbacks.
 
         This is required for tests that call some services that issue
@@ -93,30 +75,29 @@ def session(app, connection, setup_db, request):
         larger “transaction” that’s never committed.
         """
         if transaction.nested and not transaction._parent.nested:
-            # ensure that state is expired the way session.commit() at
-            # the top level normally does
             session.expire_all()
             session.begin_nested()
-
-    def replace_application_session(*args, **kwargs):
-        # This callable allows us to replace at runtime the
-        # application's database session with the new test session,
-        # which supports transactional tests.
-        return session
-
-    # This will depend on how you are declaring and handling the app's
-    # database session. You will need to monkeypatch accordingly
-    app.dependency_overrides[get_db] = lambda: session
 
     def teardown():
         Session.remove()
         transaction.rollback()
 
-        Base.metadata.drop_all(bind=connection)
-
     request.addfinalizer(teardown)
 
     return session
+
+
+@pytest.fixture(scope="function")
+def app(session):
+    app = create_app(settings=get_settings_override())
+    app.dependency_overrides[get_settings] = get_settings_override
+    app.dependency_overrides[get_db] = lambda: session
+    return app
+
+
+@pytest.fixture(scope="session")
+def settings():
+    return get_settings_override()
 
 
 @pytest.fixture(scope="function")

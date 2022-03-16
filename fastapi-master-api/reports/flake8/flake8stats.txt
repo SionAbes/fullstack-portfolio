@@ -1,2 +1,6 @@
 26    F401 'app.api.models.liebherr_lidat_adapter.LiebherrLidatAdapter' imported but unused
 3     F841 local variable 'machine' is assigned to but never used
+1     E302 expected 2 blank lines, found 1
+26    F401 'app.api.models.liebherr_lidat_adapter.LiebherrLidatAdapter' imported but unused
+3     F841 local variable 'machine' is assigned to but never used
+1     W292 no newline at end of file

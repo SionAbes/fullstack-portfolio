@@ -8,6 +8,7 @@ services:
       context: ../fastapi-master-api
       dockerfile: Dockerfile
       target: dev
+    command: uvicorn app.main:create_app --host 0.0.0.0 --port 80 --reload
     expose:
       - 80
     ports:
@@ -16,7 +17,7 @@ services:
     env_file: &envfile
       - ../fastapi-master-api/.env
     volumes:
-      - ../fastapi-master-api/alembic:/usr/src/app/alembic
+      - ../fastapi-master-api/alembic:/usr/src/app/
       - ../fastapi-master-api/app:/usr/src/app/app
       - ../fastapi-master-api/tests:/usr/src/app/tests
       - ../fastapi-master-api/pyproject.toml:/usr/src/app/pyproject.toml

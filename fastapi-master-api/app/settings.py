@@ -18,6 +18,7 @@ class Settings(BaseSettings):
     POSTGRES_USER: str
     POSTGRES_PASSWORD: str
     SQLALCHEMY_DATABASE_URL: Optional[PostgresDsn] = None
+    SKIP_SESSION_HANDLER: bool = False
 
     @validator("SQLALCHEMY_DATABASE_URL", pre=True)
     def assemble_db_connection(

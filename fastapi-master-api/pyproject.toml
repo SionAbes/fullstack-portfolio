@@ -5,7 +5,7 @@ description = ""
 authors = ["Your Name <you@example.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.10"
 fastapi = "^0.70.0"
 SQLAlchemy = "^1.4.27"
 uvicorn = "^0.15.0"
@@ -33,6 +33,7 @@ cryptography = "^36.0.1"
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
 faker-vehicle = "^0.2.0"
+defusedxml = "^0.7.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

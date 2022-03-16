@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>tests/conftest.py - flake8 annotated source</title>
+      <meta http-equiv="Content-Type" value="text/html; charset=UTF-8">
+      <link rel="stylesheet" href="styles.css">
+   </head>
+   <body>
+      <div id="masthead" class="sev-2"></div>
+      <div id="page">
+         <h1>
+            <a href="tests.conftest.report.html">
+               <img src="back.svg" alt="&#x2B05;">
+               tests/conftest.py source
+            </a>
+         </h1>
+
+         <div id="doc">
+            <div id="l1"
+               class="code sev- "><tt><i>1</i> <span class="kn">import</span> <span class="nn">pytest</span></tt>
+            </div>
+            <div id="l2"
+               class="code sev- "><tt><i>2</i> <span class="kn">from</span> <span class="nn">app.main</span> <span class="kn">import</span> <span class="n">create_app</span></tt>
+            </div>
+            <div id="l3"
+               class="code sev- "><tt><i>3</i> <span class="kn">from</span> <span class="nn">app.repository.models.base</span> <span class="kn">import</span> <span class="n">BaseModel</span> <span class="k">as</span> <span class="n">Base</span></tt>
+            </div>
+            <div id="l4"
+               class="code sev- "><tt><i>4</i> <span class="kn">from</span> <span class="nn">app.security</span> <span class="kn">import</span> <span class="n">get_current_user</span></tt>
+            </div>
+            <div id="l5"
+               class="code sev- "><tt><i>5</i> <span class="kn">from</span> <span class="nn">app.settings</span> <span class="kn">import</span> <span class="n">Settings</span><span class="p">,</span> <span class="n">get_settings</span></tt>
+            </div>
+            <div id="l6"
+               class="code sev- "><tt><i>6</i> <span class="kn">from</span> <span class="nn">sqlalchemy_utils</span> <span class="kn">import</span> <span class="n">create_database</span><span class="p">,</span> <span class="n">database_exists</span><span class="p">,</span> <span class="n">drop_database</span></tt>
+            </div>
+            <div id="l7"
+               class="code sev- "><tt><i>7</i> <span class="kn">from</span> <span class="nn">starlette.testclient</span> <span class="kn">import</span> <span class="n">TestClient</span></tt>
+            </div>
+            <div id="l8"
+               class="code sev- "><tt><i>8</i> <span class="kn">from</span> <span class="nn">tests.factories.token</span> <span class="kn">import</span> <span class="n">TokenModelFactory</span></tt>
+            </div>
+            <div id="l9"
+               class="code sev- "><tt><i>9</i> <span class="kn">from</span> <span class="nn">tests.factories.user</span> <span class="kn">import</span> <span class="n">UserFactory</span></tt>
+            </div>
+            <div id="l10"
+               class="code sev- "><tt><i>10</i> <span class="kn">from</span> <span class="nn">app.dependancies</span> <span class="kn">import</span> <span class="n">get_db</span></tt>
+            </div>
+            <div id="l11"
+               class="code sev- "><tt><i>11</i> <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">event</span></tt>
+            </div>
+            <div id="l12"
+               class="code sev- "><tt><i>12</i> &nbsp;</tt>
+            </div>
+            <div id="l13"
+               class="code sev- "><tt><i>13</i> <span class="kn">from</span> <span class="nn">tests</span> <span class="kn">import</span> <span class="n">Session</span><span class="p">,</span> <span class="n">engine</span></tt>
+            </div>
+            <div id="l14"
+               class="code sev- "><tt><i>14</i> &nbsp;</tt>
+            </div>
+            <div id="l15"
+               class="code sev-2  le">
+               <ul class="violations">
+               
+                  <li>
+                     <span class="count sev-2">
+                        E302
+                     </span>
+                     Expected 2 blank lines, found 1</li>
+               
+               </ul><tt><i>15</i> <span class="k">def</span> <span class="nf">get_settings_override</span><span class="p">():</span></tt>
+            </div>
+            <div id="l16"
+               class="code sev- "><tt><i>16</i>     <span class="k">return</span> <span class="n">Settings</span><span class="p">(</span></tt>
+            </div>
+            <div id="l17"
+               class="code sev- "><tt><i>17</i>         <span class="n">ENV</span><span class="o">=</span><span class="s2">&quot;local&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l18"
+               class="code sev- "><tt><i>18</i>         <span class="n">SQL_HOST</span><span class="o">=</span><span class="s2">&quot;db&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l19"
+               class="code sev- "><tt><i>19</i>         <span class="n">SQL_PORT</span><span class="o">=</span><span class="mi">5432</span><span class="p">,</span></tt>
+            </div>
+            <div id="l20"
+               class="code sev- "><tt><i>20</i>         <span class="n">POSTGRES_DB</span><span class="o">=</span><span class="s2">&quot;test&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l21"
+               class="code sev- "><tt><i>21</i>         <span class="n">POSTGRES_USER</span><span class="o">=</span><span class="s2">&quot;test&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l22"
+               class="code sev- "><tt><i>22</i>         <span class="n">POSTGRES_PASSWORD</span><span class="o">=</span><span class="s2">&quot;var_postgres_password&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l23"
+               class="code sev- "><tt><i>23</i>         <span class="n">API_URL</span><span class="o">=</span><span class="s2">&quot;http://127.0.0.1:80&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l24"
+               class="code sev- "><tt><i>24</i>         <span class="n">JWT_SECRET</span><span class="o">=</span><span class="s2">&quot;jwt_secret&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l25"
+               class="code sev- "><tt><i>25</i>         <span class="n">HASH_SECRET</span><span class="o">=</span><span class="s2">&quot;6SzoYaa8bcAvS7-rGcUQV_xxZGQgwgHJNGo5xgfQGJ4=&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l26"
+               class="code sev- "><tt><i>26</i>         <span class="n">ACCESS_TOKEN_EXPIRE_MINUTES</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span></tt>
+            </div>
+            <div id="l27"
+               class="code sev- "><tt><i>27</i>         <span class="n">REFRESH_TOKEN_EXPIRE_MINUTES</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span></tt>
+            </div>
+            <div id="l28"
+               class="code sev- "><tt><i>28</i>         <span class="n">ALGORITHM</span><span class="o">=</span><span class="s2">&quot;HS256&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l29"
+               class="code sev- "><tt><i>29</i>     <span class="p">)</span></tt>
+            </div>
+            <div id="l30"
+               class="code sev- "><tt><i>30</i> &nbsp;</tt>
+            </div>
+            <div id="l31"
+               class="code sev- "><tt><i>31</i> &nbsp;</tt>
+            </div>
+            <div id="l32"
+               class="code sev- "><tt><i>32</i> <span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;session&quot;</span><span class="p">)</span></tt>
+            </div>
+            <div id="l33"
+               class="code sev- "><tt><i>33</i> <span class="k">def</span> <span class="nf">connection</span><span class="p">(</span><span class="n">settings</span><span class="p">):</span></tt>
+            </div>
+            <div id="l34"
+               class="code sev- "><tt><i>34</i>     <span class="k">if</span> <span class="n">database_exists</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">SQLALCHEMY_DATABASE_URL</span><span class="p">):</span></tt>
+            </div>
+            <div id="l35"
+               class="code sev- "><tt><i>35</i>         <span class="n">drop_database</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">SQLALCHEMY_DATABASE_URL</span><span class="p">)</span></tt>
+            </div>
+            <div id="l36"
+               class="code sev- "><tt><i>36</i>     <span class="n">create_database</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">SQLALCHEMY_DATABASE_URL</span><span class="p">)</span></tt>
+            </div>
+            <div id="l37"
+               class="code sev- "><tt><i>37</i>     <span class="n">connection</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span></tt>
+            </div>
+            <div id="l38"
+               class="code sev- "><tt><i>38</i> &nbsp;</tt>
+            </div>
+            <div id="l39"
+               class="code sev- "><tt><i>39</i>     <span class="k">yield</span> <span class="n">connection</span></tt>
+            </div>
+            <div id="l40"
+               class="code sev- "><tt><i>40</i> &nbsp;</tt>
+            </div>
+            <div id="l41"
+               class="code sev- "><tt><i>41</i>     <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></tt>
+            </div>
+            <div id="l42"
+               class="code sev- "><tt><i>42</i>     <span class="n">drop_database</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">SQLALCHEMY_DATABASE_URL</span><span class="p">)</span></tt>
+            </div>
+            <div id="l43"
+               class="code sev- "><tt><i>43</i> &nbsp;</tt>
+            </div>
+            <div id="l44"
+               class="code sev- "><tt><i>44</i> &nbsp;</tt>
+            </div>
+            <div id="l45"
+               class="code sev- "><tt><i>45</i> <span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;session&quot;</span><span class="p">)</span></tt>
+            </div>
+            <div id="l46"
+               class="code sev- "><tt><i>46</i> <span class="k">def</span> <span class="nf">setup_db</span><span class="p">(</span><span class="n">connection</span><span class="p">,</span> <span class="n">settings</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span></tt>
+            </div>
+            <div id="l47"
+               class="code sev- "><tt><i>47</i>     <span class="n">Base</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">bind</span> <span class="o">=</span> <span class="n">connection</span></tt>
+            </div>
+            <div id="l48"
+               class="code sev- "><tt><i>48</i>     <span class="n">Base</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">create_all</span><span class="p">()</span></tt>
+            </div>
+            <div id="l49"
+               class="code sev- "><tt><i>49</i> &nbsp;</tt>
+            </div>
+            <div id="l50"
+               class="code sev- "><tt><i>50</i>     <span class="k">def</span> <span class="nf">teardown</span><span class="p">():</span></tt>
+            </div>
+            <div id="l51"
+               class="code sev- "><tt><i>51</i>         <span class="n">Base</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">drop_all</span><span class="p">()</span></tt>
+            </div>
+            <div id="l52"
+               class="code sev- "><tt><i>52</i> &nbsp;</tt>
+            </div>
+            <div id="l53"
+               class="code sev- "><tt><i>53</i>     <span class="n">request</span><span class="o">.</span><span class="n">addfinalizer</span><span class="p">(</span><span class="n">teardown</span><span class="p">)</span></tt>
+            </div>
+            <div id="l54"
+               class="code sev- "><tt><i>54</i> &nbsp;</tt>
+            </div>
+            <div id="l55"
+               class="code sev- "><tt><i>55</i>     <span class="k">return</span> <span class="kc">None</span></tt>
+            </div>
+            <div id="l56"
+               class="code sev- "><tt><i>56</i> &nbsp;</tt>
+            </div>
+            <div id="l57"
+               class="code sev- "><tt><i>57</i> &nbsp;</tt>
+            </div>
+            <div id="l58"
+               class="code sev- "><tt><i>58</i> <span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">autouse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></tt>
+            </div>
+            <div id="l59"
+               class="code sev- "><tt><i>59</i> <span class="k">def</span> <span class="nf">session</span><span class="p">(</span><span class="n">connection</span><span class="p">,</span> <span class="n">setup_db</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span></tt>
+            </div>
+            <div id="l60"
+               class="code sev- "><tt><i>60</i>     <span class="n">transaction</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">begin</span><span class="p">()</span></tt>
+            </div>
+            <div id="l61"
+               class="code sev- "><tt><i>61</i>     <span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">connection</span><span class="p">)</span></tt>
+            </div>
+            <div id="l62"
+               class="code sev- "><tt><i>62</i>     <span class="n">session</span><span class="o">.</span><span class="n">begin_nested</span><span class="p">()</span></tt>
+            </div>
+            <div id="l63"
+               class="code sev- "><tt><i>63</i> &nbsp;</tt>
+            </div>
+            <div id="l64"
+               class="code sev- "><tt><i>64</i>     <span class="nd">@event</span><span class="o">.</span><span class="n">listens_for</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="s2">&quot;after_transaction_end&quot;</span><span class="p">)</span></tt>
+            </div>
+            <div id="l65"
+               class="code sev- "><tt><i>65</i>     <span class="k">def</span> <span class="nf">restart_savepoint</span><span class="p">(</span><span class="n">db_session</span><span class="p">,</span> <span class="n">transaction</span><span class="p">):</span></tt>
+            </div>
+            <div id="l66"
+               class="code sev- "><tt><i>66</i>         <span class="sd">&quot;&quot;&quot;Support tests with rollbacks.</span></tt>
+            </div>
+            <div id="l67"
+               class="code sev- "><tt><i>67</i> &nbsp;</tt>
+            </div>
+            <div id="l68"
+               class="code sev- "><tt><i>68</i> <span class="sd">        This is required for tests that call some services that issue</span></tt>
+            </div>
+            <div id="l69"
+               class="code sev- "><tt><i>69</i> <span class="sd">        rollbacks in try-except blocks.</span></tt>
+            </div>
+            <div id="l70"
+               class="code sev- "><tt><i>70</i> &nbsp;</tt>
+            </div>
+            <div id="l71"
+               class="code sev- "><tt><i>71</i> <span class="sd">        With this event the Session always runs all operations within</span></tt>
+            </div>
+            <div id="l72"
+               class="code sev- "><tt><i>72</i> <span class="sd">        the scope of a SAVEPOINT, which is established at the start of</span></tt>
+            </div>
+            <div id="l73"
+               class="code sev- "><tt><i>73</i> <span class="sd">        each transaction, so that tests can also rollback the</span></tt>
+            </div>
+            <div id="l74"
+               class="code sev- "><tt><i>74</i> <span class="sd">        “transaction” as well while still remaining in the scope of a</span></tt>
+            </div>
+            <div id="l75"
+               class="code sev- "><tt><i>75</i> <span class="sd">        larger “transaction” that’s never committed.</span></tt>
+            </div>
+            <div id="l76"
+               class="code sev- "><tt><i>76</i> <span class="sd">        &quot;&quot;&quot;</span></tt>
+            </div>
+            <div id="l77"
+               class="code sev- "><tt><i>77</i>         <span class="k">if</span> <span class="n">transaction</span><span class="o">.</span><span class="n">nested</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">transaction</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">nested</span><span class="p">:</span></tt>
+            </div>
+            <div id="l78"
+               class="code sev- "><tt><i>78</i>             <span class="n">session</span><span class="o">.</span><span class="n">expire_all</span><span class="p">()</span></tt>
+            </div>
+            <div id="l79"
+               class="code sev- "><tt><i>79</i>             <span class="n">session</span><span class="o">.</span><span class="n">begin_nested</span><span class="p">()</span></tt>
+            </div>
+            <div id="l80"
+               class="code sev- "><tt><i>80</i> &nbsp;</tt>
+            </div>
+            <div id="l81"
+               class="code sev- "><tt><i>81</i>     <span class="k">def</span> <span class="nf">teardown</span><span class="p">():</span></tt>
+            </div>
+            <div id="l82"
+               class="code sev- "><tt><i>82</i>         <span class="n">Session</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span></tt>
+            </div>
+            <div id="l83"
+               class="code sev- "><tt><i>83</i>         <span class="n">transaction</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span></tt>
+            </div>
+            <div id="l84"
+               class="code sev- "><tt><i>84</i> &nbsp;</tt>
+            </div>
+            <div id="l85"
+               class="code sev- "><tt><i>85</i>     <span class="n">request</span><span class="o">.</span><span class="n">addfinalizer</span><span class="p">(</span><span class="n">teardown</span><span class="p">)</span></tt>
+            </div>
+            <div id="l86"
+               class="code sev- "><tt><i>86</i> &nbsp;</tt>
+            </div>
+            <div id="l87"
+               class="code sev- "><tt><i>87</i>     <span class="k">return</span> <span class="n">session</span></tt>
+            </div>
+            <div id="l88"
+               class="code sev- "><tt><i>88</i> &nbsp;</tt>
+            </div>
+            <div id="l89"
+               class="code sev- "><tt><i>89</i> &nbsp;</tt>
+            </div>
+            <div id="l90"
+               class="code sev- "><tt><i>90</i> <span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;function&quot;</span><span class="p">)</span></tt>
+            </div>
+            <div id="l91"
+               class="code sev- "><tt><i>91</i> <span class="k">def</span> <span class="nf">app</span><span class="p">(</span><span class="n">session</span><span class="p">):</span></tt>
+            </div>
+            <div id="l92"
+               class="code sev- "><tt><i>92</i>     <span class="n">app</span> <span class="o">=</span> <span class="n">create_app</span><span class="p">(</span><span class="n">settings</span><span class="o">=</span><span class="n">get_settings_override</span><span class="p">())</span></tt>
+            </div>
+            <div id="l93"
+               class="code sev- "><tt><i>93</i>     <span class="n">app</span><span class="o">.</span><span class="n">dependency_overrides</span><span class="p">[</span><span class="n">get_settings</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_settings_override</span></tt>
+            </div>
+            <div id="l94"
+               class="code sev- "><tt><i>94</i>     <span class="n">app</span><span class="o">.</span><span class="n">dependency_overrides</span><span class="p">[</span><span class="n">get_db</span><span class="p">]</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">session</span></tt>
+            </div>
+            <div id="l95"
+               class="code sev- "><tt><i>95</i>     <span class="k">return</span> <span class="n">app</span></tt>
+            </div>
+            <div id="l96"
+               class="code sev- "><tt><i>96</i> &nbsp;</tt>
+            </div>
+            <div id="l97"
+               class="code sev- "><tt><i>97</i> &nbsp;</tt>
+            </div>
+            <div id="l98"
+               class="code sev- "><tt><i>98</i> <span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;session&quot;</span><span class="p">)</span></tt>
+            </div>
+            <div id="l99"
+               class="code sev- "><tt><i>99</i> <span class="k">def</span> <span class="nf">settings</span><span class="p">():</span></tt>
+            </div>
+            <div id="l100"
+               class="code sev- "><tt><i>100</i>     <span class="k">return</span> <span class="n">get_settings_override</span><span class="p">()</span></tt>
+            </div>
+            <div id="l101"
+               class="code sev- "><tt><i>101</i> &nbsp;</tt>
+            </div>
+            <div id="l102"
+               class="code sev- "><tt><i>102</i> &nbsp;</tt>
+            </div>
+            <div id="l103"
+               class="code sev- "><tt><i>103</i> <span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;function&quot;</span><span class="p">)</span></tt>
+            </div>
+            <div id="l104"
+               class="code sev- "><tt><i>104</i> <span class="k">def</span> <span class="nf">client</span><span class="p">(</span><span class="n">app</span><span class="p">):</span></tt>
+            </div>
+            <div id="l105"
+               class="code sev- "><tt><i>105</i>     <span class="k">with</span> <span class="n">TestClient</span><span class="p">(</span><span class="n">app</span><span class="p">)</span> <span class="k">as</span> <span class="n">test_client</span><span class="p">:</span></tt>
+            </div>
+            <div id="l106"
+               class="code sev- "><tt><i>106</i>         <span class="k">yield</span> <span class="n">test_client</span></tt>
+            </div>
+            <div id="l107"
+               class="code sev- "><tt><i>107</i> &nbsp;</tt>
+            </div>
+            <div id="l108"
+               class="code sev- "><tt><i>108</i> &nbsp;</tt>
+            </div>
+            <div id="l109"
+               class="code sev- "><tt><i>109</i> <span class="k">def</span> <span class="nf">login_as</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">token</span><span class="p">):</span></tt>
+            </div>
+            <div id="l110"
+               class="code sev- "><tt><i>110</i>     <span class="n">app</span><span class="o">.</span><span class="n">dependency_overrides</span><span class="p">[</span><span class="n">get_current_user</span><span class="p">]</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">token</span></tt>
+            </div>
+            <div id="l111"
+               class="code sev- "><tt><i>111</i> &nbsp;</tt>
+            </div>
+            <div id="l112"
+               class="code sev- "><tt><i>112</i> &nbsp;</tt>
+            </div>
+            <div id="l113"
+               class="code sev- "><tt><i>113</i> <span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span></tt>
+            </div>
+            <div id="l114"
+               class="code sev- "><tt><i>114</i> <span class="k">def</span> <span class="nf">auth_user</span><span class="p">():</span></tt>
+            </div>
+            <div id="l115"
+               class="code sev- "><tt><i>115</i>     <span class="k">return</span> <span class="n">UserFactory</span><span class="p">(</span></tt>
+            </div>
+            <div id="l116"
+               class="code sev- "><tt><i>116</i>         <span class="n">password</span><span class="o">=</span><span class="s2">&quot;$2a$10$lSYipjr11mxzfeKDjYt6f.XA369N2SZsarMMRiFwoZ/PGS8.5ma7a&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l117"
+               class="code sev- "><tt><i>117</i>         <span class="n">email</span><span class="o">=</span><span class="s2">&quot;test_email&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l118"
+               class="code sev- "><tt><i>118</i>     <span class="p">)</span></tt>
+            </div>
+            <div id="l119"
+               class="code sev- "><tt><i>119</i> &nbsp;</tt>
+            </div>
+            <div id="l120"
+               class="code sev- "><tt><i>120</i> &nbsp;</tt>
+            </div>
+            <div id="l121"
+               class="code sev- "><tt><i>121</i> <span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span></tt>
+            </div>
+            <div id="l122"
+               class="code sev- "><tt><i>122</i> <span class="k">def</span> <span class="nf">mock_admin_user</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">auth_user</span><span class="p">):</span></tt>
+            </div>
+            <div id="l123"
+               class="code sev- "><tt><i>123</i>     <span class="n">admin_token</span> <span class="o">=</span> <span class="n">TokenModelFactory</span><span class="p">(</span><span class="n">sub</span><span class="o">=</span><span class="n">auth_user</span><span class="o">.</span><span class="n">id</span><span class="p">)</span></tt>
+            </div>
+            <div id="l124"
+               class="code sev- "><tt><i>124</i>     <span class="n">login_as</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">admin_token</span><span class="p">)</span></tt>
+            </div>
+            <div id="l125"
+               class="code sev- "><tt><i>125</i>     <span class="k">return</span> <span class="n">admin_token</span></tt>
+            </div>
+            <div id="l126"
+               class="code sev- "><tt><i>126</i> &nbsp;</tt>
+            </div>
+            <div id="l127"
+               class="code sev- "><tt><i>127</i> &nbsp;</tt>
+            </div>
+            <div id="l128"
+               class="code sev- "><tt><i>128</i> <span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span></tt>
+            </div>
+            <div id="l129"
+               class="code sev- "><tt><i>129</i> <span class="k">def</span> <span class="nf">refresh_token</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">auth_user</span><span class="p">):</span></tt>
+            </div>
+            <div id="l130"
+               class="code sev- "><tt><i>130</i>     <span class="n">refresh_token</span> <span class="o">=</span> <span class="n">TokenModelFactory</span><span class="p">(</span><span class="n">sub</span><span class="o">=</span><span class="n">auth_user</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;refresh_token&quot;</span><span class="p">)</span></tt>
+            </div>
+            <div id="l131"
+               class="code sev- "><tt><i>131</i>     <span class="n">login_as</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">refresh_token</span><span class="p">)</span></tt>
+            </div>
+            <div id="l132"
+               class="code sev- "><tt><i>132</i>     <span class="k">return</span> <span class="n">refresh_token</span></tt>
+            </div>
+            <div id="l133"
+               class="code sev- "><tt><i>133</i> &nbsp;</tt>
+            </div>
+            <div id="l134"
+               class="code sev- "><tt><i>134</i> &nbsp;</tt>
+            </div>
+            <div id="l135"
+               class="code sev- "><tt><i>135</i> <span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span></tt>
+            </div>
+            <div id="l136"
+               class="code sev- "><tt><i>136</i> <span class="k">def</span> <span class="nf">mock_standard_user</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">auth_user</span><span class="p">):</span></tt>
+            </div>
+            <div id="l137"
+               class="code sev- "><tt><i>137</i>     <span class="n">user_token</span> <span class="o">=</span> <span class="n">TokenModelFactory</span><span class="p">(</span><span class="n">sub</span><span class="o">=</span><span class="n">auth_user</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">roles</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;USER&quot;</span><span class="p">])</span></tt>
+            </div>
+            <div id="l138"
+               class="code sev- "><tt><i>138</i>     <span class="n">login_as</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">user_token</span><span class="p">)</span></tt>
+            </div>
+            <div id="l139"
+               class="code sev- "><tt><i>139</i>     <span class="k">return</span> <span class="n">user_token</span></tt>
+            </div>
+            
+         </div>
+      </div>
+   </body>
+</html>
