@@ -154,4 +154,5 @@ def refresh_token(app, auth_user):
 @pytest.fixture
 def mock_standard_user(app, auth_user):
     user_token = TokenModelFactory(sub=auth_user.id, roles=["USER"])
+    login_as(app, user_token)
     return user_token

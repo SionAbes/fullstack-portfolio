@@ -38,14 +38,6 @@ def test_fetch_users_not_auth(
     assert resp.status_code == status.HTTP_401_UNAUTHORIZED
 
 
-def test_fetch_users_auth_as_standard_user(app, client, mock_standard_user):
-    UserFactory()
-    url = app.url_path_for("fetch_users")
-    resp = client.get(url)
-
-    assert resp.status_code == status.HTTP_401_UNAUTHORIZED
-
-
 def test_update_user_by_id(app, client, mock_admin_user):
     user = UserFactory(
         is_superuser=True,

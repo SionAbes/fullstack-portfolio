@@ -243,7 +243,7 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
 }
 </script>
     <h1>report.html</h1>
-    <p>Report generated on 31-Jan-2022 at 23:55:54 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v3.1.1</p>
+    <p>Report generated on 16-Mar-2022 at 19:00:50 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v3.1.1</p>
     <h2>Environment</h2>
     <table id="environment">
       <tr>
@@ -251,16 +251,16 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
         <td>{"pluggy": "1.0.0", "py": "1.11.0", "pytest": "6.2.5"}</td></tr>
       <tr>
         <td>Platform</td>
-        <td>macOS-11.3.1-arm64-arm-64bit</td></tr>
+        <td>macOS-12.2-arm64-arm-64bit</td></tr>
       <tr>
         <td>Plugins</td>
-        <td>{"Faker": "10.0.0", "anyio": "3.4.0", "asyncio": "0.16.0", "cov": "3.0.0", "freezegun": "0.4.2", "html": "3.1.1", "metadata": "1.11.0"}</td></tr>
+        <td>{"Faker": "10.0.0", "anyio": "3.4.0", "cov": "3.0.0", "freezegun": "0.4.2", "html": "3.1.1", "metadata": "1.11.0"}</td></tr>
       <tr>
         <td>Python</td>
-        <td>3.9.7</td></tr></table>
+        <td>3.10.2</td></tr></table>
     <h2>Summary</h2>
-    <p>32 tests ran in 13.54 seconds. </p>
-    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="passed">32 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="failed">0 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
+    <p>34 tests ran in 16.08 seconds. </p>
+    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="passed">32 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="failed">2 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
     <h2>Results</h2>
     <table id="results-table">
       <thead id="results-table-head">
@@ -271,11 +271,29 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
           <th class="sortable links" col="links">Links</th></tr>
         <tr hidden="true" id="not-found-message">
           <th colspan="4">No results found. Try to check the filters</th></tr></thead>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">tests/api/test_machines.py::test_fetch_machines_as_admin</td>
+          <td class="col-duration">0.28</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">app = &lt;fastapi.applications.FastAPI object at 0x107561e10&gt;, client = &lt;starlette.testclient.TestClient object at 0x10757fc10&gt;<br/>mock_admin_user = TokenModel(type=&#x27;access_token&#x27;, exp=1647540034, iat=&#x27;2022-03-16 18:00:34.181400+00:00&#x27;, sub=11, roles=[&#x27;ADMIN&#x27;, &#x27;USER&#x27;])<br/>auth_user = &lt;app.repository.models.users.User object at 0x1075ae440&gt;<br/><br/>    def test_fetch_machines_as_admin(<br/>        app,<br/>        client,<br/>        mock_admin_user,<br/>        auth_user,<br/>    ):<br/>        machine = MachineFactory(user=auth_user)<br/>    <br/>        url = app.url_path_for(&quot;fetch_machines&quot;)<br/>&gt;       resp = client.get(url)<br/><br/>tests/api/test_machines.py:14: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/>../venv/lib/python3.10/site-packages/requests/sessions.py:555: in get<br/>    return self.request(&#x27;GET&#x27;, url, **kwargs)<br/>../venv/lib/python3.10/site-packages/starlette/testclient.py:468: in request<br/>    return super().request(<br/>../venv/lib/python3.10/site-packages/requests/sessions.py:542: in request<br/>    resp = self.send(prep, **send_kwargs)<br/>../venv/lib/python3.10/site-packages/requests/sessions.py:655: in send<br/>    r = adapter.send(request, **kwargs)<br/>../venv/lib/python3.10/site-packages/starlette/testclient.py:266: in send<br/>    raise exc<br/>../venv/lib/python3.10/site-packages/starlette/testclient.py:263: in send<br/>    portal.call(self.app, scope, receive, send)<br/>../venv/lib/python3.10/site-packages/anyio/from_thread.py:240: in call<br/>    return cast(T_Retval, self.start_task_soon(func, *args).result())<br/>/opt/homebrew/Cellar/python@3.10/3.10.2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/concurrent/futures/_base.py:446: in result<br/>    return self.__get_result()<br/>/opt/homebrew/Cellar/python@3.10/3.10.2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/concurrent/futures/_base.py:391: in __get_result<br/>    raise self._exception<br/>../venv/lib/python3.10/site-packages/anyio/from_thread.py:187: in _call_func<br/>    retval = await retval<br/>../venv/lib/python3.10/site-packages/fastapi/applications.py:208: in __call__<br/>    await super().__call__(scope, receive, send)<br/>../venv/lib/python3.10/site-packages/starlette/applications.py:112: in __call__<br/>    await self.middleware_stack(scope, receive, send)<br/>../venv/lib/python3.10/site-packages/starlette/middleware/errors.py:181: in __call__<br/>    raise exc<br/>../venv/lib/python3.10/site-packages/starlette/middleware/errors.py:159: in __call__<br/>    await self.app(scope, receive, _send)<br/>../venv/lib/python3.10/site-packages/starlette/exceptions.py:82: in __call__<br/>    raise exc<br/>../venv/lib/python3.10/site-packages/starlette/exceptions.py:71: in __call__<br/>    await self.app(scope, receive, sender)<br/>../venv/lib/python3.10/site-packages/starlette/routing.py:656: in __call__<br/>    await route.handle(scope, receive, send)<br/>../venv/lib/python3.10/site-packages/starlette/routing.py:259: in handle<br/>    await self.app(scope, receive, send)<br/>../venv/lib/python3.10/site-packages/starlette/routing.py:61: in app<br/>    response = await func(request)<br/>../venv/lib/python3.10/site-packages/fastapi/routing.py:226: in app<br/>    raw_response = await run_endpoint_function(<br/>../venv/lib/python3.10/site-packages/fastapi/routing.py:161: in run_endpoint_function<br/>    return await run_in_threadpool(dependant.call, **values)<br/>../venv/lib/python3.10/site-packages/starlette/concurrency.py:39: in run_in_threadpool<br/>    return await anyio.to_thread.run_sync(func, *args)<br/>../venv/lib/python3.10/site-packages/anyio/to_thread.py:28: in run_sync<br/>    return await get_asynclib().run_sync_in_worker_thread(func, *args, cancellable=cancellable,<br/>../venv/lib/python3.10/site-packages/anyio/_backends/_asyncio.py:818: in run_sync_in_worker_thread<br/>    return await future<br/>../venv/lib/python3.10/site-packages/anyio/_backends/_asyncio.py:754: in run<br/>    result = context.run(func, *args)<br/>app/api/machines.py:33: in fetch_machines<br/>    ).list()<br/>app/service/machines.py:24: in list<br/>    self._authorize()<br/>app/service/machines.py:34: in _authorize<br/>    authorize(<br/>app/service/authorization.py:25: in authorize<br/>    policy_class = _resolve_policy(data_object)<br/>app/service/authorization.py:73: in _resolve_policy<br/>    policy = resolution_strategy().resolve(data_object)<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/><br/>self = &lt;app.service.authorization.RegistryClassResolver object at 0x107561ff0&gt;, data_object = &lt;class &#x27;app.domain.machine.Machine&#x27;&gt;<br/><br/>    def resolve(self, data_object) -&gt; Policy:<br/>&gt;       return POLICIES_REGISTRY[data_object.__name__]<br/><span class="error">E       KeyError: &#x27;Machine&#x27;</span><br/><br/>app/service/authorization.py:43: KeyError<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">tests/api/test_machines.py::test_fetch_machines_as_user</td>
+          <td class="col-duration">0.30</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">app = &lt;fastapi.applications.FastAPI object at 0x107b3d1e0&gt;, client = &lt;starlette.testclient.TestClient object at 0x10749ecb0&gt;<br/>mock_standard_user = TokenModel(type=&#x27;access_token&#x27;, exp=1647540034, iat=&#x27;2022-03-16 18:00:34.181400+00:00&#x27;, sub=12, roles=[&#x27;USER&#x27;])<br/>auth_user = &lt;app.repository.models.users.User object at 0x1078ed0c0&gt;<br/><br/>    def test_fetch_machines_as_user(<br/>        app,<br/>        client,<br/>        mock_standard_user,<br/>        auth_user,<br/>    ):<br/>        MachineFactory.create_batch(2, user=auth_user)<br/>        MachineFactory.create_batch(3)<br/>    <br/>        url = app.url_path_for(&quot;fetch_machines&quot;)<br/>        resp = client.get(url)<br/>&gt;       machine_resp = resp.json()[0]<br/><span class="error">E       KeyError: 0</span><br/><br/>tests/api/test_machines.py:32: KeyError<br/></div></td></tr></tbody>
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">tests/api/test_adapters.py::test_create_adapter_no_body</td>
-          <td class="col-duration">0.32</td>
+          <td class="col-duration">0.46</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -284,7 +302,7 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">tests/api/test_adapters.py::test_create_adapter_no_user</td>
-          <td class="col-duration">0.21</td>
+          <td class="col-duration">0.29</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -293,7 +311,7 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">tests/api/test_adapters.py::test_create_adapter_standard_user</td>
-          <td class="col-duration">0.24</td>
+          <td class="col-duration">0.30</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -302,47 +320,43 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">tests/api/test_adapters.py::test_create_adapter_volvo_caretrack</td>
-          <td class="col-duration">0.73</td>
+          <td class="col-duration">0.80</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
-            <div class="log"> ------------------------------Captured stdout call------------------------------ <br/>{&#x27;__root__&#x27;: VolvoCaretrackAdapter(id=1, user_id=2, adapter_name=&#x27;volvo_caretrack&#x27;, cron_expression=&#x27;1 * * * *&#x27;, data_url=&#x27;_data_url&#x27;, created_at=datetime.datetime(2022, 1, 31, 23, 55, 40, 514505), updated_at=datetime.datetime(2022, 1, 31, 23, 55, 40, 514607), username=&#x27;_username&#x27;, password=&#x27;$2b$12$krkVVUyREDgCvQT7B4vqTOw3vI0q8Ff.C/45jlKXYgQ27gMPiIwxa&#x27;)}
-<br/></div></td></tr></tbody>
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">tests/api/test_adapters.py::test_create_adapter_wacker_neuson_kramer</td>
-          <td class="col-duration">2.15</td>
+          <td class="col-duration">2.30</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
-            <div class="log"> ------------------------------Captured stdout call------------------------------ <br/>{&#x27;__root__&#x27;: WackerNeusonKramerAdapter(id=1, user_id=3, adapter_name=&#x27;wacker_neuson_kramer&#x27;, cron_expression=&#x27;1 * * * *&#x27;, data_url=&#x27;_data_url&#x27;, created_at=datetime.datetime(2022, 1, 31, 23, 55, 40, 514505), updated_at=datetime.datetime(2022, 1, 31, 23, 55, 40, 514607), token_url=&#x27;_token_url&#x27;, username=&#x27;_username&#x27;, password=&#x27;$2b$12$wvrM35kMj90JNv0QINTQ9u09NUT.tvF65uAnuI8Y2KPFZG7.tY27i&#x27;, client_id=&#x27;$2b$12$1O6ZG/xoIEix5LcwjmqcgukxYOTkG4hKrfupMNOiCi.n0L4xlHEIi&#x27;, client_secret=&#x27;$2b$12$EmedhEgIuorC7mVuxYYJO.fK.UDk4xaBjVgpyIGs6wDLPLgrE4bN6&#x27;)}
-<br/></div></td></tr></tbody>
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">tests/api/test_adapters.py::test_create_adapter_lidat_liebherr</td>
-          <td class="col-duration">0.96</td>
+          <td class="col-duration">1.00</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
-            <div class="log"> ------------------------------Captured stdout call------------------------------ <br/>{&#x27;__root__&#x27;: LiebherrLidatAdapter(id=1, user_id=4, adapter_name=&#x27;liebherr_lidat&#x27;, cron_expression=&#x27;1 * * * *&#x27;, data_url=&#x27;_data_url&#x27;, created_at=datetime.datetime(2022, 1, 31, 23, 55, 40, 514505), updated_at=datetime.datetime(2022, 1, 31, 23, 55, 40, 514607), username=&#x27;_username&#x27;, password=&#x27;$2b$12$rmveKstYhaiE7tsvgstbMeULAde2p2lVIk6uheZtFOUDVDKNQBMbW&#x27;)}
-<br/></div></td></tr></tbody>
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">tests/api/test_adapters.py::test_create_adapter_takeuchi_tfm</td>
-          <td class="col-duration">1.84</td>
+          <td class="col-duration">1.70</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
-            <div class="log"> ------------------------------Captured stdout call------------------------------ <br/>{&#x27;__root__&#x27;: TakeuchiTfmAdapter(id=1, user_id=5, adapter_name=&#x27;takeuchi_tfm&#x27;, cron_expression=&#x27;1 * * * *&#x27;, data_url=&#x27;_data_url&#x27;, created_at=datetime.datetime(2022, 1, 31, 23, 55, 40, 514505), updated_at=datetime.datetime(2022, 1, 31, 23, 55, 40, 514607), token_url=&#x27;_token_url&#x27;, client_id=&#x27;$2b$12$ExWUkr2Pid3uy4XEFRjTWOTHoGZhuF0TzVorI3W4kZYfJcP2JpJ4q&#x27;, client_secret=&#x27;$2b$12$BnwokzP2uJjv977PPsE0M.4SgmAKFMjtRaInbYg1ISLATsP/d8Yl2&#x27;)}
-<br/></div></td></tr></tbody>
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">tests/api/test_auth.py::test_login</td>
-          <td class="col-duration">0.30</td>
+          <td class="col-duration">0.34</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -351,7 +365,7 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">tests/api/test_auth.py::test_login_bad_password</td>
-          <td class="col-duration">0.30</td>
+          <td class="col-duration">0.35</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -360,7 +374,7 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">tests/api/test_auth.py::test_login_user_not_exist</td>
-          <td class="col-duration">0.24</td>
+          <td class="col-duration">0.28</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -369,7 +383,7 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">tests/api/test_auth.py::test_refresh</td>
-          <td class="col-duration">0.24</td>
+          <td class="col-duration">0.28</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -378,7 +392,7 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">tests/api/test_auth.py::test_refresh_incorrect_type</td>
-          <td class="col-duration">0.23</td>
+          <td class="col-duration">0.30</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -387,7 +401,7 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">tests/api/test_users.py::test_fetch_users</td>
-          <td class="col-duration">0.25</td>
+          <td class="col-duration">0.37</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -396,7 +410,7 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">tests/api/test_users.py::test_fetch_users_empty_db</td>
-          <td class="col-duration">0.24</td>
+          <td class="col-duration">0.30</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -405,7 +419,7 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">tests/api/test_users.py::test_fetch_users_not_auth</td>
-          <td class="col-duration">0.23</td>
+          <td class="col-duration">0.28</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -414,7 +428,7 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">tests/api/test_users.py::test_fetch_users_auth_as_standard_user</td>
-          <td class="col-duration">0.24</td>
+          <td class="col-duration">0.27</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -423,7 +437,7 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">tests/api/test_users.py::test_update_user_by_id</td>
-          <td class="col-duration">0.28</td>
+          <td class="col-duration">0.29</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -432,51 +446,6 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">tests/api/test_users.py::test_update_user_by_id_no_entry</td>
-          <td class="col-duration">0.24</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="empty log">No log output captured.</div></td></tr></tbody>
-      <tbody class="passed results-table-row">
-        <tr>
-          <td class="col-result">Passed</td>
-          <td class="col-name">tests/api/test_users.py::test_delete_user_by_id</td>
-          <td class="col-duration">0.25</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="empty log">No log output captured.</div></td></tr></tbody>
-      <tbody class="passed results-table-row">
-        <tr>
-          <td class="col-result">Passed</td>
-          <td class="col-name">tests/api/test_users.py::test_delete_user_by_id_no_entry</td>
-          <td class="col-duration">0.24</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="empty log">No log output captured.</div></td></tr></tbody>
-      <tbody class="passed results-table-row">
-        <tr>
-          <td class="col-result">Passed</td>
-          <td class="col-name">tests/app/test_security.py::test_verify_password</td>
-          <td class="col-duration">0.47</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="empty log">No log output captured.</div></td></tr></tbody>
-      <tbody class="passed results-table-row">
-        <tr>
-          <td class="col-result">Passed</td>
-          <td class="col-name">tests/app/test_security.py::test_verify_password_false</td>
-          <td class="col-duration">0.20</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="empty log">No log output captured.</div></td></tr></tbody>
-      <tbody class="passed results-table-row">
-        <tr>
-          <td class="col-result">Passed</td>
-          <td class="col-name">tests/domain/test_auth.py::test_create_token</td>
           <td class="col-duration">0.28</td>
           <td class="col-links"></td></tr>
         <tr>
@@ -485,8 +454,53 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
+          <td class="col-name">tests/api/test_users.py::test_delete_user_by_id</td>
+          <td class="col-duration">0.30</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">tests/api/test_users.py::test_delete_user_by_id_no_entry</td>
+          <td class="col-duration">0.27</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">tests/app/test_security.py::test_verify_password</td>
+          <td class="col-duration">0.56</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">tests/app/test_security.py::test_verify_password_false</td>
+          <td class="col-duration">0.30</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">tests/domain/test_auth.py::test_create_token</td>
+          <td class="col-duration">0.32</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
           <td class="col-name">tests/repository/test_users_repo.py::test_get</td>
-          <td class="col-duration">0.23</td>
+          <td class="col-duration">0.28</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -495,7 +509,7 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">tests/repository/test_users_repo.py::test_get_no_user</td>
-          <td class="col-duration">0.23</td>
+          <td class="col-duration">0.24</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -504,7 +518,7 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">tests/repository/test_users_repo.py::test_list</td>
-          <td class="col-duration">0.25</td>
+          <td class="col-duration">0.28</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -513,7 +527,7 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">tests/repository/test_users_repo.py::test_update</td>
-          <td class="col-duration">0.24</td>
+          <td class="col-duration">0.28</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -522,7 +536,7 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">tests/repository/test_users_repo.py::test_get_by_email</td>
-          <td class="col-duration">0.25</td>
+          <td class="col-duration">0.27</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -531,7 +545,7 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">tests/repository/test_users_repo.py::test_get_by_email_not_exists</td>
-          <td class="col-duration">0.24</td>
+          <td class="col-duration">0.33</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -540,7 +554,7 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">tests/repository/test_users_repo.py::test_get_by_email_no_session</td>
-          <td class="col-duration">0.24</td>
+          <td class="col-duration">0.27</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -549,7 +563,7 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">tests/repository/test_users_repo.py::test_create</td>
-          <td class="col-duration">0.47</td>
+          <td class="col-duration">0.51</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -558,7 +572,7 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">tests/repository/test_users_repo.py::test_create_no_user</td>
-          <td class="col-duration">0.21</td>
+          <td class="col-duration">0.25</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">

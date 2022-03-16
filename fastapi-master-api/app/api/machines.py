@@ -24,7 +24,7 @@ router = APIRouter(
 )
 def fetch_machines(
     db: Session = Depends(get_db),
-    token_user: TokenModel = Security(get_current_user, scopes=["ADMIN"]),
+    token_user: TokenModel = Security(get_current_user, scopes=["ADMIN", "USER"]),
 ) -> List[Machine]:
     token = LoggedUser(token_user)
     machines = service.FetchMachines(

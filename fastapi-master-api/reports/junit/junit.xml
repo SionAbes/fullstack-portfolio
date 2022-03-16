@@ -1,1 +1,104 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="32" time="13.533" timestamp="2022-01-31T23:55:40.679081" hostname="Sions-Air.fritz.box"><testcase classname="tests.api.test_adapters" name="test_create_adapter_no_body" time="0.322" /><testcase classname="tests.api.test_adapters" name="test_create_adapter_no_user" time="0.219" /><testcase classname="tests.api.test_adapters" name="test_create_adapter_standard_user" time="0.244" /><testcase classname="tests.api.test_adapters" name="test_create_adapter_volvo_caretrack" time="0.738" /><testcase classname="tests.api.test_adapters" name="test_create_adapter_wacker_neuson_kramer" time="2.154" /><testcase classname="tests.api.test_adapters" name="test_create_adapter_lidat_liebherr" time="0.969" /><testcase classname="tests.api.test_adapters" name="test_create_adapter_takeuchi_tfm" time="1.843" /><testcase classname="tests.api.test_auth" name="test_login" time="0.301" /><testcase classname="tests.api.test_auth" name="test_login_bad_password" time="0.302" /><testcase classname="tests.api.test_auth" name="test_login_user_not_exist" time="0.241" /><testcase classname="tests.api.test_auth" name="test_refresh" time="0.245" /><testcase classname="tests.api.test_auth" name="test_refresh_incorrect_type" time="0.240" /><testcase classname="tests.api.test_users" name="test_fetch_users" time="0.255" /><testcase classname="tests.api.test_users" name="test_fetch_users_empty_db" time="0.243" /><testcase classname="tests.api.test_users" name="test_fetch_users_not_auth" time="0.238" /><testcase classname="tests.api.test_users" name="test_fetch_users_auth_as_standard_user" time="0.244" /><testcase classname="tests.api.test_users" name="test_update_user_by_id" time="0.280" /><testcase classname="tests.api.test_users" name="test_update_user_by_id_no_entry" time="0.245" /><testcase classname="tests.api.test_users" name="test_delete_user_by_id" time="0.258" /><testcase classname="tests.api.test_users" name="test_delete_user_by_id_no_entry" time="0.240" /><testcase classname="tests.app.test_security" name="test_verify_password" time="0.476" /><testcase classname="tests.app.test_security" name="test_verify_password_false" time="0.208" /><testcase classname="tests.domain.test_auth" name="test_create_token" time="0.283" /><testcase classname="tests.repository.test_users_repo" name="test_get" time="0.231" /><testcase classname="tests.repository.test_users_repo" name="test_get_no_user" time="0.238" /><testcase classname="tests.repository.test_users_repo" name="test_list" time="0.253" /><testcase classname="tests.repository.test_users_repo" name="test_update" time="0.246" /><testcase classname="tests.repository.test_users_repo" name="test_get_by_email" time="0.258" /><testcase classname="tests.repository.test_users_repo" name="test_get_by_email_not_exists" time="0.247" /><testcase classname="tests.repository.test_users_repo" name="test_get_by_email_no_session" time="0.248" /><testcase classname="tests.repository.test_users_repo" name="test_create" time="0.471" /><testcase classname="tests.repository.test_users_repo" name="test_create_no_user" time="0.218" /></testsuite></testsuites>
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="34" time="16.083" timestamp="2022-03-16T19:00:34.203965" hostname="Sions-MacBook-Air.fritz.box"><testcase classname="tests.api.test_adapters" name="test_create_adapter_no_body" time="0.461" /><testcase classname="tests.api.test_adapters" name="test_create_adapter_no_user" time="0.297" /><testcase classname="tests.api.test_adapters" name="test_create_adapter_standard_user" time="0.307" /><testcase classname="tests.api.test_adapters" name="test_create_adapter_volvo_caretrack" time="0.803" /><testcase classname="tests.api.test_adapters" name="test_create_adapter_wacker_neuson_kramer" time="2.301" /><testcase classname="tests.api.test_adapters" name="test_create_adapter_lidat_liebherr" time="1.002" /><testcase classname="tests.api.test_adapters" name="test_create_adapter_takeuchi_tfm" time="1.710" /><testcase classname="tests.api.test_auth" name="test_login" time="0.344" /><testcase classname="tests.api.test_auth" name="test_login_bad_password" time="0.357" /><testcase classname="tests.api.test_auth" name="test_login_user_not_exist" time="0.282" /><testcase classname="tests.api.test_auth" name="test_refresh" time="0.280" /><testcase classname="tests.api.test_auth" name="test_refresh_incorrect_type" time="0.304" /><testcase classname="tests.api.test_machines" name="test_fetch_machines_as_admin" time="0.289"><failure message="KeyError: 'Machine'">app = &lt;fastapi.applications.FastAPI object at 0x107561e10&gt;, client = &lt;starlette.testclient.TestClient object at 0x10757fc10&gt;
+mock_admin_user = TokenModel(type='access_token', exp=1647540034, iat='2022-03-16 18:00:34.181400+00:00', sub=11, roles=['ADMIN', 'USER'])
+auth_user = &lt;app.repository.models.users.User object at 0x1075ae440&gt;
+
+    def test_fetch_machines_as_admin(
+        app,
+        client,
+        mock_admin_user,
+        auth_user,
+    ):
+        machine = MachineFactory(user=auth_user)
+    
+        url = app.url_path_for("fetch_machines")
+&gt;       resp = client.get(url)
+
+tests/api/test_machines.py:14: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../venv/lib/python3.10/site-packages/requests/sessions.py:555: in get
+    return self.request('GET', url, **kwargs)
+../venv/lib/python3.10/site-packages/starlette/testclient.py:468: in request
+    return super().request(
+../venv/lib/python3.10/site-packages/requests/sessions.py:542: in request
+    resp = self.send(prep, **send_kwargs)
+../venv/lib/python3.10/site-packages/requests/sessions.py:655: in send
+    r = adapter.send(request, **kwargs)
+../venv/lib/python3.10/site-packages/starlette/testclient.py:266: in send
+    raise exc
+../venv/lib/python3.10/site-packages/starlette/testclient.py:263: in send
+    portal.call(self.app, scope, receive, send)
+../venv/lib/python3.10/site-packages/anyio/from_thread.py:240: in call
+    return cast(T_Retval, self.start_task_soon(func, *args).result())
+/opt/homebrew/Cellar/python@3.10/3.10.2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/concurrent/futures/_base.py:446: in result
+    return self.__get_result()
+/opt/homebrew/Cellar/python@3.10/3.10.2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/concurrent/futures/_base.py:391: in __get_result
+    raise self._exception
+../venv/lib/python3.10/site-packages/anyio/from_thread.py:187: in _call_func
+    retval = await retval
+../venv/lib/python3.10/site-packages/fastapi/applications.py:208: in __call__
+    await super().__call__(scope, receive, send)
+../venv/lib/python3.10/site-packages/starlette/applications.py:112: in __call__
+    await self.middleware_stack(scope, receive, send)
+../venv/lib/python3.10/site-packages/starlette/middleware/errors.py:181: in __call__
+    raise exc
+../venv/lib/python3.10/site-packages/starlette/middleware/errors.py:159: in __call__
+    await self.app(scope, receive, _send)
+../venv/lib/python3.10/site-packages/starlette/exceptions.py:82: in __call__
+    raise exc
+../venv/lib/python3.10/site-packages/starlette/exceptions.py:71: in __call__
+    await self.app(scope, receive, sender)
+../venv/lib/python3.10/site-packages/starlette/routing.py:656: in __call__
+    await route.handle(scope, receive, send)
+../venv/lib/python3.10/site-packages/starlette/routing.py:259: in handle
+    await self.app(scope, receive, send)
+../venv/lib/python3.10/site-packages/starlette/routing.py:61: in app
+    response = await func(request)
+../venv/lib/python3.10/site-packages/fastapi/routing.py:226: in app
+    raw_response = await run_endpoint_function(
+../venv/lib/python3.10/site-packages/fastapi/routing.py:161: in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+../venv/lib/python3.10/site-packages/starlette/concurrency.py:39: in run_in_threadpool
+    return await anyio.to_thread.run_sync(func, *args)
+../venv/lib/python3.10/site-packages/anyio/to_thread.py:28: in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(func, *args, cancellable=cancellable,
+../venv/lib/python3.10/site-packages/anyio/_backends/_asyncio.py:818: in run_sync_in_worker_thread
+    return await future
+../venv/lib/python3.10/site-packages/anyio/_backends/_asyncio.py:754: in run
+    result = context.run(func, *args)
+app/api/machines.py:33: in fetch_machines
+    ).list()
+app/service/machines.py:24: in list
+    self._authorize()
+app/service/machines.py:34: in _authorize
+    authorize(
+app/service/authorization.py:25: in authorize
+    policy_class = _resolve_policy(data_object)
+app/service/authorization.py:73: in _resolve_policy
+    policy = resolution_strategy().resolve(data_object)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;app.service.authorization.RegistryClassResolver object at 0x107561ff0&gt;, data_object = &lt;class 'app.domain.machine.Machine'&gt;
+
+    def resolve(self, data_object) -&gt; Policy:
+&gt;       return POLICIES_REGISTRY[data_object.__name__]
+E       KeyError: 'Machine'
+
+app/service/authorization.py:43: KeyError</failure></testcase><testcase classname="tests.api.test_machines" name="test_fetch_machines_as_user" time="0.306"><failure message="KeyError: 0">app = &lt;fastapi.applications.FastAPI object at 0x107b3d1e0&gt;, client = &lt;starlette.testclient.TestClient object at 0x10749ecb0&gt;
+mock_standard_user = TokenModel(type='access_token', exp=1647540034, iat='2022-03-16 18:00:34.181400+00:00', sub=12, roles=['USER'])
+auth_user = &lt;app.repository.models.users.User object at 0x1078ed0c0&gt;
+
+    def test_fetch_machines_as_user(
+        app,
+        client,
+        mock_standard_user,
+        auth_user,
+    ):
+        MachineFactory.create_batch(2, user=auth_user)
+        MachineFactory.create_batch(3)
+    
+        url = app.url_path_for("fetch_machines")
+        resp = client.get(url)
+&gt;       machine_resp = resp.json()[0]
+E       KeyError: 0
+
+tests/api/test_machines.py:32: KeyError</failure></testcase><testcase classname="tests.api.test_users" name="test_fetch_users" time="0.371" /><testcase classname="tests.api.test_users" name="test_fetch_users_empty_db" time="0.303" /><testcase classname="tests.api.test_users" name="test_fetch_users_not_auth" time="0.282" /><testcase classname="tests.api.test_users" name="test_fetch_users_auth_as_standard_user" time="0.278" /><testcase classname="tests.api.test_users" name="test_update_user_by_id" time="0.293" /><testcase classname="tests.api.test_users" name="test_update_user_by_id_no_entry" time="0.289" /><testcase classname="tests.api.test_users" name="test_delete_user_by_id" time="0.308" /><testcase classname="tests.api.test_users" name="test_delete_user_by_id_no_entry" time="0.279" /><testcase classname="tests.app.test_security" name="test_verify_password" time="0.564" /><testcase classname="tests.app.test_security" name="test_verify_password_false" time="0.302" /><testcase classname="tests.domain.test_auth" name="test_create_token" time="0.326" /><testcase classname="tests.repository.test_users_repo" name="test_get" time="0.281" /><testcase classname="tests.repository.test_users_repo" name="test_get_no_user" time="0.248" /><testcase classname="tests.repository.test_users_repo" name="test_list" time="0.282" /><testcase classname="tests.repository.test_users_repo" name="test_update" time="0.284" /><testcase classname="tests.repository.test_users_repo" name="test_get_by_email" time="0.278" /><testcase classname="tests.repository.test_users_repo" name="test_get_by_email_not_exists" time="0.333" /><testcase classname="tests.repository.test_users_repo" name="test_get_by_email_no_session" time="0.278" /><testcase classname="tests.repository.test_users_repo" name="test_create" time="0.519" /><testcase classname="tests.repository.test_users_repo" name="test_create_no_user" time="0.253" /></testsuite></testsuites>

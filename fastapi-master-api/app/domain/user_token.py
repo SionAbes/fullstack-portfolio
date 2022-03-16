@@ -27,5 +27,9 @@ class LoggedUser:
     def id(self) -> int:
         return self.token.sub
 
+    @property
     def roles(self) -> List[str]:
         return self.token.roles
+
+    def is_admin(self) -> bool:
+        return "ADMIN" in self.token.roles

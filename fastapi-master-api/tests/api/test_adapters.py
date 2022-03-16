@@ -23,13 +23,6 @@ def test_create_adapter_no_user(
     assert resp.status_code == status.HTTP_401_UNAUTHORIZED
 
 
-def test_create_adapter_standard_user(app, client, mock_standard_user):
-    url = app.url_path_for("create_adapter")
-    resp = client.post(url)
-
-    assert resp.status_code == status.HTTP_401_UNAUTHORIZED
-
-
 def test_create_adapter_volvo_caretrack(
     app,
     client,

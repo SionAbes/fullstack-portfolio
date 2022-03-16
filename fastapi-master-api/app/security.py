@@ -8,7 +8,7 @@ from fastapi.security import OAuth2PasswordBearer, SecurityScopes
 from passlib.context import CryptContext
 
 PWD_CONTEXT = CryptContext(schemes=["bcrypt"], deprecated="auto")
-OAUTH2_SCHEME = OAuth2PasswordBearer(tokenUrl="http://0.0.0.0:80/auth/login")
+OAUTH2_SCHEME = OAuth2PasswordBearer(tokenUrl="http://localhost/auth/login")
 
 
 def verify_string_hash(unhashed_string: str, hashed_password: str) -> bool:
@@ -38,8 +38,9 @@ async def get_current_user(
             raise credentials_exception
 
         roles: List[str] = payload.get("roles")
-        if not list(set(security_scopes.scopes) & set(roles)):
-            raise credentials_exception
+        for role in roles:
+            if role not in security_scopes.scopes:
+                raise credentials_exception
         return TokenModel(
             type=payload.get("type"),
             exp=payload.get("exp"),

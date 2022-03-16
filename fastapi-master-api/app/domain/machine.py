@@ -4,7 +4,15 @@ from typing import Optional
 from pydantic import BaseModel
 
 
-class Machine(BaseModel):
+class CreateMachine(BaseModel):
+    pass
+
+
+class UpdateMachine(CreateMachine):
+    pass
+
+
+class Machine(UpdateMachine):
     id: int
     user_id: int
     created_at: datetime

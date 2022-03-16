@@ -1,0 +1,2 @@
+26    F401 'app.api.models.liebherr_lidat_adapter.LiebherrLidatAdapter' imported but unused
+3     F841 local variable 'machine' is assigned to but never used

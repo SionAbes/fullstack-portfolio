@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>flake8 violations: app/api/models/create_adapter.py</title>
+      <meta http-equiv="Content-Type" value="text/html; charset=UTF-8">
+      <link rel="stylesheet" href="styles.css">
+<script>
+function bindHandler(link) {
+   var code = link.getAttribute('data-code');
+   var key = location.pathname + '#' + code;
+
+   var ul = link.parentNode.querySelector('.details');
+   if (sessionStorage[key] != 'open') {
+      ul.style.display = 'none';
+   }
+   link.addEventListener('click', function (event) {
+      if (!ul.style.display || ul.style.display == 'none') {
+         ul.style.display = 'block';
+         sessionStorage[key] = 'open';
+      } else {
+         ul.style.display = 'none';
+         sessionStorage[key] = 'closed';
+      }
+   });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+   var links = document.querySelectorAll('#index > li > a');
+   for (var i = 0; i < links.length; i++) {
+      bindHandler(links[i]);
+   }
+});
+</script>
+   </head>
+   <body>
+      <div id="masthead" class="sev-1"></div>
+      <div id="page">
+         <p id="srclink">
+            <a title="View full annotated source"
+               href="app.api.models.create_adapter.source.html">
+               <img src="file.svg" alt="&#x2261;">
+            </a></p>
+         <h1>
+            <a href="index.html">
+               <img src="back.svg" alt="&#x2B05;">
+               app/api/models/create_adapter.py
+            </a>
+         </h1>
+
+         <ul id="index">
+         
+         <li>
+            <a data-code="F401">
+               <span class="count sev-1">
+                  4
+               </span>
+               <strong>F401:</strong> 'app.api.models.create_liebherr_lidat_adapter.CreateLiebherrLidatAdapter' imported but unused
+               
+                  (and 3 similar)
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <p>'app.api.models.create_liebherr_lidat_adapter.CreateLiebherrLidatAdapter' imported but unused:</p>
+               
+               <a href="app.api.models.create_adapter.source.html#l9">
+                  <tt><i>9</i> <span class="kn">from</span> <span class="nn">app.api.models.create_liebherr_lidat_adapter</span> <span class="kn">import</span> <span class="n">CreateLiebherrLidatAdapter</span></tt>
+               </a>
+            </li><li>
+               
+               <p>'app.api.models.create_takeuchi_tfm_adapter.CreateTakeuchiTfmAdapter' imported but unused:</p>
+               
+               <a href="app.api.models.create_adapter.source.html#l10">
+                  <tt><i>10</i> <span class="kn">from</span> <span class="nn">app.api.models.create_takeuchi_tfm_adapter</span> <span class="kn">import</span> <span class="n">CreateTakeuchiTfmAdapter</span></tt>
+               </a>
+            </li><li>
+               
+               <p>'app.api.models.create_volvo_caretrack_adapter.CreateVolvoCaretrackAdapter' imported but unused:</p>
+               
+               <a href="app.api.models.create_adapter.source.html#l11">
+                  <tt><i>11</i> <span class="kn">from</span> <span class="nn">app.api.models.create_volvo_caretrack_adapter</span> <span class="kn">import</span> <span class="n">CreateVolvoCaretrackAdapter</span></tt>
+               </a>
+            </li><li>
+               
+               <p>'app.api.models.create_wacker_neuson_kramer_adapter.CreateWackerNeusonKramerAdapter' imported but unused:</p>
+               
+               <a href="app.api.models.create_adapter.source.html#l12">
+                  <tt><i>12</i> <span class="kn">from</span> <span class="nn">app.api.models.create_wacker_neuson_kramer_adapter</span> <span class="kn">import</span> <span class="p">(</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         </ul>
+      </div>
+   </body>
+</html>

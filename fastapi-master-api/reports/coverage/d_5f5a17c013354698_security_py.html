@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
-    <title>Coverage for app/security.py: 47%</title>
+    <title>Coverage for app/security.py: 45%</title>
     <link rel="icon" sizes="32x32" href="favicon_32.png">
     <link rel="stylesheet" href="style.css" type="text/css">
     <script type="text/javascript" src="coverage_html.js" defer></script>
@@ -13,7 +13,7 @@
     <div class="content">
         <h1>
             <span class="text">Coverage for </span><b>app/security.py</b>:
-            <span class="pc_cov">47%</span>
+            <span class="pc_cov">45%</span>
         </h1>
         <div id="help_panel_wrapper">
             <input id="help_panel_state" type="checkbox">
@@ -69,7 +69,7 @@
     <p class="run"><span class="n"><a id="t8" href="#t8">8</a></span><span class="t"><span class="key">from</span> <span class="nam">passlib</span><span class="op">.</span><span class="nam">context</span> <span class="key">import</span> <span class="nam">CryptContext</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t9" href="#t9">9</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t10" href="#t10">10</a></span><span class="t"><span class="nam">PWD_CONTEXT</span> <span class="op">=</span> <span class="nam">CryptContext</span><span class="op">(</span><span class="nam">schemes</span><span class="op">=</span><span class="op">[</span><span class="str">"bcrypt"</span><span class="op">]</span><span class="op">,</span> <span class="nam">deprecated</span><span class="op">=</span><span class="str">"auto"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t11" href="#t11">11</a></span><span class="t"><span class="nam">OAUTH2_SCHEME</span> <span class="op">=</span> <span class="nam">OAuth2PasswordBearer</span><span class="op">(</span><span class="nam">tokenUrl</span><span class="op">=</span><span class="str">"http://0.0.0.0:80/auth/login"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t11" href="#t11">11</a></span><span class="t"><span class="nam">OAUTH2_SCHEME</span> <span class="op">=</span> <span class="nam">OAuth2PasswordBearer</span><span class="op">(</span><span class="nam">tokenUrl</span><span class="op">=</span><span class="str">"http://localhost/auth/login"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t12" href="#t12">12</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t13" href="#t13">13</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t14" href="#t14">14</a></span><span class="t"><span class="key">def</span> <span class="nam">verify_string_hash</span><span class="op">(</span><span class="nam">unhashed_string</span><span class="op">:</span> <span class="nam">str</span><span class="op">,</span> <span class="nam">hashed_password</span><span class="op">:</span> <span class="nam">str</span><span class="op">)</span> <span class="op">-></span> <span class="nam">bool</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
@@ -99,7 +99,7 @@
     <p class="mis show_mis"><span class="n"><a id="t38" href="#t38">38</a></span><span class="t">            <span class="key">raise</span> <span class="nam">credentials_exception</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t39" href="#t39">39</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t40" href="#t40">40</a></span><span class="t">        <span class="nam">roles</span><span class="op">:</span> <span class="nam">List</span><span class="op">[</span><span class="nam">str</span><span class="op">]</span> <span class="op">=</span> <span class="nam">payload</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="str">"roles"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t41" href="#t41">41</a></span><span class="t">        <span class="key">if</span> <span class="key">not</span> <span class="nam">list</span><span class="op">(</span><span class="nam">set</span><span class="op">(</span><span class="nam">security_scopes</span><span class="op">.</span><span class="nam">scopes</span><span class="op">)</span> <span class="op">&amp;</span> <span class="nam">set</span><span class="op">(</span><span class="nam">roles</span><span class="op">)</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t41" href="#t41">41</a></span><span class="t">        <span class="key">if</span> <span class="op">[</span><span class="nam">value</span> <span class="key">for</span> <span class="nam">value</span> <span class="key">in</span> <span class="nam">security_scopes</span><span class="op">.</span><span class="nam">scopes</span> <span class="key">if</span> <span class="nam">value</span> <span class="key">in</span> <span class="nam">roles</span><span class="op">]</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t42" href="#t42">42</a></span><span class="t">            <span class="key">raise</span> <span class="nam">credentials_exception</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t43" href="#t43">43</a></span><span class="t">        <span class="key">return</span> <span class="nam">TokenModel</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t44" href="#t44">44</a></span><span class="t">            <span class="nam">type</span><span class="op">=</span><span class="nam">payload</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="str">"type"</span><span class="op">)</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
@@ -114,8 +114,8 @@
 <footer>
     <div class="content">
         <p>
-            <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v6.2</a>,
-            created at 2022-01-31 23:55 +0100
+            <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v6.3.2</a>,
+            created at 2022-03-16 19:14 +0100
         </p>
     </div>
 </footer>
