@@ -40,5 +40,5 @@ class Machine(TimesMixin, BaseModel):
     model = Column(Text)
     make = Column(Text)
     equipment_id = Column(Text)
-    serial_number = Column(Text)
-    pin = Column(Text)
+    serial_number = Column(Text, primary_key=True)
+    pin = Column(Text, primary_key=True)

@@ -20,3 +20,8 @@ class MachinePolicy(Policy):
 
     def list(self) -> bool:
         return True
+
+    def create(self) -> bool:
+        if not self.subject.is_admin():
+            return self.options["user_id"] == self.subject.id
+        return True

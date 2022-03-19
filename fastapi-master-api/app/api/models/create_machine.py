@@ -20,7 +20,7 @@ class CreateMachine(BaseModel):
         unit_installed_at: The unit_installed_at of this CreateMachine [Optional].
         oem_name: The oem_name of this CreateMachine.
         model: The model of this CreateMachine.
-        make: The make of this CreateMachine.
+        make: The make of this CreateMachine [Optional].
         equipment_id: The equipment_id of this CreateMachine [Optional].
         serial_number: The serial_number of this CreateMachine [Optional].
         pin: The pin of this CreateMachine [Optional].
@@ -30,7 +30,7 @@ class CreateMachine(BaseModel):
     unit_installed_at: Optional[datetime] = None
     oem_name: str
     model: str
-    make: str
+    make: Optional[str] = None
     equipment_id: Optional[str] = None
     serial_number: Optional[str] = None
     pin: Optional[str] = None

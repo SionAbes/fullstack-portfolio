@@ -1,6 +1,6 @@
 import uvicorn
 from app.api.router import api_router
-from app.middleware import db_session_middleware
+from app.middleware import catch_exceptions_middleware, db_session_middleware
 from app.settings import Settings, get_settings
 from fastapi import FastAPI, Request
 from sqlalchemy import create_engine
@@ -14,6 +14,10 @@ def create_app(settings: Settings = None):
         docs_url="/",
     )
     settings = settings or get_settings()
+
+    @app.middleware("http")
+    async def exception_handler(request: Request, call_next):
+        return await catch_exceptions_middleware(request, call_next)
 
     @app.middleware("http")
     async def session_handler(request: Request, call_next):

@@ -22,6 +22,8 @@ services:
       - ../fastapi-master-api/tests:/usr/src/app/tests
       - ../fastapi-master-api/pyproject.toml:/usr/src/app/pyproject.toml
       - ../fastapi-master-api/poetry.lock:/usr/src/app/poetry.lock
+      - ../fastapi-master-api/alembic:/usr/src/app/alembic
+      - ../fastapi-master-api/alembic.ini:/usr/src/app/alembic.ini
     depends_on:
       - db
 

@@ -2,7 +2,6 @@ type: object
 required:
   - oem_name
   - model
-  - make
   - user_id
 properties:
   user_id:

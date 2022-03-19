@@ -48,7 +48,7 @@ export interface CreateMachine {
      * @type {string}
      * @memberof CreateMachine
      */
-    make: string;
+    make?: string;
     /**
      * 
      * @type {string}
@@ -83,7 +83,7 @@ export function CreateMachineFromJSONTyped(json: any, ignoreDiscriminator: boole
         'unitInstalledAt': !exists(json, 'unit_installed_at') ? undefined : json['unit_installed_at'],
         'oemName': json['oem_name'],
         'model': json['model'],
-        'make': json['make'],
+        'make': !exists(json, 'make') ? undefined : json['make'],
         'equipmentId': !exists(json, 'equipment_id') ? undefined : json['equipment_id'],
         'serialNumber': !exists(json, 'serial_number') ? undefined : json['serial_number'],
         'pin': !exists(json, 'pin') ? undefined : json['pin'],

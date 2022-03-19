@@ -7,8 +7,7 @@ from sqlalchemy.orm import Session
 
 
 class NotAuthorizedError(Exception):
-    def __init__(self, subject=None):
-        self.subject = subject
+    def __init__(self):
         self.type = "NOT_AUTHORIZED"
 
 

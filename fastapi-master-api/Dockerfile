@@ -26,6 +26,8 @@ RUN poetry install --no-root
 COPY app ./app
 COPY ./tests ./tests
 
+COPY ./alembic ./alembic
+COPY ./alembic.ini ./alembic.ini
 
 # Final image
 FROM base 

@@ -5,7 +5,14 @@ from pydantic import BaseModel
 
 
 class CreateMachine(BaseModel):
-    pass
+    user_id: int
+    unit_installed_at: Optional[datetime] = None
+    oem_name: str
+    model: str
+    make: Optional[str] = None
+    equipment_id: Optional[str] = None
+    serial_number: Optional[str] = None
+    pin: Optional[str] = None
 
 
 class UpdateMachine(CreateMachine):
@@ -14,16 +21,8 @@ class UpdateMachine(CreateMachine):
 
 class Machine(UpdateMachine):
     id: int
-    user_id: int
     created_at: datetime
     updated_at: datetime
-    unit_installed_at: Optional[datetime] = None
-    oem_name: str
-    model: Optional[str] = None
-    make: Optional[str] = None
-    equipment_id: Optional[str] = None
-    serial_number: Optional[str] = None
-    pin: Optional[str] = None
 
     class Config:
         orm_mode = True

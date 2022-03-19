@@ -1,3 +1,5 @@
+from app.api.exceptions import not_authorized_handler
+from app.service.authorization import NotAuthorizedError
 from app.settings import Settings
 from fastapi import Request
 
@@ -25,3 +27,10 @@ async def db_session_middleware(request: Request, call_next, settings: Settings)
         raise error
     finally:
         request.state.db = None
+
+
+async def catch_exceptions_middleware(request: Request, call_next):
+    try:
+        return await call_next(request)
+    except NotAuthorizedError as error:
+        return not_authorized_handler(error)

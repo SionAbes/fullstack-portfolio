@@ -7,6 +7,45 @@ from app.service.authorization import authorize
 from sqlalchemy.orm import Session
 
 
+class CreateMachine:
+    def __init__(
+        self,
+        db: Session,
+        token: LoggedUser,
+        create_machine: domain.CreateMachine,
+        machine: domain.Machine = domain.Machine,
+        machine_repo: MachinesRepo = machines_repo,
+    ):
+        self.db = db
+        self.token = token
+        self.create_machine = create_machine
+        self.machine = machine
+        self.machine_repo = machine_repo
+
+    def create(self) -> domain.Machine:
+        self._authorize()
+        return self._create()
+
+    def _create(self) -> domain.Machine:
+        return self.machine_repo.create(
+            db=self.db,
+            obj_in=self.create_machine,
+        )
+
+    def _authorize(self):
+        self.options = self._build_options()
+        authorize(
+            self.token,
+            self.machine,
+            "create",
+            self.db,
+            self.options,
+        )
+
+    def _build_options(self) -> dict:
+        return {"user_id": self.create_machine.user_id}
+
+
 class FetchMachines:
     def __init__(
         self,
