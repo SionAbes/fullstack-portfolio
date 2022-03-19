@@ -14,6 +14,7 @@ models/BaseVolvoCaretrackAdapter.ts
 models/BaseWackerNeusonKramerAdapter.ts
 models/CreateAdapter.ts
 models/CreateLiebherrLidatAdapter.ts
+models/CreateMachine.ts
 models/CreateTakeuchiTfmAdapter.ts
 models/CreateUser.ts
 models/CreateVolvoCaretrackAdapter.ts

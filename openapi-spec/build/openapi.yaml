@@ -60,9 +60,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/machines'
+                $ref: '#/components/schemas/Machines'
         '404':
           description: Not found
+        default:
+          $ref: '#/components/responses/DefaultError'
+      tags:
+        - Machines
+    post:
+      summary: creates a new machine
+      operationId: createMachine
+      requestBody:
+        $ref: '#/components/requestBodies/CreateMachine'
+      responses:
+        '201':
+          description: the newly created machine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Machines'
         default:
           $ref: '#/components/responses/DefaultError'
       tags:
@@ -386,10 +402,36 @@ components:
           type: string
         pin:
           type: string
-    machines:
+    Machines:
       type: array
       items:
         $ref: '#/components/schemas/machine'
+    CreateMachine:
+      type: object
+      required:
+        - oem_name
+        - model
+        - make
+        - user_id
+      properties:
+        user_id:
+          type: integer
+        unit_installed_at:
+          type: string
+          format: date-time
+          example: 2021-01-30T08:30:00Z
+        oem_name:
+          type: string
+        model:
+          type: string
+        make:
+          type: string
+        equipment_id:
+          type: string
+        serial_number:
+          type: string
+        pin:
+          type: string
     user:
       type: object
       properties:
@@ -517,6 +559,13 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/createAdapter'
+    CreateMachine:
+      description: create a new machine
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateMachine'
     createUser:
       description: creates a new user
       required: true

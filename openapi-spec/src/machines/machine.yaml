@@ -7,9 +7,25 @@ get:
       content:
         application/json:
           schema:
-            $ref: schemas/machines.yaml
+            $ref: schemas/Machines.yaml
     '404':
       "description": Not found
+    default:
+      $ref: ../_common/responses/DefaultError.yaml
+  tags:
+    - Machines
+post:
+  summary: creates a new machine
+  operationId: createMachine
+  requestBody:
+    $ref: requestBodies/CreateMachine.yaml
+  responses:
+    '201':
+      description: the newly created machine
+      content:
+        application/json:
+          schema:
+            $ref: schemas/Machines.yaml
     default:
       $ref: ../_common/responses/DefaultError.yaml
   tags:

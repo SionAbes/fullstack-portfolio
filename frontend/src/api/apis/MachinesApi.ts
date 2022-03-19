@@ -15,6 +15,9 @@
 
 import * as runtime from '../runtime';
 import {
+    CreateMachine,
+    CreateMachineFromJSON,
+    CreateMachineToJSON,
     GenericError,
     GenericErrorFromJSON,
     GenericErrorToJSON,
@@ -23,6 +26,10 @@ import {
     MachineToJSON,
 } from '../models';
 
+export interface CreateMachineRequest {
+    createMachine: CreateMachine;
+}
+
 /**
  * MachinesApi - interface
  * 
@@ -30,6 +37,21 @@ import {
  * @interface MachinesApiInterface
  */
 export interface MachinesApiInterface {
+    /**
+     * 
+     * @summary creates a new machine
+     * @param {CreateMachine} createMachine create a new machine
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MachinesApiInterface
+     */
+    createMachineRaw(requestParameters: CreateMachineRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<Array<Machine>>>;
+
+    /**
+     * creates a new machine
+     */
+    createMachine(requestParameters: CreateMachineRequest, initOverrides?: RequestInit): Promise<Array<Machine>>;
+
     /**
      * 
      * @summary fetches machines
@@ -50,6 +72,47 @@ export interface MachinesApiInterface {
  * 
  */
 export class MachinesApi extends runtime.BaseAPI implements MachinesApiInterface {
+
+    /**
+     * creates a new machine
+     */
+    async createMachineRaw(requestParameters: CreateMachineRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<Array<Machine>>> {
+        if (requestParameters.createMachine === null || requestParameters.createMachine === undefined) {
+            throw new runtime.RequiredError('createMachine','Required parameter requestParameters.createMachine was null or undefined when calling createMachine.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("userAccessToken", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/machines/`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreateMachineToJSON(requestParameters.createMachine),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(MachineFromJSON));
+    }
+
+    /**
+     * creates a new machine
+     */
+    async createMachine(requestParameters: CreateMachineRequest, initOverrides?: RequestInit): Promise<Array<Machine>> {
+        const response = await this.createMachineRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      * fetches machines

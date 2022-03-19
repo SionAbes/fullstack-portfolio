@@ -1,0 +1,6 @@
+description: create a new machine
+required: true
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/CreateMachine.yaml

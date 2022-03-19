@@ -9,6 +9,7 @@ export * from './BaseVolvoCaretrackAdapter';
 export * from './BaseWackerNeusonKramerAdapter';
 export * from './CreateAdapter';
 export * from './CreateLiebherrLidatAdapter';
+export * from './CreateMachine';
 export * from './CreateTakeuchiTfmAdapter';
 export * from './CreateUser';
 export * from './CreateVolvoCaretrackAdapter';
