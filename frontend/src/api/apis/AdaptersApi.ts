@@ -21,13 +21,23 @@ import {
     CreateAdapter,
     CreateAdapterFromJSON,
     CreateAdapterToJSON,
+    CreateMetric,
+    CreateMetricFromJSON,
+    CreateMetricToJSON,
     GenericError,
     GenericErrorFromJSON,
     GenericErrorToJSON,
+    Metric,
+    MetricFromJSON,
+    MetricToJSON,
 } from '../models';
 
 export interface CreateAdapterRequest {
     createAdapter: CreateAdapter;
+}
+
+export interface CreateMetricRequest {
+    createMetric: CreateMetric;
 }
 
 /**
@@ -51,6 +61,21 @@ export interface AdaptersApiInterface {
      * creates a new adapter instance
      */
     createAdapter(requestParameters: CreateAdapterRequest, initOverrides?: RequestInit): Promise<Adapter>;
+
+    /**
+     * 
+     * @summary creates a new metric for a machine
+     * @param {CreateMetric} createMetric creates a new machine metric
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AdaptersApiInterface
+     */
+    createMetricRaw(requestParameters: CreateMetricRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<Metric>>;
+
+    /**
+     * creates a new metric for a machine
+     */
+    createMetric(requestParameters: CreateMetricRequest, initOverrides?: RequestInit): Promise<Metric>;
 
     /**
      * 
@@ -111,6 +136,47 @@ export class AdaptersApi extends runtime.BaseAPI implements AdaptersApiInterface
      */
     async createAdapter(requestParameters: CreateAdapterRequest, initOverrides?: RequestInit): Promise<Adapter> {
         const response = await this.createAdapterRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * creates a new metric for a machine
+     */
+    async createMetricRaw(requestParameters: CreateMetricRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<Metric>> {
+        if (requestParameters.createMetric === null || requestParameters.createMetric === undefined) {
+            throw new runtime.RequiredError('createMetric','Required parameter requestParameters.createMetric was null or undefined when calling createMetric.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("userAccessToken", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/metrics/`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreateMetricToJSON(requestParameters.createMetric),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MetricFromJSON(jsonValue));
+    }
+
+    /**
+     * creates a new metric for a machine
+     */
+    async createMetric(requestParameters: CreateMetricRequest, initOverrides?: RequestInit): Promise<Metric> {
+        const response = await this.createMetricRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

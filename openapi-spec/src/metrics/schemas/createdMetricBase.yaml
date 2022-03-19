@@ -1,0 +1,14 @@
+type: object
+required:
+  - id
+  - user_id
+  - created_at
+properties:
+  id:
+    type: integer
+  user_id:
+    type: integer
+  created_at:
+    type: string
+    format: date-time
+    example: "2021-01-30T08:30:00Z"

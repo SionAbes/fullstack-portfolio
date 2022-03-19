@@ -45,12 +45,12 @@ export interface MachinesApiInterface {
      * @throws {RequiredError}
      * @memberof MachinesApiInterface
      */
-    createMachineRaw(requestParameters: CreateMachineRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<Array<Machine>>>;
+    createMachineRaw(requestParameters: CreateMachineRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<Machine>>;
 
     /**
      * creates a new machine
      */
-    createMachine(requestParameters: CreateMachineRequest, initOverrides?: RequestInit): Promise<Array<Machine>>;
+    createMachine(requestParameters: CreateMachineRequest, initOverrides?: RequestInit): Promise<Machine>;
 
     /**
      * 
@@ -76,7 +76,7 @@ export class MachinesApi extends runtime.BaseAPI implements MachinesApiInterface
     /**
      * creates a new machine
      */
-    async createMachineRaw(requestParameters: CreateMachineRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<Array<Machine>>> {
+    async createMachineRaw(requestParameters: CreateMachineRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<Machine>> {
         if (requestParameters.createMachine === null || requestParameters.createMachine === undefined) {
             throw new runtime.RequiredError('createMachine','Required parameter requestParameters.createMachine was null or undefined when calling createMachine.');
         }
@@ -103,13 +103,13 @@ export class MachinesApi extends runtime.BaseAPI implements MachinesApiInterface
             body: CreateMachineToJSON(requestParameters.createMachine),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(MachineFromJSON));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MachineFromJSON(jsonValue));
     }
 
     /**
      * creates a new machine
      */
-    async createMachine(requestParameters: CreateMachineRequest, initOverrides?: RequestInit): Promise<Array<Machine>> {
+    async createMachine(requestParameters: CreateMachineRequest, initOverrides?: RequestInit): Promise<Machine> {
         const response = await this.createMachineRaw(requestParameters, initOverrides);
         return await response.value();
     }

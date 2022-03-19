@@ -1,0 +1,24 @@
+type: object
+required:
+  - oem_name
+  - model
+  - user_id
+properties:
+  processed_at:
+    type: string
+    format: date-time
+    example: "2021-01-30T08:30:00Z"
+  event_at:
+    type: string
+    format: date-time
+    example: "2021-01-30T08:30:00Z"
+  machine:
+      $ref: ../../machines/schemas/Machine.yaml
+  oem:
+    type: string
+  metric:
+    type: string
+  value:
+    type: string
+  unit:
+    type: string

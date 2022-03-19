@@ -1,0 +1,6 @@
+description: creates a new machine metric
+required: true
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/createMetric.yaml

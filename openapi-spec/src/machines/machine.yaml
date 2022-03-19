@@ -25,7 +25,7 @@ post:
       content:
         application/json:
           schema:
-            $ref: schemas/Machines.yaml
+            $ref: schemas/Machine.yaml
     default:
       $ref: ../_common/responses/DefaultError.yaml
   tags:

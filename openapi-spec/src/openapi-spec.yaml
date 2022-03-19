@@ -16,7 +16,10 @@ paths:
   
   /adapters/:
     $ref: adapters/adapter.yaml
-  
+    
+  /metrics/:
+    $ref: metrics/metrics.yaml
+    
   /machines/:
     $ref: machines/machine.yaml
   

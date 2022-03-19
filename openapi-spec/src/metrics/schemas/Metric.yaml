@@ -1,0 +1,4 @@
+type: object
+allOf:
+  - $ref: createMetric.yaml
+  - $ref: createdMetricBase.yaml

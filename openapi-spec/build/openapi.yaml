@@ -50,6 +50,23 @@ paths:
           $ref: '#/components/responses/DefaultError'
       tags:
         - Adapters
+  /metrics/:
+    post:
+      summary: creates a new metric for a machine
+      operationId: createMetric
+      requestBody:
+        $ref: '#/components/requestBodies/createMetric'
+      responses:
+        '201':
+          description: the created machine metric
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Metric'
+        default:
+          $ref: '#/components/responses/DefaultError'
+      tags:
+        - Adapters
   /machines/:
     get:
       summary: fetches machines
@@ -78,7 +95,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Machines'
+                $ref: '#/components/schemas/Machine'
         default:
           $ref: '#/components/responses/DefaultError'
       tags:
@@ -365,6 +382,88 @@ components:
         - $ref: '#/components/schemas/createTakeuchiTfmAdapter'
       discriminator:
         propertyName: adapter_name
+    Machine:
+      type: object
+      required:
+        - id
+        - created_at
+        - updated_at
+        - oem_name
+        - user_id
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+          example: 2021-01-30T08:30:00Z
+        updated_at:
+          type: string
+          format: date-time
+          example: 2021-01-30T08:30:00Z
+        unit_installed_at:
+          type: string
+          format: date-time
+          example: 2021-01-30T08:30:00Z
+        oem_name:
+          type: string
+        model:
+          type: string
+        make:
+          type: string
+        equipment_id:
+          type: string
+        serial_number:
+          type: string
+        pin:
+          type: string
+    createMetric:
+      type: object
+      required:
+        - oem_name
+        - model
+        - user_id
+      properties:
+        processed_at:
+          type: string
+          format: date-time
+          example: 2021-01-30T08:30:00Z
+        event_at:
+          type: string
+          format: date-time
+          example: 2021-01-30T08:30:00Z
+        machine:
+          $ref: '#/components/schemas/Machine'
+        oem:
+          type: string
+        metric:
+          type: string
+        value:
+          type: string
+        unit:
+          type: string
+    createdMetricBase:
+      type: object
+      required:
+        - id
+        - user_id
+        - created_at
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+          example: 2021-01-30T08:30:00Z
+    Metric:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/createMetric'
+        - $ref: '#/components/schemas/createdMetricBase'
     machine:
       type: object
       required:
@@ -558,6 +657,13 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/createAdapter'
+    createMetric:
+      description: creates a new machine metric
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/createMetric'
     CreateMachine:
       description: create a new machine
       required: true

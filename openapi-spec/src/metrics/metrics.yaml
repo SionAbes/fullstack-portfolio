@@ -1,0 +1,16 @@
+post:
+  summary: creates a new metric for a machine
+  operationId: createMetric
+  requestBody:
+    $ref: requestBodies/createMetric.yaml
+  responses:
+    '201':
+      description: the created machine metric
+      content:
+        application/json:
+          schema:
+            $ref: schemas/Metric.yaml
+    default:
+      $ref: ../_common/responses/DefaultError.yaml
+  tags:
+    - Adapters
