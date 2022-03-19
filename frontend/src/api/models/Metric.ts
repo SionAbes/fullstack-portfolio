@@ -81,7 +81,7 @@ export interface Metric {
      * @type {number}
      * @memberof Metric
      */
-    id: number;
+    machineId: number;
     /**
      * 
      * @type {number}
@@ -113,7 +113,7 @@ export function MetricFromJSONTyped(json: any, ignoreDiscriminator: boolean): Me
         'metric': !exists(json, 'metric') ? undefined : json['metric'],
         'value': !exists(json, 'value') ? undefined : json['value'],
         'unit': !exists(json, 'unit') ? undefined : json['unit'],
-        'id': json['id'],
+        'machineId': json['machine_id'],
         'userId': json['user_id'],
         'createdAt': json['created_at'],
     };
@@ -135,7 +135,7 @@ export function MetricToJSON(value?: Metric | null): any {
         'metric': value.metric,
         'value': value.value,
         'unit': value.unit,
-        'id': value.id,
+        'machine_id': value.machineId,
         'user_id': value.userId,
         'created_at': value.createdAt,
     };

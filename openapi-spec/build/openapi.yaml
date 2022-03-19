@@ -435,11 +435,11 @@ components:
     createdMetricBase:
       type: object
       required:
-        - id
+        - machine_id
         - user_id
         - created_at
       properties:
-        id:
+        machine_id:
           type: integer
         user_id:
           type: integer
