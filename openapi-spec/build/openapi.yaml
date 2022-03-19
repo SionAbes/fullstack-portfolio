@@ -382,27 +382,15 @@ components:
         - $ref: '#/components/schemas/createTakeuchiTfmAdapter'
       discriminator:
         propertyName: adapter_name
-    Machine:
+    CreateMachine:
       type: object
       required:
-        - id
-        - created_at
-        - updated_at
         - oem_name
+        - model
         - user_id
       properties:
-        id:
-          type: integer
         user_id:
           type: integer
-        created_at:
-          type: string
-          format: date-time
-          example: 2021-01-30T08:30:00Z
-        updated_at:
-          type: string
-          format: date-time
-          example: 2021-01-30T08:30:00Z
         unit_installed_at:
           type: string
           format: date-time
@@ -435,7 +423,7 @@ components:
           format: date-time
           example: 2021-01-30T08:30:00Z
         machine:
-          $ref: '#/components/schemas/Machine'
+          $ref: '#/components/schemas/CreateMachine'
         oem:
           type: string
         metric:
@@ -505,15 +493,27 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/machine'
-    CreateMachine:
+    Machine:
       type: object
       required:
+        - id
+        - created_at
+        - updated_at
         - oem_name
-        - model
         - user_id
       properties:
+        id:
+          type: integer
         user_id:
           type: integer
+        created_at:
+          type: string
+          format: date-time
+          example: 2021-01-30T08:30:00Z
+        updated_at:
+          type: string
+          format: date-time
+          example: 2021-01-30T08:30:00Z
         unit_installed_at:
           type: string
           format: date-time

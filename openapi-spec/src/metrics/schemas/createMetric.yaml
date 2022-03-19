@@ -13,7 +13,7 @@ properties:
     format: date-time
     example: "2021-01-30T08:30:00Z"
   machine:
-      $ref: ../../machines/schemas/Machine.yaml
+      $ref: ../../machines/schemas/CreateMachine.yaml
   oem:
     type: string
   metric:

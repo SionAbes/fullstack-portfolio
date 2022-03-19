@@ -14,6 +14,10 @@
 
 import { exists, mapValues } from '../runtime';
 import {
+    CreateMachine,
+    CreateMachineFromJSON,
+    CreateMachineFromJSONTyped,
+    CreateMachineToJSON,
     CreateMetric,
     CreateMetricFromJSON,
     CreateMetricFromJSONTyped,
@@ -22,10 +26,6 @@ import {
     CreatedMetricBaseFromJSON,
     CreatedMetricBaseFromJSONTyped,
     CreatedMetricBaseToJSON,
-    Machine,
-    MachineFromJSON,
-    MachineFromJSONTyped,
-    MachineToJSON,
 } from './';
 
 /**
@@ -48,10 +48,10 @@ export interface Metric {
     eventAt?: string;
     /**
      * 
-     * @type {Machine}
+     * @type {CreateMachine}
      * @memberof Metric
      */
-    machine?: Machine;
+    machine?: CreateMachine;
     /**
      * 
      * @type {string}
@@ -108,7 +108,7 @@ export function MetricFromJSONTyped(json: any, ignoreDiscriminator: boolean): Me
         
         'processedAt': !exists(json, 'processed_at') ? undefined : json['processed_at'],
         'eventAt': !exists(json, 'event_at') ? undefined : json['event_at'],
-        'machine': !exists(json, 'machine') ? undefined : MachineFromJSON(json['machine']),
+        'machine': !exists(json, 'machine') ? undefined : CreateMachineFromJSON(json['machine']),
         'oem': !exists(json, 'oem') ? undefined : json['oem'],
         'metric': !exists(json, 'metric') ? undefined : json['metric'],
         'value': !exists(json, 'value') ? undefined : json['value'],
@@ -130,7 +130,7 @@ export function MetricToJSON(value?: Metric | null): any {
         
         'processed_at': value.processedAt,
         'event_at': value.eventAt,
-        'machine': MachineToJSON(value.machine),
+        'machine': CreateMachineToJSON(value.machine),
         'oem': value.oem,
         'metric': value.metric,
         'value': value.value,
