@@ -1,11 +1,8 @@
 type: object
 required:
-  - machine_id
   - user_id
   - created_at
 properties:
-  machine_id:
-    type: integer
   user_id:
     type: integer
   created_at:

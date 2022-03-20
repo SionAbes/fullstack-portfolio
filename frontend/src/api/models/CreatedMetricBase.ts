@@ -24,12 +24,6 @@ export interface CreatedMetricBase {
      * @type {number}
      * @memberof CreatedMetricBase
      */
-    machineId: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof CreatedMetricBase
-     */
     userId: number;
     /**
      * 
@@ -49,7 +43,6 @@ export function CreatedMetricBaseFromJSONTyped(json: any, ignoreDiscriminator: b
     }
     return {
         
-        'machineId': json['machine_id'],
         'userId': json['user_id'],
         'createdAt': json['created_at'],
     };
@@ -64,7 +57,6 @@ export function CreatedMetricBaseToJSON(value?: CreatedMetricBase | null): any {
     }
     return {
         
-        'machine_id': value.machineId,
         'user_id': value.userId,
         'created_at': value.createdAt,
     };

@@ -382,37 +382,11 @@ components:
         - $ref: '#/components/schemas/createTakeuchiTfmAdapter'
       discriminator:
         propertyName: adapter_name
-    CreateMachine:
-      type: object
-      required:
-        - oem_name
-        - model
-        - user_id
-      properties:
-        user_id:
-          type: integer
-        unit_installed_at:
-          type: string
-          format: date-time
-          example: 2021-01-30T08:30:00Z
-        oem_name:
-          type: string
-        model:
-          type: string
-        make:
-          type: string
-        equipment_id:
-          type: string
-        serial_number:
-          type: string
-        pin:
-          type: string
     createMetric:
       type: object
       required:
-        - oem_name
         - model
-        - user_id
+        - machine_id
       properties:
         processed_at:
           type: string
@@ -422,10 +396,8 @@ components:
           type: string
           format: date-time
           example: 2021-01-30T08:30:00Z
-        machine:
-          $ref: '#/components/schemas/CreateMachine'
-        oem:
-          type: string
+        machine_id:
+          type: integer
         metric:
           type: string
         value:
@@ -435,12 +407,9 @@ components:
     createdMetricBase:
       type: object
       required:
-        - machine_id
         - user_id
         - created_at
       properties:
-        machine_id:
-          type: integer
         user_id:
           type: integer
         created_at:
@@ -493,6 +462,28 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/machine'
+    CreateMachine:
+      type: object
+      required:
+        - oem_name
+        - serial_number
+      properties:
+        unit_installed_at:
+          type: string
+          format: date-time
+          example: 2021-01-30T08:30:00Z
+        oem_name:
+          type: string
+        model:
+          type: string
+        make:
+          type: string
+        equipment_id:
+          type: string
+        serial_number:
+          type: string
+        pin:
+          type: string
     Machine:
       type: object
       required:

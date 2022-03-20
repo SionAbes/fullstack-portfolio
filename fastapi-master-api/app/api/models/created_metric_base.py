@@ -16,12 +16,10 @@ class CreatedMetricBase(BaseModel):
 
     CreatedMetricBase - a model defined in OpenAPI
 
-        machine_id: The machine_id of this CreatedMetricBase.
         user_id: The user_id of this CreatedMetricBase.
         created_at: The created_at of this CreatedMetricBase.
     """
 
-    machine_id: int
     user_id: int
     created_at: datetime
 

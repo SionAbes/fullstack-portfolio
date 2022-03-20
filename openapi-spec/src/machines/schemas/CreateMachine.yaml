@@ -1,11 +1,8 @@
 type: object
 required:
   - oem_name
-  - model
-  - user_id
+  - serial_number
 properties:
-  user_id:
-    type: integer
   unit_installed_at:
     type: string
     format: date-time

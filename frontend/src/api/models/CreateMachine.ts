@@ -21,12 +21,6 @@ import { exists, mapValues } from '../runtime';
 export interface CreateMachine {
     /**
      * 
-     * @type {number}
-     * @memberof CreateMachine
-     */
-    userId: number;
-    /**
-     * 
      * @type {string}
      * @memberof CreateMachine
      */
@@ -42,7 +36,7 @@ export interface CreateMachine {
      * @type {string}
      * @memberof CreateMachine
      */
-    model: string;
+    model?: string;
     /**
      * 
      * @type {string}
@@ -60,7 +54,7 @@ export interface CreateMachine {
      * @type {string}
      * @memberof CreateMachine
      */
-    serialNumber?: string;
+    serialNumber: string;
     /**
      * 
      * @type {string}
@@ -79,13 +73,12 @@ export function CreateMachineFromJSONTyped(json: any, ignoreDiscriminator: boole
     }
     return {
         
-        'userId': json['user_id'],
         'unitInstalledAt': !exists(json, 'unit_installed_at') ? undefined : json['unit_installed_at'],
         'oemName': json['oem_name'],
-        'model': json['model'],
+        'model': !exists(json, 'model') ? undefined : json['model'],
         'make': !exists(json, 'make') ? undefined : json['make'],
         'equipmentId': !exists(json, 'equipment_id') ? undefined : json['equipment_id'],
-        'serialNumber': !exists(json, 'serial_number') ? undefined : json['serial_number'],
+        'serialNumber': json['serial_number'],
         'pin': !exists(json, 'pin') ? undefined : json['pin'],
     };
 }
@@ -99,7 +92,6 @@ export function CreateMachineToJSON(value?: CreateMachine | null): any {
     }
     return {
         
-        'user_id': value.userId,
         'unit_installed_at': value.unitInstalledAt,
         'oem_name': value.oemName,
         'model': value.model,

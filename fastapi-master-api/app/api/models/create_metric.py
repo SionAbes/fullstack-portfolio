@@ -6,7 +6,6 @@ import re  # noqa: F401
 from datetime import date, datetime  # noqa: F401
 from typing import Any, Dict, List, Optional  # noqa: F401
 
-from app.api.models.create_machine import CreateMachine
 from pydantic import AnyUrl, BaseModel, EmailStr, validator  # noqa: F401
 
 
@@ -19,8 +18,7 @@ class CreateMetric(BaseModel):
 
         processed_at: The processed_at of this CreateMetric [Optional].
         event_at: The event_at of this CreateMetric [Optional].
-        machine: The machine of this CreateMetric [Optional].
-        oem: The oem of this CreateMetric [Optional].
+        machine_id: The machine_id of this CreateMetric.
         metric: The metric of this CreateMetric [Optional].
         value: The value of this CreateMetric [Optional].
         unit: The unit of this CreateMetric [Optional].
@@ -28,8 +26,7 @@ class CreateMetric(BaseModel):
 
     processed_at: Optional[datetime] = None
     event_at: Optional[datetime] = None
-    machine: Optional[CreateMachine] = None
-    oem: Optional[str] = None
+    machine_id: int
     metric: Optional[str] = None
     value: Optional[str] = None
     unit: Optional[str] = None
