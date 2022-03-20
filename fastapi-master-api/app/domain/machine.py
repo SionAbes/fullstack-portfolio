@@ -5,13 +5,13 @@ from pydantic import BaseModel
 
 
 class CreateMachine(BaseModel):
-    user_id: int
+    user_id: Optional[int] = None
     unit_installed_at: Optional[datetime] = None
     oem_name: str
-    model: str
+    model: Optional[str] = None
     make: Optional[str] = None
     equipment_id: Optional[str] = None
-    serial_number: Optional[str] = None
+    serial_number: str
     pin: Optional[str] = None
 
 

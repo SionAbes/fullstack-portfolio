@@ -45,15 +45,17 @@ def fetch_machines(
     response_model_exclude_none=True,
 )
 def create_machine(
-    update_machine: CreateMachine,
+    create_machine: CreateMachine,
     db: Session = Depends(get_db),
     token_user: TokenModel = Security(get_current_user, scopes=["ADMIN", "USER"]),
 ) -> Machine:
     token = LoggedUser(token_user)
     try:
+        domain_create_machine = domain.CreateMachine(**create_machine.dict())
+        domain_create_machine.user_id = token.id
         machine = service.CreateMachine(
             db=db,
-            create_machine=domain.CreateMachine(**update_machine.dict()),
+            create_machine=domain_create_machine,
             token=token,
         ).create()
     except NotAuthorizedError as error:

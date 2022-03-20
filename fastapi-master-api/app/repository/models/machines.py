@@ -10,10 +10,7 @@ from .base import BaseModel, TimesMixin
 class Machine(TimesMixin, BaseModel):
     __tablename__ = "machines"
 
-    id = Column(
-        Integer,
-        primary_key=True,
-    )
+    id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(
         ForeignKey(User.id, deferrable=True, initially="DEFERRED"),
         nullable=True,
@@ -41,4 +38,4 @@ class Machine(TimesMixin, BaseModel):
     make = Column(Text)
     equipment_id = Column(Text)
     serial_number = Column(Text, primary_key=True)
-    pin = Column(Text, primary_key=True)
+    pin = Column(Text)

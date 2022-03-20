@@ -28,15 +28,17 @@ router = APIRouter(
     response_model_exclude_none=True,
 )
 def create_metric(
-    update_metric: CreateMetric,
+    create_metric: CreateMetric,
     db: Session = Depends(get_db),
     token_user: TokenModel = Security(get_current_user, scopes=["ADMIN", "USER"]),
 ) -> Metric:
     token = LoggedUser(token_user)
     try:
+        domain_create_metric = domain.CreateMetric(**create_metric.dict())
+        domain_create_metric.user_id = token.id
         metric = service.CreateMetric(
             db=db,
-            create_metric=domain.CreateMetric(**update_metric.dict()),
+            create_metric=domain_create_metric,
             token=token,
         ).create()
     except NotAuthorizedError as error:
