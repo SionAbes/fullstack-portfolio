@@ -20,13 +20,6 @@ class Machine(TimesMixin, BaseModel):
         "User",
         backref=backref("machine", lazy="subquery"),
     )
-    created_at = Column(DateTime(True), nullable=False, default=datetime.datetime.now)
-    updated_at = Column(
-        DateTime(timezone=True),
-        nullable=False,
-        default=datetime.datetime.now,
-        onupdate=datetime.datetime.now,
-    )
     unit_installed_at = Column(
         DateTime(timezone=True),
     )

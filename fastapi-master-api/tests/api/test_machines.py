@@ -51,7 +51,6 @@ def test_create_machine(
     auth_user,
 ):
     data = {
-        "user_id": auth_user.id,
         "unit_installed_at": datetime.utcnow().isoformat(),
         "oem_name": "test_oem",
         "model": "test_model",
@@ -65,33 +64,10 @@ def test_create_machine(
     resp = client.post(url, json=data)
 
     assert resp.status_code == status.HTTP_201_CREATED
-    assert resp.json()["user_id"] == data["user_id"]
+    assert resp.json()["user_id"] == auth_user.id
     assert resp.json()["oem_name"] == data["oem_name"]
     assert resp.json()["model"] == data["model"]
     assert resp.json()["make"] == data["make"]
     assert resp.json()["equipment_id"] == data["equipment_id"]
     assert resp.json()["serial_number"] == data["serial_number"]
     assert resp.json()["pin"] == data["pin"]
-
-
-def test_create_machine_not_authorized(
-    app,
-    client,
-    mock_standard_user,
-    auth_user,
-):
-    data = {
-        "user_id": -1,
-        "unit_installed_at": datetime.utcnow().isoformat(),
-        "oem_name": "test_oem",
-        "model": "test_model",
-        "make": "test_make",
-        "equipment_id": "test_equipment_id",
-        "serial_number": "test_serial_number",
-        "pin": "test_pin",
-    }
-
-    url = app.url_path_for("create_machine")
-    resp = client.post(url, json=data)
-
-    assert resp.status_code == status.HTTP_403_FORBIDDEN

@@ -12,7 +12,6 @@ class UserFactory(SQLAlchemyModelFactory):
         sqlalchemy_session = Session
         sqlalchemy_session_persistence = "commit"
 
-    id = Sequence(lambda n: n)
     is_superuser = Faker("boolean")
     last_login_at = LazyFunction(lambda: datetime.now())
     created_at = LazyFunction(lambda: datetime.now())
