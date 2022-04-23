@@ -4,12 +4,13 @@ from src.oems.base_adapter import Adapter
 class LiebherrLidat(Adapter):
     def __init__(
         self,
+        bootstrap_server: str,
         adapter_name: str,
         data_url: str,
         username: str,
         password: str,
     ):
-        super().__init__(adapter_name, data_url)
+        super().__init__(adapter_name, data_url, bootstrap_server)
         self.username = username
         self.password = password
 

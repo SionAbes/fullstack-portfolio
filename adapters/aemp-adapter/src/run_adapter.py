@@ -10,6 +10,7 @@ from src.oems.wacker_neuson_kramer_equipcare import WackerNeusonKramerEquipcare
 def main(config):
     if config["NAME"] == "wacker-neuson-kramer-equipcare":
         WackerNeusonKramerEquipcare(
+            bootstrap_server=config["BOOTSTRAP_SERVER"],
             data_url=config["DATA_URL"],
             adapter_name=config["NAME"],
             token_url=config["TOKEN_URL"],
@@ -20,6 +21,7 @@ def main(config):
         )()
     elif config["NAME"] == "volvo-caretrack":
         VolvoCaretrack(
+            bootstrap_server=config["BOOTSTRAP_SERVER"],
             data_url=config["DATA_URL"],
             adapter_name=config["NAME"],
             username=config["USERNAME"],
@@ -27,6 +29,7 @@ def main(config):
         )()
     elif config["NAME"] == "liebherr-lidat":
         LiebherrLidat(
+            bootstrap_server=config["BOOTSTRAP_SERVER"],
             data_url=config["DATA_URL"],
             adapter_name=config["NAME"],
             username=config["USERNAME"],
@@ -34,6 +37,7 @@ def main(config):
         )()
     elif config["NAME"] == "takeuchi-tfm":
         TakeuchiTFM(
+            bootstrap_server=config["BOOTSTRAP_SERVER"],
             data_url=config["DATA_URL"],
             adapter_name=config["NAME"],
             token_url=config["TOKEN_URL"],

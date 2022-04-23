@@ -5,13 +5,15 @@ from typing import List
 
 import isodate
 import requests
+from kafka import KafkaProducer
 from lxml import etree
 from src.xml_models import AEMP_METRICS, Fleet
 from xsdata.formats.dataclass.parsers.xml import XmlParser
 
 
 class Adapter:
-    def __init__(self, adapter_name: str, data_url: str):
+    def __init__(self, adapter_name: str, data_url: str, bootstrap_server: str):
+        self.bootstrap_server = bootstrap_server
         self.adapter_name = adapter_name
         self.data_url = data_url
         self.headers = None
@@ -23,6 +25,7 @@ class Adapter:
         self._get_aemp_snapshot_machines()
         self._parse_machine_header()
         messages = self._create_metric_messages()
+        self._send_to_kafka(messages=messages)
         self._save_to_file(messages=messages)
 
     def _get_headers(self):
@@ -135,7 +138,16 @@ class Adapter:
                 )
         return machine_metrics
 
-    def _save_to_file(self, messages: List):
+    def _save_to_file(self, messages: List[dict]):
         date_time = datetime.datetime.utcnow().strftime("%d-%m-%Y--%H-%M-%S")
         with open(f"./data/{self.adapter_name}/{date_time}.json", "w") as f:
             json.dump(messages, f)
+
+    def _send_to_kafka(self, messages: List[dict]):
+        producer = KafkaProducer(
+            bootstrap_servers=self.bootstrap_server,
+            api_version=(0, 11, 5),
+            value_serializer=lambda x: json.dumps(x).encode("utf-8"),
+        )
+        for message in messages:
+            producer.send("metrics", message)

@@ -6,6 +6,7 @@ from src.oems.base_adapter import Adapter
 class WackerNeusonKramerEquipcare(Adapter):
     def __init__(
         self,
+        bootstrap_server: str,
         adapter_name: str,
         data_url: str,
         token_url: str,
@@ -14,7 +15,7 @@ class WackerNeusonKramerEquipcare(Adapter):
         client_id: str,
         client_secret: str,
     ):
-        super().__init__(adapter_name, data_url)
+        super().__init__(adapter_name, data_url, bootstrap_server)
         self.token_url = token_url
         self.username = username
         self.password = password

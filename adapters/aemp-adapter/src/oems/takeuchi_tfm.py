@@ -6,13 +6,14 @@ from src.oems.base_adapter import Adapter
 class TakeuchiTFM(Adapter):
     def __init__(
         self,
+        bootstrap_server: str,
         adapter_name: str,
         data_url: str,
         token_url: str,
         client_id: str,
         client_secret: str,
     ):
-        super().__init__(adapter_name, data_url)
+        super().__init__(adapter_name, data_url, bootstrap_server)
         self.client_id = client_id
         self.token_url = token_url
         self.client_secret = client_secret

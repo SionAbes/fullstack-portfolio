@@ -37,6 +37,17 @@ python-versions = "*"
 six = "*"
 
 [[package]]
+name = "kafka-python"
+version = "2.0.2"
+description = "Pure Python client for Apache Kafka"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.extras]
+crc32c = ["crc32c"]
+
+[[package]]
 name = "lxml"
 version = "4.7.1"
 description = "Powerful and Pythonic XML processing library combining libxml2/libxslt with the ElementTree API."
@@ -143,7 +154,7 @@ test = ["codecov", "pre-commit", "pytest", "pytest-benchmark", "pytest-cov", "to
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "003dfcb888bbb14e4ebad251971ac47a7b9c8a6ed5af2a6671e5940c848156ed"
+content-hash = "07234db5e1763c5b468dabcfd85ca033c72a8c94bfba255b0a322e3c5462577e"
 
 [metadata.files]
 certifi = [
@@ -161,6 +172,10 @@ idna = [
 isodate = [
     {file = "isodate-0.6.1-py2.py3-none-any.whl", hash = "sha256:0751eece944162659049d35f4f549ed815792b38793f07cf73381c1c87cbed96"},
     {file = "isodate-0.6.1.tar.gz", hash = "sha256:48c5881de7e8b0a0d648cb024c8062dc84e7b840ed81e864c7614fd3c127bde9"},
+]
+kafka-python = [
+    {file = "kafka-python-2.0.2.tar.gz", hash = "sha256:04dfe7fea2b63726cd6f3e79a2d86e709d608d74406638c5da33a01d45a9d7e3"},
+    {file = "kafka_python-2.0.2-py2.py3-none-any.whl", hash = "sha256:2d92418c7cb1c298fa6c7f0fb3519b520d0d7526ac6cb7ae2a4fc65a51a94b6e"},
 ]
 lxml = [
     {file = "lxml-4.7.1-cp27-cp27m-macosx_10_14_x86_64.whl", hash = "sha256:d546431636edb1d6a608b348dd58cc9841b81f4116745857b6cb9f8dadb2725f"},
