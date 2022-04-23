@@ -7,4 +7,4 @@ topic = app.topic("metrics")
 @app.agent(topic)
 async def hello(messages):
     async for message in messages:
-        print(f"Received {message}")
+        print(f"Received: {message}")
