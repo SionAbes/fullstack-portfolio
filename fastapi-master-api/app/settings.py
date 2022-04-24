@@ -5,6 +5,7 @@ from pydantic import BaseSettings, PostgresDsn, validator
 
 class Settings(BaseSettings):
     ENV: str
+    BOOTSTRAP_SERVER: str
     HASH_SECRET: str
     JWT_SECRET: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int

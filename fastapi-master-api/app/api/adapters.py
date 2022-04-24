@@ -12,9 +12,9 @@ from app.api.models.create_wacker_neuson_kramer_adapter import (
 from app.dependancies import get_db
 from app.domain.adapter import CreateAdapter as DomainCreateAdapter
 from app.security import get_current_user
-from app.service.adapters import create_adapter as domain_create_adapter
-from app.service.adapters import fetch_adapters as domain_fetch_adapters
+from app.service import adapters as service
 from app.service.exceptions import EntityConflictError
+from app.settings import Settings, get_settings
 from fastapi import APIRouter, Depends, Security
 from sqlalchemy.orm import Session
 
@@ -37,15 +37,17 @@ def create_adapter(
         CreateTakeuchiTfmAdapter,
     ],
     db: Session = Depends(get_db),
+    settings: Settings = Depends(get_settings),
     token_user: TokenModel = Security(get_current_user, scopes=["ADMIN"]),
 ) -> Adapter:
     try:
         domain_obj = create_adapter.__dict__
         domain_obj["user_id"] = token_user.sub
-        adapter = domain_create_adapter(
+        adapter = service.CreateAdapter(
             db=db,
+            bootstrap_server=settings.BOOTSTRAP_SERVER,
             create_adapter=DomainCreateAdapter.parse_obj(domain_obj).__root__,
-        )
+        ).create()
     except EntityConflictError:
         raise HTTP409Exception
     return Adapter.parse_obj(adapter.__dict__)
@@ -59,5 +61,5 @@ def fetch_adapters(
     db: Session = Depends(get_db),
     token_user: TokenModel = Security(get_current_user, scopes=["ADMIN"]),
 ) -> List[Adapter]:
-    adapters = domain_fetch_adapters(db=db)
+    adapters = service.fetch_adapters(db=db)
     return [Adapter.parse_obj(adapter.__dict__) for adapter in adapters]
